@@ -1,0 +1,9 @@
+target/
+work/
+.idea/
+.vscode/
+*.iml
+.DS_Store
+dependency-reduced-pom.xml
+*.log
+token.properties
