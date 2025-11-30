@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.List;
 import java.util.Map;
 
 import dev.sonle.githubloc.tree.FileNode;
@@ -21,9 +22,14 @@ public class DirectoryTranversal {
           @Override
           public FileVisitResult visitFile(Path filePath, BasicFileAttributes attrs) {
             FileNode node = new FileNode(filePath.toString(), filePath.getFileName().toString(), null);
-            Map<String, String> fileInfo = LocProcessor.getInfo(filePath); // get LOC and language
-            node.info.put("loc", fileInfo.get("loc"));            // put LOC info to node
-            node.info.put("lang", fileInfo.get("lang"));
+            Map<Path, Map.Entry<Integer, List<String>>> fileInfo = LocProcessor.getInfo(filePath); // get LOC and language
+            Map.Entry<Integer, List<String>> fileInfoEntry = fileInfo.get(filePath);
+            int loc = fileInfoEntry.getKey();
+            List<String> languageList = fileInfoEntry.getValue();
+
+            node.locInfo.put("loc", loc); 
+            node.languageInfo.put("lang", languageList); 
+
             String parentPath = filePath.getParent().toString();
 
             if (tree.nodeContainer.containsKey(parentPath)) {             
