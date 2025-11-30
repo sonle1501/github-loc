@@ -29,9 +29,9 @@ public class LocProcessor {
     return Integer.toString(LOC);
   }
 
-  public static Map<String, String> getInfo(Path filePath) {
-    Map<String, String> res = new HashMap<>();
-
+  public static Map<Path, Map.Entry<Integer, List<String>>> getInfo(Path filePath) {
+    Map<Path, Map.Entry<Integer, List<String>>> res = new HashMap<>();
+   
     FileCounter counter = new FileCounter();
     try {
       Map<Path, Map<Language, Counts>> countResult = counter.count(filePath.toString());
@@ -42,14 +42,13 @@ public class LocProcessor {
         languageList.add(entry.getKey().getDisplayName());
         linesOfCode = linesOfCode + entry.getValue().getCodeLines(); // sum all LOC in each language
       }
-
-      res.put("lang", languageList.toString());
-      res.put("loc", Integer.toString(linesOfCode));
+      
+      res.put(filePath, Map.entry(linesOfCode, languageList));
+      return res;
     } catch (IOException e) {
       e.printStackTrace();
       return null;
     }
-    return res;
   }
 
   public static void main(String[] args) {

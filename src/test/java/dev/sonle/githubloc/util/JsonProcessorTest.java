@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -19,12 +20,12 @@ public class JsonProcessorTest {
     @Test
     void testExportJson() throws IOException {
         FileNode root = new FileNode("root", "root", null);
-        root.info.put("loc", "100");
-        root.info.put("lang", "[Java]");
+        root.locInfo.put("loc", 100);
+        root.languageInfo.put("lang", Arrays.asList("Java", "Python", "C++"));
 
         FileNode child = new FileNode("root/child", "child", root);
-        child.info.put("loc", "50");
-        child.info.put("lang", "[Java]");
+        child.locInfo.put("loc", 60);
+        child.languageInfo.put("lang", Arrays.asList("Java", "Python", "C++"));
         root.childs.add(child);
 
         Path jsonFile = tempDir.resolve("output.json");

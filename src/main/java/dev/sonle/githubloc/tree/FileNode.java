@@ -9,14 +9,15 @@ import java.util.List;
 import java.util.Map;
 
 // annotation for json reader using jackson
-@JsonPropertyOrder({"name", "path", "info", "children"})
+@JsonPropertyOrder({"name", "path", "locInfo","languageInfo", "children"})
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class FileNode {
   @JsonIgnore public FileNode parent = null;
 
   public String name = null;
   public String path = null;
-  public Map<String, String> info = null;
+  public Map<String, Integer> locInfo = null;
+  public Map<String, List<String>> languageInfo = null;
   public List<FileNode> childs = null;
 
   public FileNode(String path, String name, FileNode parent) {
@@ -25,7 +26,10 @@ public class FileNode {
     this.path = path;
     this.parent = parent;
 
-    this.info = new HashMap<>();
+    this.locInfo = new HashMap<>();
+    this.locInfo.put("loc", 0);
+    this.languageInfo = new HashMap<>();
+    this.languageInfo.put("lang", null);
     this.childs = new ArrayList<>();
   }
 

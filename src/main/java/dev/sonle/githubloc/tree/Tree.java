@@ -83,8 +83,8 @@ public class Tree {
           String.format(
               " %sloc: %s | %s%s",
               Color.META,
-              node.info.getOrDefault("loc", "?"),
-              node.info.getOrDefault("lang", "?"),
+              node.locInfo.getOrDefault("loc", 0),
+              node.languageInfo.getOrDefault("lang", null),
               Color.RESET);
               
       System.out.println(
@@ -137,8 +137,8 @@ public class Tree {
         System.out.println("-------------------------------------");
       } else {
         System.out.println("filename: " + name);
-        System.out.println("loc = " + entry.getValue().info.get("loc"));
-        System.out.println("language = " + entry.getValue().info.get("lang"));
+        System.out.println("loc = " + entry.getValue().locInfo.get("loc"));
+        System.out.println("language = " + entry.getValue().languageInfo.get("lang"));
         System.out.println("-------------------------------------");
       }
     }
