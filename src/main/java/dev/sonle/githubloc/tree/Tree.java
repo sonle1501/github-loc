@@ -40,6 +40,7 @@ public class Tree {
   public static Tree buildTree(String startPath) throws IOException {
     Tree tree = DirectoryTranversal.tranverse(startPath);
     tree.root = tree.getNode(startPath);
+    Tree.countLocFolder(tree.root);
     return tree;
   }
 
@@ -65,6 +66,20 @@ public class Tree {
     }
   }
 
+  public static void countLocFolder(FileNode rootNode) {
+    for (FileNode node : rootNode.childs) {
+      if (node.childs.size() > 0){ // is folder
+        countLocFolder(node);
+        int loc = node.locInfo.get("loc");
+        rootNode.locInfo.merge("loc", loc, Integer::sum);
+      }
+      else { // is file or emtpy folder
+        int loc = node.locInfo.get("loc");
+        rootNode.locInfo.merge("loc", loc, Integer::sum);
+      }
+    }
+  }
+
   public void showTree() {
     // show wrapper
     System.out.println(Color.WRAPPER + "Wrapper folder : " + this.root.name + Color.RESET);
@@ -76,9 +91,11 @@ public class Tree {
   // symbol └── " : "├── │
     String connector = isLast ? "└──" : "├──";
 
+    String fileInfo = "";
+
     if (node.childs.size() == 0 || node.childs == null) {
       // show file
-      String fileInfo = "";
+      // String fileInfo = "";
       fileInfo =
           String.format(
               " %sloc: %s | %s%s",
@@ -99,6 +116,14 @@ public class Tree {
       return;
     }
     // show folder
+    else {
+      fileInfo =
+          String.format(
+              " %sloc: %s",
+              Color.META,
+              node.locInfo.getOrDefault("loc", 0)
+              );
+
     System.out.println(
         Color.TREE
             + prefix
@@ -107,7 +132,10 @@ public class Tree {
             + Color.FOLDER
             + node.name
             + "/"
+            + fileInfo
             + Color.RESET);
+    }
+
 
     List<FileNode> nodeChilds = node.childs;
     for (int i = 0; i < nodeChilds.size(); i++) {
