@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 // annotation for json reader using jackson
-@JsonPropertyOrder({"name", "path", "locInfo","languageInfo", "children"})
+@JsonPropertyOrder({"name", "path", "locInfo","languageInfo", "childs"})
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class FileNode {
   @JsonIgnore public FileNode parent = null;

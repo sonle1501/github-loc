@@ -3,31 +3,17 @@ package dev.sonle.githubloc;
 public class RunOptions {
 
   public enum Action {
-    SORT,// download + unzip + show files in order, rank by LOC
-    TREE, // download + unzip + show tree in console
+    SORT,// download + unzip + show and export file list in order, rank by LOC
+    TREE, // download + unzip + only show tree dir
     JSON, // download + unzip + export Json
     DOWNLOAD, // only download
     UNZIP, // download + unzip
-    ALL // Default
-  }
-
-  public enum SortBy {
-    LOC,
-    SIZE,
-    NAME,
-    NONE
-  }
-
-  public enum SortOrder {
-    ASC,
-    DESC
+    ALL // Default action : download + unzip + show and export tree dir
   }
 
   private String userName;
   private String repoName;
-  private Action action = Action.SORT; // function is not avaiable
-  private SortBy sortBy = SortBy.NONE; //  function is not avaiable
-  private SortOrder sortOrder = SortOrder.ASC; //  function is not avaiable
+  private Action action = Action.ALL;
 
   public String getUserName() {
     return userName;
@@ -51,22 +37,6 @@ public class RunOptions {
 
   public void setAction(Action action) {
     this.action = action;
-  }
-
-  public SortBy getSortBy() {
-    return sortBy;
-  }
-
-  public void setSortBy(SortBy sortBy) {
-    this.sortBy = sortBy;
-  }
-
-  public SortOrder getSortOrder() {
-    return sortOrder;
-  }
-
-  public void setSortOrder(SortOrder sortOrder) {
-    this.sortOrder = sortOrder;
   }
 
   // valid github repo identity : spring-projects/spring-boot
@@ -103,34 +73,10 @@ public class RunOptions {
               options.setAction(Action.valueOf(args[++i].toUpperCase()));
             } catch (IllegalArgumentException e) {
               throw new IllegalArgumentException(
-                  "Invalid action. Available: TREE, JSON, DOWNLOAD, UNZIP, ALL");
+                  "Invalid action. Available: TREE, SORT, JSON, DOWNLOAD, UNZIP, ALL");
             }
           }
           break;
-
-        // sort feature is not available
-
-        // case "--sort":
-        // case "-s":
-        //   if (i + 1 < args.length) {
-        //     try {
-        //       options.setSortBy(SortBy.valueOf(args[++i].toUpperCase()));
-        //     } catch (IllegalArgumentException e) {
-        //       throw new IllegalArgumentException(
-        //           "Invalid sort option. Available: LOC, SIZE, NAME, NONE");
-        //     }
-        //   }
-        //   break;
-        // case "--order":
-        // case "-o":
-        //   if (i + 1 < args.length) {
-        //     try {
-        //       options.setSortOrder(SortOrder.valueOf(args[++i].toUpperCase()));
-        //     } catch (IllegalArgumentException e) {
-        //       throw new IllegalArgumentException("Invalid sort order. Available: ASC, DESC");
-        //     }
-        //   }
-        //   break;
 
         default:
           throw new IllegalArgumentException("invalid arguments");

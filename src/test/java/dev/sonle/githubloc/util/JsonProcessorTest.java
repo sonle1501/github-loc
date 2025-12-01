@@ -30,7 +30,7 @@ public class JsonProcessorTest {
 
         Path jsonFile = tempDir.resolve("output.json");
         
-        JsonProcessor.exportTreeToJson("dummy", jsonFile.toString(), root);
+        JsonProcessor.exportTreeToJson(jsonFile.toString(), root);
 
         File file = jsonFile.toFile();
         assertTrue(file.exists());

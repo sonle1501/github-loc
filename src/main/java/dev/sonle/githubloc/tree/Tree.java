@@ -12,6 +12,7 @@ import java.util.Map;
 
 import dev.sonle.githubloc.util.DirectoryTranversal;
 import dev.sonle.githubloc.util.FilesSorter;
+import dev.sonle.githubloc.util.JsonProcessor;
 
 public class Tree {
   public Map<String, FileNode> nodeContainer;
@@ -141,7 +142,6 @@ public class Tree {
             + Color.RESET);
     }
 
-
     List<FileNode> nodeChilds = node.childs;
     for (int i = 0; i < nodeChilds.size(); i++) {
       String indent = isLast ? "     " : "│    ";
@@ -155,13 +155,7 @@ public class Tree {
     return;
   }
 
-  public static void processNodesByOrder(String startPath) throws IOException {
-    Tree tree = DirectoryTranversal.tranverse(startPath);
-    List <FileNode> orderedNodes = FilesSorter.sortNodeContainerByLoc(tree.nodeContainer);
-    printNodesByOrderHelper(orderedNodes);
-  }
-
-  private static void printNodesByOrderHelper(List <FileNode> nodes){
+  public static void printNodesByOrderHelper(List <FileNode> nodes){
 
     System.out.println("\n" + Color.WRAPPER + "View files by lines of code, desc" + Color.RESET);
     System.out.println();

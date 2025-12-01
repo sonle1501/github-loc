@@ -4,12 +4,15 @@ import dev.sonle.githubloc.RunOptions.Action;
 import dev.sonle.githubloc.api.RepoDownloader;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
+import dev.sonle.githubloc.util.DirectoryTranversal;
+import dev.sonle.githubloc.util.FilesSorter;
 import dev.sonle.githubloc.util.JsonProcessor;
 import dev.sonle.githubloc.util.Unzip;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 public class Runner {
   String REPO_NAME;
@@ -66,15 +69,19 @@ public class Runner {
   }
 
   public void runJsonProcess(FileNode root) throws IOException {
-    JsonProcessor.exportTreeToJson(REPO_PATH, JSON_PATH, root);
+    JsonProcessor.exportTreeToJson(JSON_PATH, root);
   }
 
   public void showTree() throws IOException {
     repoTree.showTree();
   }
 
-  public void showNodesInOrder() throws IOException{
-    Tree.processNodesByOrder(REPO_PATH);
+  public void processNodesInOrder() throws IOException{
+    Tree tree = DirectoryTranversal.tranverse(REPO_PATH);
+    List <FileNode> orderedNodes = FilesSorter.sortNodeContainerByLoc(tree.nodeContainer);
+    String orderedListJsonFile = "work/json-results/" + "ordered-list-" + REPO_NAME + ".json"; 
+    JsonProcessor.exportOrderedListToJson(orderedListJsonFile, orderedNodes);
+    Tree.printNodesByOrderHelper(orderedNodes);
   }
 
   // orchestrator
@@ -112,7 +119,7 @@ public class Runner {
       if (options.getAction() == RunOptions.Action.SORT) {
         runDownload();
         runUnzip();
-        showNodesInOrder();
+        processNodesInOrder();
         return;
       }
 
