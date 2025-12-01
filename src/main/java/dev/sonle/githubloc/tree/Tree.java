@@ -3,14 +3,19 @@ package dev.sonle.githubloc.tree;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import dev.sonle.githubloc.util.DirectoryTranversal;
+import dev.sonle.githubloc.util.FilesSorter;
 
 public class Tree {
   public Map<String, FileNode> nodeContainer;
+  public List<FileNode> orderedNodes;
   public FileNode root;
 
   public enum Color {
@@ -35,6 +40,7 @@ public class Tree {
 
   public Tree() {
     nodeContainer = new LinkedHashMap<>();
+    orderedNodes = new ArrayList<>();
   }
 
   public static Tree buildTree(String startPath) throws IOException {
@@ -95,7 +101,6 @@ public class Tree {
 
     if (node.childs.size() == 0 || node.childs == null) {
       // show file
-      // String fileInfo = "";
       fileInfo =
           String.format(
               " %sloc: %s | %s%s",
@@ -149,6 +154,38 @@ public class Tree {
     }
     return;
   }
+
+  public static void processNodesByOrder(String startPath) throws IOException {
+    Tree tree = DirectoryTranversal.tranverse(startPath);
+    List <FileNode> orderedNodes = FilesSorter.sortNodeContainerByLoc(tree.nodeContainer);
+    printNodesByOrderHelper(orderedNodes);
+  }
+
+  private static void printNodesByOrderHelper(List <FileNode> nodes){
+
+    System.out.println("\n" + Color.WRAPPER + "View files by lines of code, desc" + Color.RESET);
+    System.out.println();
+    int top = 1;
+    for (FileNode node : nodes){
+      if (node.childs.size() > 0)
+        continue;
+
+      String fileInfo =String.format(
+              " %sloc: %s | %s%s",
+              Color.META,
+              node.locInfo.getOrDefault("loc", 0),
+              node.languageInfo.getOrDefault("lang", null),
+              Color.RESET);
+
+      System.out.println(
+        "TOP " + (top++) + ": " +
+        Color.FILE
+        + node.name
+        + Color.RESET
+        + fileInfo);
+    }
+  } 
+  
 
   public void printAllNodes() {
     for (Map.Entry<String, FileNode> entry : nodeContainer.entrySet()) {

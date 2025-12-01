@@ -3,6 +3,7 @@ package dev.sonle.githubloc;
 public class RunOptions {
 
   public enum Action {
+    SORT,// download + unzip + show files in order, rank by LOC
     TREE, // download + unzip + show tree in console
     JSON, // download + unzip + export Json
     DOWNLOAD, // only download
@@ -24,7 +25,7 @@ public class RunOptions {
 
   private String userName;
   private String repoName;
-  private Action action = Action.ALL; // function is not avaiable
+  private Action action = Action.SORT; // function is not avaiable
   private SortBy sortBy = SortBy.NONE; //  function is not avaiable
   private SortOrder sortOrder = SortOrder.ASC; //  function is not avaiable
 
@@ -85,7 +86,7 @@ public class RunOptions {
     // default repo
     if (args.length == 0) {
       options.setUserName("sonle1501");
-      options.setRepoName("Monty_Hall_Simulation");
+      options.setRepoName("github-loc");
       return options;
     }
 

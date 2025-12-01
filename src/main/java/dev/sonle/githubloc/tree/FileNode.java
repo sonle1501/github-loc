@@ -48,8 +48,6 @@ public class FileNode {
   public static void main(String[] args) {
     try {
       Tree repoTree = Tree.buildTree("work/repos/Monty_Hall_Simulation");
-      // FileNode root = repoTree.root;
-      // repoTree.showTree2();
       repoTree.showTree();
     } catch (Exception e) {
       e.printStackTrace();
