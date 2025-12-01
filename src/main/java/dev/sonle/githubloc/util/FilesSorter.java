@@ -11,6 +11,7 @@ import dev.sonle.githubloc.tree.FileNode;
 public class FilesSorter {
     public static List<FileNode> sortNodeContainerByLoc(Map<String, FileNode> nodeContainer){
     List<FileNode> listNode = new ArrayList<>(nodeContainer.values());
+    listNode = filterFilesOnly(listNode);
     Collections.sort(listNode, new Comparator<FileNode>() {
             @Override
             public int compare(FileNode node1, FileNode node2) {
@@ -18,5 +19,15 @@ public class FilesSorter {
             }
         });
     return listNode;
+  }
+
+  private static List<FileNode> filterFilesOnly(List<FileNode> nodes) {
+    List<FileNode> filtered = new ArrayList<>();
+    for (FileNode node : nodes) {
+      if (node.childs == null || node.childs.isEmpty()) {
+        filtered.add(node);
+      }
+    }
+    return filtered;
   }
 }
