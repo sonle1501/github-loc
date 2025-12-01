@@ -73,6 +73,10 @@ public class Runner {
     repoTree.showTree();
   }
 
+  public void showNodesInOrder() throws IOException{
+    Tree.processNodesByOrder(REPO_PATH);
+  }
+
   // orchestrator
   public void runApp() {
     try {
@@ -102,6 +106,13 @@ public class Runner {
         runUnzip();
         createTree();
         runJsonProcess(repoTree.root);
+        return;
+      }
+
+      if (options.getAction() == RunOptions.Action.SORT) {
+        runDownload();
+        runUnzip();
+        showNodesInOrder();
         return;
       }
 
