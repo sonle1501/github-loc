@@ -66,7 +66,7 @@ public class Runner {
   }
 
   public void runJsonProcess(FileNode root) throws IOException {
-    JsonProcessor.exportJson(REPO_PATH, JSON_PATH, root);
+    JsonProcessor.exportTreeToJson(REPO_PATH, JSON_PATH, root);
   }
 
   public void showTree() throws IOException {

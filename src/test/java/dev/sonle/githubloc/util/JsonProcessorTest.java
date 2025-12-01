@@ -18,7 +18,7 @@ public class JsonProcessorTest {
     Path tempDir;
 
     @Test
-    void testExportJson() throws IOException {
+    void testExportTreeToJson() throws IOException {
         FileNode root = new FileNode("root", "root", null);
         root.locInfo.put("loc", 100);
         root.languageInfo.put("lang", Arrays.asList("Java", "Python", "C++"));
@@ -30,7 +30,7 @@ public class JsonProcessorTest {
 
         Path jsonFile = tempDir.resolve("output.json");
         
-        JsonProcessor.exportJson("dummy", jsonFile.toString(), root);
+        JsonProcessor.exportTreeToJson("dummy", jsonFile.toString(), root);
 
         File file = jsonFile.toFile();
         assertTrue(file.exists());

@@ -8,7 +8,7 @@ import tools.jackson.databind.ObjectMapper;
 
 public class JsonProcessor {
 
-  public static void exportJson(String repoTarget, String jsonTarget, FileNode rootSoruce)
+  public static void exportTreeToJson(String repoTarget, String jsonTarget, FileNode rootSoruce)
       throws IOException {
 
     ObjectMapper mapper = new ObjectMapper();
