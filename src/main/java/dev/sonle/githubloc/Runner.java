@@ -106,7 +106,7 @@ public class Runner {
       JsonProcessor jsonProcessor = new JsonProcessor();
       Tree tree = directoryTraversal.traverse(repoPath, new Tree());
       List <FileNode> orderedNodes = filesSorter.sortNodeContainerByLoc(tree.getNodeContainer());
-      String orderedListJsonFile = "work/json-results/" + "ordered-list-" + repoName + ".json"; 
+      String orderedListJsonFile = "storage/json-results/" + "ordered-list-" + repoName + ".json"; 
       jsonProcessor.exportOrderedListToJson(Paths.get(orderedListJsonFile), orderedNodes);
       TreePrinter.printNodesFromList(orderedNodes);
     } catch (IOException e) {
@@ -121,7 +121,7 @@ public class Runner {
       FilesSorter filesSorter = new FilesSorter();
       JsonProcessor jsonProcessor = new JsonProcessor();
       List <FileNode> orderedNodes = filesSorter.sortNodeSameLanguage(tree.getNodeContainer(), tree.getMostUsedLanguage());
-      String orderedListJsonFile = "work/json-results/" + "ordered-list-in-same-lang-" + repoName + ".json"; 
+      String orderedListJsonFile = "storage/json-results/" + "ordered-list-in-same-lang-" + repoName + ".json"; 
       jsonProcessor.exportOrderedListToJson(Paths.get(orderedListJsonFile), orderedNodes);
       TreePrinter.printNodesFromList(orderedNodes);
     } catch (IOException e) {
