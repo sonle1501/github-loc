@@ -1,5 +1,5 @@
 target/
-work/
+storage/
 .idea/
 .vscode/
 *.iml
