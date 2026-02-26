@@ -1,16 +1,16 @@
 package dev.sonle.githubloc.util;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class GithubTokenProcessor {
 
-  public static String getToken() {
+  public static String getToken() { // if this function cannot get, continue the process without token
     try (InputStream inputStream =
         GithubTokenProcessor.class.getClassLoader().getResourceAsStream("token.properties")) {
       if (inputStream == null) {
+        System.out.println("there is no github token");
         return null;
       }
       Properties props = new Properties();
@@ -19,8 +19,9 @@ public class GithubTokenProcessor {
       if (token != null && !token.trim().isEmpty()) {
         return token;
       }
-    } catch (IOException e) {
-      // return null, proceed without extrating token
+    }
+    catch (IOException e) {
+      System.out.println("there is no github token");
     }
     return null;
   }

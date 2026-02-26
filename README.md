@@ -43,9 +43,10 @@ java -jar target/githubloc-1.0.jar <user>/<repo> [options]
 
 | Action | Description |
 |--------|-------------|
-| `ALL` | Download, unzip, generate tree view, and export JSON (Default). |
-| `TREE` | Download, unzip, and generate tree view. |
-| `JSON` | Download, unzip, and export JSON. |
+| `ALL` | Default option : Download, unzip, export repo tree dir to JSON and show it in CONSOLE (Default). |
+| `TREE` | Download, unzip, and show tree view in CONSOLE. |
+| `SORT` | Download, unzip, show and export file list in order, rank by LOC. |
+| `JSON` | Download, unzip, and export repo tree dir to JSON. |
 | `DOWNLOAD` | Only download the repository zip. |
 | `UNZIP` | Download and unzip the repository. |
 
@@ -69,9 +70,10 @@ java -jar target/githubloc-1.0.jar cgag/loc -a TREE
 ## Output
 
 The tool generates output in the `work/` directory:
-- `work/repos/`: Unzipped repository contents.
-- `work/zip-repos/`: Downloaded zip files.
-- `work/json-results/`: JSON analysis results.
+- `work/repos/`: Unzipped repo.
+- `work/zip-repos/`: Downloaded zip repo.
+- `work/json-results/[REPO-NAME].json`: JSON repo tree dir results.
+- `work/json-results/ordered-list-[REPO-NAME].json`: JSON ordered file list results.
 
 ## License
 
