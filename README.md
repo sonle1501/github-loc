@@ -30,7 +30,7 @@ This tool allows you to download and unzip repositories, view their file structu
 Run the application using the generated JAR file:
 
 ```bash
-java -jar target/github-loc-1.0-SNAPSHOT.jar <user>/<repo> [options]
+java -jar target/githubloc-1.0.jar <user>/<repo> [options]
 ```
 
 ### Arguments
@@ -53,17 +53,17 @@ java -jar target/github-loc-1.0-SNAPSHOT.jar <user>/<repo> [options]
 
 **Analyze a repository (Default behavior):**
 ```bash
-java -jar target/github-loc-1.0-SNAPSHOT.jar cgag/loc
+java -jar target/githubloc-1.0.jar cgag/loc
 ```
 
 **Only download the repository:**
 ```bash
-java -jar target/github-loc-1.0-SNAPSHOT.jar cgag/loc -a DOWNLOAD
+jjava -jar target/githubloc-1.0.jar cgag/loc -a DOWNLOAD
 ```
 
 **Generate a tree view:**
 ```bash
-java -jar target/github-loc-1.0-SNAPSHOT.jar cgag/loc -a TREE
+java -jar target/githubloc-1.0.jar cgag/loc -a TREE
 ```
 
 ## Output
