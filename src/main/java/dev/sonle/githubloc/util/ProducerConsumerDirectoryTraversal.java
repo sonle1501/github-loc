@@ -7,36 +7,30 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
 import org.cthing.locc4j.FileCounter;
 
 
-public class DirectoryTraversal {
+public class ProducerConsumerDirectoryTraversal {
   private FileCounter fileCounter;
-  public DirectoryTraversal(){
+  public ProducerConsumerDirectoryTraversal(){
     fileCounter = new FileCounter();
   }
 
-  public Tree traverse(Path path, Tree tree) throws IOException {
+  public Tree traverse(Path path, Tree tree) throws IOException { // the "producer"
     Path startPath = path;
+    int cores = Runtime.getRuntime().availableProcessors();
+    ExecutorService executor = Executors.newFixedThreadPool(cores);
+
     Files.walkFileTree(startPath, new SimpleFileVisitor<Path>() {
       @Override
       public FileVisitResult visitFile(Path filePath, BasicFileAttributes attrs) {
         FileNode node = new FileNode(filePath.toString(), filePath.getFileName().toString(), null);
-        LocProcessor locProcessor;
-        try {
-          locProcessor = new LocProcessor(filePath, fileCounter);
-          LocProcessor.FileInfo fileInfo = locProcessor.getFileInfo();
-          node.setLoc(fileInfo.loc());
-          node.setComments(fileInfo.comments());
-          node.setBlanks(fileInfo.blanks());
-          node.setLanguageSet(fileInfo.languageSet());
-          node.setLocByLang(fileInfo.locByLang());
-        } catch (IOException e) { // skip this file if there are errors while creating LocProcessor with
-          System.out.println("Error occurs while counting LOC on file: " + filePath);
-        }
-
         String parentPath = filePath.getParent().toString();
         FileNode parentNode = tree.getNodeFromContainer(parentPath);
         if (parentNode != null){
@@ -44,6 +38,23 @@ public class DirectoryTraversal {
           parentNode.addChild(node);
         }
         tree.addNodeToContainer(node);
+
+        executor.submit(() -> {
+          try {
+            // Heavy lifting done concurrently in the background
+            LocProcessor locProcessor = new LocProcessor(filePath, fileCounter);
+            LocProcessor.FileInfo fileInfo = locProcessor.getFileInfo();
+            
+            // Updating distinct FileNode properties concurrently is safe
+            node.setLoc(fileInfo.loc());
+            node.setComments(fileInfo.comments());
+            node.setBlanks(fileInfo.blanks());
+            node.setLanguageSet(fileInfo.languageSet());
+            node.setLocByLang(fileInfo.locByLang());
+          } catch (IOException e) {
+            System.err.println("Error occurs while counting LOC on file: " + filePath);
+          }
+        });
 
         return FileVisitResult.CONTINUE;
       }
@@ -64,6 +75,19 @@ public class DirectoryTraversal {
         return FileVisitResult.CONTINUE;
       }
     });
+
+    // 4. Wait for all Consumer threads to finish before returning the fully populated tree
+    executor.shutdown();
+    try {
+      // Block main thread until all files are processed (timeout after 1 hour as a safety net)
+      if (!executor.awaitTermination(1, TimeUnit.HOURS)) {
+        executor.shutdownNow();
+      }
+    } catch (InterruptedException e) {
+      executor.shutdownNow();
+      Thread.currentThread().interrupt();
+      System.err.println("Traversal was interrupted.");
+    }
 
     return tree;
   }

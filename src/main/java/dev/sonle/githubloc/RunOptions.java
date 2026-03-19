@@ -8,7 +8,8 @@ public class RunOptions {
     JSON, // download + unzip + export Json
     DOWNLOAD, // only download
     UNZIP, // download + unzip
-    ALL // Default action : download + unzip + show and export tree dir
+    ALL, // Default action : download + unzip + show and export tree dir
+    TEST
   }
 
   private String userName;
@@ -73,7 +74,7 @@ public class RunOptions {
               options.setAction(Action.valueOf(args[++i].toUpperCase()));
             } catch (IllegalArgumentException e) {
               throw new IllegalArgumentException(
-                  "Invalid action. Available: TREE, SORT, JSON, DOWNLOAD, UNZIP, ALL");
+                  "Invalid action. Available: TREE, SORT, JSON, DOWNLOAD, UNZIP, ALL, TEST");
             }
           }
           break;
