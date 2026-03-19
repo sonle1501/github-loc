@@ -166,6 +166,11 @@ public class Runner {
           runJsonProcess(repoTree.getRoot());
           showTree();
         }
+        case TEST -> {
+          // runDownload();
+          // runJsonProcess(repoTree.getRoot());
+          // showTree();
+        }
         default -> throw new IllegalArgumentException("Invalid action");
       }
 
