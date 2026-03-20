@@ -1,5 +1,6 @@
 package dev.sonle.githubloc;
 
+import dev.sonle.githubloc.RunOptions.Mode;
 import dev.sonle.githubloc.api.RepoDownloader;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
@@ -135,52 +136,59 @@ public class Runner {
     try {
       preparePath();
 
-      switch (options.getAction()) {
-        case DOWNLOAD -> runDownload();
-        case UNZIP -> {
-          runDownload();
-          runUnzip();
-        }      
-        case TREE -> {
-          runDownload();
-          runUnzip();
-          createTree();
-          showTree();
+      if (options.getMode() == Mode.USER){
+        // go to multi repo handle mode
+        return; // exit app
+      }
+
+      else if (options.getMode() == Mode.TEST){
+        // do something
+      }
+
+      else{
+        switch (options.getAction()) {
+          case DOWNLOAD -> runDownload();
+          case UNZIP -> {
+            runDownload();
+            runUnzip();
+          }      
+          case TREE -> {
+            runDownload();
+            runUnzip();
+            createTree();
+            showTree();
+          }
+          case JSON -> {
+            runDownload();
+            runUnzip();
+            createTree();
+            runJsonProcess(repoTree.getRoot());
+          }
+          case SORT -> {
+            runDownload();
+            runUnzip();
+            // processNodesInOrder();
+            processNodesWithMostUsedLanguageNodesInOrder();
+          }
+          case ALL -> {
+            runDownload();
+            runUnzip();
+            createTree();
+            runJsonProcess(repoTree.getRoot());
+            showTree();
+          }
+          // case TEST -> {
+          //   // runDownload();
+          //   // runJsonProcess(repoTree.getRoot());
+          //   // showTree();
+          // }
+          default -> throw new IllegalArgumentException("Invalid action");
         }
-        case JSON -> {
-          runDownload();
-          runUnzip();
-          createTree();
-          runJsonProcess(repoTree.getRoot());
-        }
-        case SORT -> {
-          runDownload();
-          runUnzip();
-          // processNodesInOrder();
-          processNodesWithMostUsedLanguageNodesInOrder();
-        }
-        case ALL -> {
-          runDownload();
-          runUnzip();
-          createTree();
-          runJsonProcess(repoTree.getRoot());
-          showTree();
-        }
-        case TEST -> {
-          // runDownload();
-          // runJsonProcess(repoTree.getRoot());
-          // showTree();
-        }
-        default -> throw new IllegalArgumentException("Invalid action");
       }
 
     } catch (Exception e) {
       System.err.println("Failed to run program");
       e.printStackTrace();
     }
-  }
-
-  public void showTree2() throws IOException {
-    // not available
   }
 }
