@@ -2,6 +2,7 @@ package dev.sonle.githubloc;
 
 import dev.sonle.githubloc.RunOptions.Mode;
 import dev.sonle.githubloc.api.RepoDownloader;
+import dev.sonle.githubloc.multirepos.MultiReposHandle;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
 import dev.sonle.githubloc.tree.TreePrinter;
@@ -19,19 +20,22 @@ import java.util.List;
 public class Runner {
   private String repoName;
   private String userName;
-  private final Path baseRepoPath = Paths.get("storage", "repos");
-  private final Path baseZipPath = Paths.get("storage", "zip-repos");
-  private final Path baseJsonPath = Paths.get("storage", "json-results");
+  private Path baseRepoPath = Paths.get("storage", "repos");
+  private Path baseZipPath = Paths.get("storage", "zip-repos");
+  private Path baseJsonPath = Paths.get("storage", "json-results");
 
-  private final Path repoPath;
-  private final Path zipPath;
-  private final Path jsonPath;
+  private Path repoPath;
+  private Path zipPath;
+  private Path jsonPath;
 
   private RunOptions options;
   private Tree repoTree;
 
   public Runner(RunOptions options) { // the only run constructor
     this.options = options;
+  }
+
+  public void setupRepoInfo(){
     this.userName = options.getUserName();
     this.repoName = options.getRepoName();
 
@@ -133,60 +137,57 @@ public class Runner {
 
   // orchestrator
   public void runApp() {
+
+    if (options.getMode() == Mode.USER){
+      MultiReposHandle multiReposHandle = new MultiReposHandle(options);
+      multiReposHandle.runApp();
+      return;
+    }
+
+    if (options.getMode() == Mode.TEST){
+        // do something
+        return;
+    }
+
     try {
+      setupRepoInfo();
       preparePath();
 
-      if (options.getMode() == Mode.USER){
-        // go to multi repo handle mode
-        return; // exit app
-      }
-
-      else if (options.getMode() == Mode.TEST){
-        // do something
-      }
-
-      else{
-        switch (options.getAction()) {
-          case DOWNLOAD -> runDownload();
-          case UNZIP -> {
-            runDownload();
-            runUnzip();
-          }      
-          case TREE -> {
-            runDownload();
-            runUnzip();
-            createTree();
-            showTree();
-          }
-          case JSON -> {
-            runDownload();
-            runUnzip();
-            createTree();
-            runJsonProcess(repoTree.getRoot());
-          }
-          case SORT -> {
-            runDownload();
-            runUnzip();
-            // processNodesInOrder();
-            processNodesWithMostUsedLanguageNodesInOrder();
-          }
-          case ALL -> {
-            runDownload();
-            runUnzip();
-            createTree();
-            runJsonProcess(repoTree.getRoot());
-            showTree();
-          }
-          // case TEST -> {
-          //   // runDownload();
-          //   // runJsonProcess(repoTree.getRoot());
-          //   // showTree();
-          // }
-          default -> throw new IllegalArgumentException("Invalid action");
+      switch (options.getAction()) {
+        case DOWNLOAD -> runDownload();
+        case UNZIP -> {
+          runDownload();
+          runUnzip();
+        }      
+        case TREE -> {
+          runDownload();
+          runUnzip();
+          createTree();
+          showTree();
         }
+        case JSON -> {
+          runDownload();
+          runUnzip();
+          createTree();
+          runJsonProcess(repoTree.getRoot());
+        }
+        case SORT -> {
+          runDownload();
+          runUnzip();
+          // processNodesInOrder();
+          processNodesWithMostUsedLanguageNodesInOrder();
+        }
+        case ALL -> {
+          runDownload();
+          runUnzip();
+          createTree();
+          runJsonProcess(repoTree.getRoot());
+          showTree();
+        }
+        default -> throw new IllegalArgumentException("Invalid action");
       }
-
-    } catch (Exception e) {
+    } 
+    catch (Exception e) {
       System.err.println("Failed to run program");
       e.printStackTrace();
     }

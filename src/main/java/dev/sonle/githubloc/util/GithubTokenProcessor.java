@@ -7,10 +7,13 @@ import java.util.Properties;
 public class GithubTokenProcessor {
 
   public static String getToken() { // if this function cannot get, continue the process without token
+
+    // place token.properties at "src/main/resources/" -> so at runtime we have : target/classes/token.properties
+    // if place at "src/main/resources/config/token.properties" -> use getResourceAsStream("config/token.properties");
     try (InputStream inputStream =
         GithubTokenProcessor.class.getClassLoader().getResourceAsStream("token.properties")) {
       if (inputStream == null) {
-        System.out.println("there is no github token");
+        System.out.println("fetching github api without token");
         return null;
       }
       Properties props = new Properties();
@@ -21,7 +24,7 @@ public class GithubTokenProcessor {
       }
     }
     catch (IOException e) {
-      System.out.println("there is no github token");
+      System.out.println("fetching github api without token");
     }
     return null;
   }
