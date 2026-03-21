@@ -8,8 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.sonle.githubloc.RunOptions;
+import dev.sonle.githubloc.tree.FileNode;
+import dev.sonle.githubloc.tree.Tree;
+import dev.sonle.githubloc.util.JsonProcessor;
+import dev.sonle.githubloc.util.Unzip;
 
 public class MultiReposHandle {
+
+  public record RepoTarget(String repoName, Path validPath) {
+  }
 
   private final String userName;
   private final RunOptions options;
@@ -38,48 +45,100 @@ public class MultiReposHandle {
   public void runApp() {
     try {
       preparePaths();
-      
+    } catch (IOException e) {
+      System.err.println("Failed to create necessary storage directories. Reason: " + e.getMessage());
+      return; // Terminate app gracefully
+    }
+    try {
       List<String> downloadedRepoNames = runDownload();
-          
-      List<Path> validZipPaths = validatePaths(downloadedRepoNames, zipReposPath, ".zip");
-      runUnzip(validZipPaths);
-          
-      List<Path> validRepoPaths = validatePaths(downloadedRepoNames, reposPath, "");
-      runMultiJsonProcess(validRepoPaths);
+
+      List<RepoTarget> validZipRepos = getListTargets(downloadedRepoNames, zipReposPath, ".zip");
+      runUnzip(validZipRepos);
+
+      List<RepoTarget> validRepos = getListTargets(downloadedRepoNames, reposPath, "");
+      runMultiJsonProcess(validRepos);
 
     } catch (Exception e) {
-      System.err.println("Failed to run multi-repo program for user: " + userName);
+      System.err.println("An unexpected orchestration error occurred for user: " + userName);
       e.printStackTrace();
     }
   }
 
-  private List<Path> validatePaths(List<String> repoNames, Path baseDir, String suffix) {
-    List<Path> validPaths = new ArrayList<>();
-    
+  private List<RepoTarget> getListTargets(List<String> repoNames, Path baseDir, String suffix) {
+    // repoNames.stream().map(name -> baseDir.resolve(name +
+    // suffix)).filter(null).toList();
+    List<RepoTarget> listRepoInfo = new ArrayList<>();
+
     for (String name : repoNames) {
-        Path targetPath = baseDir.resolve(name + suffix);
-        if (Files.exists(targetPath)) {
-            validPaths.add(targetPath);
-        } else {
-            System.err.println("Warning: Expected path does not exist and will be skipped: " + targetPath);
-        }
+      Path targetPath = baseDir.resolve(name + suffix);
+      if (Files.exists(targetPath)) {
+        RepoTarget repoInfo = new RepoTarget(name, targetPath);
+        listRepoInfo.add(repoInfo);
+      } else {
+        System.err.println("Warning: Expected path does not exist and will be skipped: " + targetPath);
+      }
     }
-    
-    return validPaths;
+
+    return listRepoInfo;
   }
 
   private List<String> runDownload() {
     System.out.println("Starting download...");
-    return null;
+    UserReposDownloader userReposDownloader = new UserReposDownloader();
+    List<String> repoNames = userReposDownloader.downloadRepos(zipReposPath, userName);
+    return repoNames;
   }
 
-  private void runUnzip(List<Path> validZipPaths) {
-    if (validZipPaths.isEmpty()) return;
-    System.out.println("Starting unzip for " + validZipPaths.size() + " valid zip files...");
+  private void runUnzip(List<RepoTarget> validZipRepos) {
+    if (validZipRepos.isEmpty())
+      return;
+    Unzip unzipRepo = new Unzip();
+    for (RepoTarget zipRepoInfo : validZipRepos) {
+      try {
+        Path sourceZipRepoPath = zipRepoInfo.validPath();
+        Path destRepoPath = this.reposPath.resolve(zipRepoInfo.repoName());
+        unzipRepo.unzip(sourceZipRepoPath, destRepoPath);
+        System.out.println("Starting unzip for " + sourceZipRepoPath);
+      } catch (IOException e) {
+        System.err.println("Failed to unzip repo '" + zipRepoInfo.repoName() +
+            "'. Skipping to next. Reason: " + e.getMessage());
+      }
+
+    }
   }
 
-  private void runMultiJsonProcess(List<Path> validRepoPaths) {
-    if (validRepoPaths.isEmpty()) return;
-    // System.out.println("Starting JSON processing & Tree building for " + validRepoPaths.size() + " extracted repos...");
+  private List<Tree> getRepoTrees(List<RepoTarget> validRepos) {
+    List<Tree> repoTrees = new ArrayList<>();
+    for (RepoTarget repoInfo : validRepos) {
+      try {
+        Tree repoTree = Tree.buildTree(repoInfo.validPath());
+        repoTrees.add(repoTree);
+      } catch (IOException e) {
+        System.err.println("Failed to process Tree for '" + repoInfo.repoName() +
+            "'. Skipping to next. Reason: " + e.getMessage());
+      }
+
+    }
+    return repoTrees;
+  }
+
+  private void runMultiJsonProcess(List<RepoTarget> validRepos) {
+    List<Tree> repoTrees = getRepoTrees(validRepos);
+
+    if (repoTrees.isEmpty())
+      return;
+
+    JsonProcessor jsonProcessor = new JsonProcessor();
+    for (Tree tree : repoTrees) {
+      try {
+        FileNode root = tree.getRoot();
+        String name = root.getName();
+        jsonProcessor.exportTreeToJson(jsonResultsPath.resolve(name + ".json"), root);
+      } catch (IOException e) {
+        System.err.println("Failed to process JSON for " + tree.getRoot().getName() +
+            "'. Skipping to next. Reason: " + e.getMessage());
+      }
+
+    }
   }
 }
