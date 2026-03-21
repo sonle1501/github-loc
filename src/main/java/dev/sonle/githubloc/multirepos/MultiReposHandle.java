@@ -65,8 +65,7 @@ public class MultiReposHandle {
   }
 
   private List<RepoTarget> getListTargets(List<String> repoNames, Path baseDir, String suffix) {
-    // repoNames.stream().map(name -> baseDir.resolve(name +
-    // suffix)).filter(null).toList();
+    // repoNames.stream().map(name -> baseDir.resolve(name + suffix)).filter(null).toList();
     List<RepoTarget> listRepoInfo = new ArrayList<>();
 
     for (String name : repoNames) {
