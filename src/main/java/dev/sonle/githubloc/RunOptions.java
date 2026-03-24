@@ -59,8 +59,8 @@ public class RunOptions {
     RunOptions options = new RunOptions();
 
     if (args.length == 0) {
-      options.setUserName("sonle1501");
-      options.setRepoName("github-loc");
+      options.setUserName("openclaw");
+      options.setRepoName("openclaw");
       options.setMode(Mode.TEST);
       return options;
     }

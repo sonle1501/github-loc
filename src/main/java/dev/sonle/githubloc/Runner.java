@@ -2,7 +2,7 @@ package dev.sonle.githubloc;
 
 import dev.sonle.githubloc.RunOptions.Mode;
 import dev.sonle.githubloc.api.RepoDownloader;
-import dev.sonle.githubloc.multirepos.MultiReposHandle;
+import dev.sonle.githubloc.multirepos.MultithreadingReposHandle;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
 import dev.sonle.githubloc.tree.TreePrinter;
@@ -139,14 +139,13 @@ public class Runner {
   public void runApp() {
 
     if (options.getMode() == Mode.USER){
-      MultiReposHandle multiReposHandle = new MultiReposHandle(options);
-      multiReposHandle.runApp();
+      MultithreadingReposHandle multiReposHandle = new MultithreadingReposHandle(options);
+      multiReposHandle.runAppAsync();
       return;
     }
 
     if (options.getMode() == Mode.TEST){
         // do something
-        return;
     }
 
     try {

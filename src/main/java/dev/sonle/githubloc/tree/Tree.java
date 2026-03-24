@@ -56,6 +56,15 @@ public class Tree {
     return tree;
   }
 
+  public static Tree buildTreeSequential(Path startPath) throws IOException {
+    Tree tree = new Tree();
+    DirectoryTraversal directoryTraversal = new DirectoryTraversal();
+    directoryTraversal.traverse(startPath, tree);
+    tree.setRoot(tree.getNode(startPath));
+    directoryTraversal.countLocFolder(tree.getRoot());
+    return tree;
+  }
+
   public String getMostUsedLanguage(){
     Map<String, Integer>locByLang = root.getLocByLang();
     int maxLoc = -1;

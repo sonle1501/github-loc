@@ -18,6 +18,7 @@ import org.cthing.locc4j.FileCounter;
 
 public class ProducerConsumerDirectoryTraversal {
   private FileCounter fileCounter;
+
   public ProducerConsumerDirectoryTraversal(){
     fileCounter = new FileCounter();
   }
@@ -25,7 +26,7 @@ public class ProducerConsumerDirectoryTraversal {
   public Tree traverse(Path path, Tree tree) throws IOException { // the "producer"
     Path startPath = path;
     int cores = Runtime.getRuntime().availableProcessors();
-    ExecutorService executor = Executors.newFixedThreadPool(cores);
+    ExecutorService executor = Executors.newFixedThreadPool(cores*4);
 
     Files.walkFileTree(startPath, new SimpleFileVisitor<Path>() {
       @Override
@@ -41,11 +42,9 @@ public class ProducerConsumerDirectoryTraversal {
 
         executor.submit(() -> {
           try {
-            // Heavy lifting done concurrently in the background
             LocProcessor locProcessor = new LocProcessor(filePath, fileCounter);
             LocProcessor.FileInfo fileInfo = locProcessor.getFileInfo();
             
-            // Updating distinct FileNode properties concurrently is safe
             node.setLoc(fileInfo.loc());
             node.setComments(fileInfo.comments());
             node.setBlanks(fileInfo.blanks());
@@ -95,19 +94,50 @@ public class ProducerConsumerDirectoryTraversal {
   // count LOC for folder
   public void countLocFolder(FileNode rootNode) {
     for (FileNode node : rootNode.getChilds()) {
-      if (node.getChilds().size() > 0) { // is folder
+      if (node.getChilds().size() > 0) { // "folder" need to count LOC
         countLocFolder(node);
         rootNode.updateLoc(node.getLoc());
         rootNode.updateComments(node.getComments());
         rootNode.updateBlanks(node.getBlanks());
         rootNode.mergeLanguageSet(node.getLanguageSet());
         rootNode.mergeLocByLang(node.getLocByLang());
-      } else { // is file or emtpy folder
+      } else { // file or emtpy folder
         rootNode.updateLoc(node.getLoc());
         rootNode.updateComments(node.getComments());
         rootNode.updateBlanks(node.getBlanks());
         rootNode.mergeLanguageSet(node.getLanguageSet());
         rootNode.mergeLocByLang(node.getLocByLang());
+      }
+    }
+  }
+
+  public void countLocFolderMultithreading(FileNode rootNode){
+    int cores = Runtime.getRuntime().availableProcessors();
+    ExecutorService executor = Executors.newFixedThreadPool(cores);
+    countLocFolderMultithreadingHelper(rootNode, executor);
+    executor.shutdown();
+  }
+
+  public void countLocFolderMultithreadingHelper(FileNode rootNode, ExecutorService executor) {
+    
+    for (FileNode node : rootNode.getChilds()) {
+      if (node.getChilds().size() > 0) { // "folder" need to count LOC
+        countLocFolderMultithreadingHelper(node, executor);
+        executor.submit(() -> {
+          rootNode.updateLoc(node.getLoc());
+          rootNode.updateComments(node.getComments());
+          rootNode.updateBlanks(node.getBlanks());
+          rootNode.mergeLanguageSet(node.getLanguageSet());
+          rootNode.mergeLocByLang(node.getLocByLang());
+        });
+      } else { // file or emtpy folder
+        executor.submit(() -> {
+          rootNode.updateLoc(node.getLoc());
+          rootNode.updateComments(node.getComments());
+          rootNode.updateBlanks(node.getBlanks());
+          rootNode.mergeLanguageSet(node.getLanguageSet());
+          rootNode.mergeLocByLang(node.getLocByLang());
+        });
       }
     }
   }
