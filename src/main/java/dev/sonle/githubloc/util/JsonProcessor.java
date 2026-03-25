@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
 import dev.sonle.githubloc.tree.FileNode;
 import tools.jackson.databind.ObjectMapper;
@@ -22,5 +23,11 @@ public class JsonProcessor {
     ObjectMapper mapper = new ObjectMapper();
     mapper.writeValue(new File(jsonTarget.toString()), list);
     System.out.println("Export Ordered List Json completed !");
+  }
+
+  public void exportNodeListSortedByLangToJson(Path jsonTarget, Map<String, List<FileNode>> nodeList){
+    ObjectMapper mapper = new ObjectMapper();
+    mapper.writeValue(new File(jsonTarget.toString()), nodeList);
+    System.out.println("Export Sorted List By Lang to Json completed !");
   }
 }

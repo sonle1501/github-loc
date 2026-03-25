@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import dev.sonle.githubloc.util.DirectoryTraversal;
+import dev.sonle.githubloc.util.ProducerConsumerDirectoryTraversal;
 
 
 public class Tree {
@@ -48,11 +49,19 @@ public class Tree {
 
   public static Tree buildTree(Path startPath) throws IOException {
     Tree tree = new Tree();
+    ProducerConsumerDirectoryTraversal directoryTraversal = new ProducerConsumerDirectoryTraversal();
+    directoryTraversal.traverse(startPath, tree);
+    tree.setRoot(tree.getNode(startPath));
+    directoryTraversal.countLocFolder(tree.getRoot());
+    return tree;
+  }
+
+  public static Tree buildTreeSequential(Path startPath) throws IOException {
+    Tree tree = new Tree();
     DirectoryTraversal directoryTraversal = new DirectoryTraversal();
     directoryTraversal.traverse(startPath, tree);
     tree.setRoot(tree.getNode(startPath));
     directoryTraversal.countLocFolder(tree.getRoot());
-    // Tree.countLocFolder(tree.getRoot());
     return tree;
   }
 

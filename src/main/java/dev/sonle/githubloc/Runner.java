@@ -1,6 +1,9 @@
 package dev.sonle.githubloc;
 
+import dev.sonle.githubloc.RunOptions.Mode;
+import dev.sonle.githubloc.RunOptions.SortArgument;
 import dev.sonle.githubloc.api.RepoDownloader;
+import dev.sonle.githubloc.multirepos.MultithreadingReposHandle;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
 import dev.sonle.githubloc.tree.TreePrinter;
@@ -14,23 +17,27 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 public class Runner {
   private String repoName;
   private String userName;
-  private final Path baseRepoPath = Paths.get("storage", "repos");
-  private final Path baseZipPath = Paths.get("storage", "zip-repos");
-  private final Path baseJsonPath = Paths.get("storage", "json-results");
+  private Path baseRepoPath = Paths.get("storage", "repos");
+  private Path baseZipPath = Paths.get("storage", "zip-repos");
+  private Path baseJsonPath = Paths.get("storage", "json-results");
 
-  private final Path repoPath;
-  private final Path zipPath;
-  private final Path jsonPath;
+  private Path repoPath;
+  private Path zipPath;
+  private Path jsonPath;
 
   private RunOptions options;
   private Tree repoTree;
 
   public Runner(RunOptions options) { // the only run constructor
     this.options = options;
+  }
+
+  public void setupRepoInfo(){
     this.userName = options.getUserName();
     this.repoName = options.getRepoName();
 
@@ -115,7 +122,7 @@ public class Runner {
     }
   }
 
-  public void processNodesWithMostUsedLanguageNodesInOrder() throws IOException {
+  public void processNodesSortedByMostUsedLanguage() throws IOException {
     try {
       Tree tree = Tree.buildTree(repoPath);
       FilesSorter filesSorter = new FilesSorter();
@@ -130,9 +137,38 @@ public class Runner {
     }
   }
 
+  public void processNodesSortedByUsedLanguage() throws IOException {
+    try {
+      Tree tree = Tree.buildTree(repoPath);
+      FilesSorter filesSorter = new FilesSorter();
+      JsonProcessor jsonProcessor = new JsonProcessor();
+      Map<String, List<FileNode>> nodeListSortedByLang = filesSorter.sortNodeByLang(tree.getNodeContainer(), tree.getRoot());
+      String orderedListJsonFile = "storage/json-results/" + "ordered-list-by-lang-" + repoName + ".json"; 
+      jsonProcessor.exportNodeListSortedByLangToJson(Paths.get(orderedListJsonFile), nodeListSortedByLang);
+      TreePrinter.printNodesFromMap(nodeListSortedByLang);
+    } catch (IOException e) {
+      System.err.println("Failed to rank node by used language. Reason: " + e.getMessage());    
+      e.printStackTrace();
+    }
+  }
+
   // orchestrator
   public void runApp() {
+
+    if (options.getMode() == Mode.USER){
+      MultithreadingReposHandle multiReposHandle = new MultithreadingReposHandle(options);
+      multiReposHandle.runAppAsync();
+      return;
+    }
+
+    if (options.getMode() == Mode.TEST){
+        // do something
+      options.setUserName("sonle1501");
+      options.setRepoName("github-loc");
+    }
+
     try {
+      setupRepoInfo();
       preparePath();
 
       switch (options.getAction()) {
@@ -156,10 +192,11 @@ public class Runner {
         case SORT -> {
           runDownload();
           runUnzip();
-          // processNodesInOrder();
-          processNodesWithMostUsedLanguageNodesInOrder();
+          if (options.getSortArgument() == SortArgument.BYLANG) processNodesSortedByUsedLanguage();
+          else if (options.getSortArgument() == SortArgument.BYMOSTLANG) processNodesSortedByMostUsedLanguage();
+          else processNodesInOrder();
         }
-        case ALL -> {
+        case DEFAULT -> {
           runDownload();
           runUnzip();
           createTree();
@@ -168,14 +205,10 @@ public class Runner {
         }
         default -> throw new IllegalArgumentException("Invalid action");
       }
-
-    } catch (Exception e) {
+    } 
+    catch (Exception e) {
       System.err.println("Failed to run program");
       e.printStackTrace();
     }
-  }
-
-  public void showTree2() throws IOException {
-    // not available
   }
 }

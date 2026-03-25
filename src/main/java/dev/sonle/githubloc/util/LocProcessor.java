@@ -30,13 +30,13 @@ public class LocProcessor {
 
   }
 
-  public LocProcessor(Path filePath) throws IOException{
+  public LocProcessor(Path filePath, FileCounter counter) throws IOException{
     this.filePath = filePath;
-    setFileCountResult();
-    setFileInfo();
+    processFileCountResult(counter);
+    processFileInfo();
   } 
 
-  public void setFileInfo(){
+  public void processFileInfo(){
     Set<String> languageSet = new LinkedHashSet<>();
     Map<String, Integer> locByLang = new HashMap<>();
     int linesOfCode = 0;
@@ -60,20 +60,20 @@ public class LocProcessor {
     return this.fileInfo;
   }
 
-  public void setFileCountResult() throws IOException {
-    FileCounter counter = new FileCounter();
+  public void processFileCountResult(FileCounter counter) throws IOException {
     Map<Path, Map<Language, Counts>> countResult = counter.count(this.filePath.toString());
     this.fileCountResult = countResult.get(this.filePath);
   }
 
   public static void main(String[] args) {
-    try {
-      Path p = Paths.get("src\\main\\java\\dev\\sonle\\githubloc\\App.java");
-      LocProcessor locProcessorTemp = new LocProcessor(p);
-      LocProcessor.FileInfo fileInfo = locProcessorTemp.getFileInfo();
-      System.out.println(fileInfo.loc());
-    } catch (Exception e) {
-      System.err.println("LocProcessor failed: " + e.getMessage());
-    }
+  //   try {
+  //     Path p = Paths.get("src\\main\\java\\dev\\sonle\\githubloc\\App.java");
+  //     LocProcessor locProcessorTemp = new LocProcessor(p);
+  //     LocProcessor.FileInfo fileInfo = locProcessorTemp.getFileInfo();
+  //     System.out.println(fileInfo.loc());
+  //   } catch (Exception e) {
+  //     System.err.println("LocProcessor failed: " + e.getMessage());
+  //   }
+  // }
   }
 }

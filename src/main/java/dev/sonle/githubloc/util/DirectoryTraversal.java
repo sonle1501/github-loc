@@ -9,10 +9,13 @@ import java.nio.file.attribute.BasicFileAttributes;
 
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
+import org.cthing.locc4j.FileCounter;
+
 
 public class DirectoryTraversal {
-
+  private FileCounter fileCounter;
   public DirectoryTraversal(){
+    fileCounter = new FileCounter();
   }
 
   public Tree traverse(Path path, Tree tree) throws IOException {
@@ -23,7 +26,7 @@ public class DirectoryTraversal {
         FileNode node = new FileNode(filePath.toString(), filePath.getFileName().toString(), null);
         LocProcessor locProcessor;
         try {
-          locProcessor = new LocProcessor(filePath);
+          locProcessor = new LocProcessor(filePath, fileCounter);
           LocProcessor.FileInfo fileInfo = locProcessor.getFileInfo();
           node.setLoc(fileInfo.loc());
           node.setComments(fileInfo.comments());
