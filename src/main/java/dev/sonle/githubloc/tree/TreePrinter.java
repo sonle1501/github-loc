@@ -121,6 +121,33 @@ public class TreePrinter {
         }
     }
 
+    public static void printNodesFromMap(Map<String, List<FileNode>> map) {
+        System.out.println("\n" + Color.WRAPPER + "Sorted file list, grouped by language" + Color.RESET + "\n");
+
+        for (Map.Entry<String, List<FileNode>> entry : map.entrySet()) {
+            String lang = entry.getKey();
+            List<FileNode> fileList = entry.getValue();
+            System.out.println(Color.WRAPPER + lang + Color.RESET);
+
+            for (int i = 0; i < fileList.size(); i++) {
+                String connector = i == fileList.size()-1 ? "└──" : "├──";
+                FileNode file = fileList.get(i);
+                String fileInfo = String.format(
+                        " %sloc: %s%s",
+                        Color.META,
+                        file.getLoc(),
+                        Color.RESET);
+
+                System.out.println(
+                                connector
+                                + Color.FILE
+                                + file.getName()
+                                + Color.RESET
+                                + fileInfo);
+            }
+        }
+    }
+
     public void printAllNodes() {
         Map<String, FileNode> nodeContainer = tree.getNodeContainer();
         for (Map.Entry<String, FileNode> entry : nodeContainer.entrySet()) {

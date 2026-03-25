@@ -9,18 +9,25 @@ public class RunOptions {
   }
 
   public enum Action {
-    SORT,// download + unzip + show and export file list in order, rank by LOC
-    TREE, // download + unzip + only show tree dir
-    JSON, // download + unzip + export Json
+    SORT,// show and export file list in order, rank by LOC
+    TREE, // only show tree dir
+    JSON, // only export Json
     DOWNLOAD, // only download
     UNZIP, // download + unzip
-    ALL, // Default action : download + unzip + show and export tree dir
+    DEFAULT, // show and export tree dir
+  }
+
+  public enum SortArgument{
+    ALL, // sort all nodes
+    BYLANG, // group by used language and sort
+    BYMOSTLANG// sort by most used Language 
   }
 
   private String userName;
   private String repoName;
-  private Action action = Action.ALL;
-  private Mode mode = Mode.TEST;
+  private Action action = Action.DEFAULT; // default action : if no specific action
+  private Mode mode = Mode.REPO; // default mode : if no cmd argument
+  private SortArgument sortArgument = SortArgument.ALL;
 
   public String getUserName() {
     return userName;
@@ -41,17 +48,25 @@ public class RunOptions {
   public Action getAction() {
     return action;
   }
+  
+  public void setAction(Action action) {
+    this.action = action;
+  }
 
   public Mode getMode() {
     return mode;
   }
 
-  public void setAction(Action action) {
-    this.action = action;
-  }
-
   public void setMode(Mode mode) {
     this.mode = mode;
+  }
+
+  public void setSortArgument(SortArgument sortArgument) {
+    this.sortArgument = sortArgument;
+  }
+
+  public SortArgument getSortArgument() {
+    return this.sortArgument;
   }
   
   // valid github repo identity : spring-projects/spring-boot
@@ -59,8 +74,6 @@ public class RunOptions {
     RunOptions options = new RunOptions();
 
     if (args.length == 0) {
-      options.setUserName("openclaw");
-      options.setRepoName("openclaw");
       options.setMode(Mode.TEST);
       return options;
     }
@@ -85,26 +98,43 @@ public class RunOptions {
     }
   }
 
+  private static void setSortArgumentsHelper(String args[], int i, RunOptions options){
+    if (i + 2 >= args.length)
+      options.setSortArgument(SortArgument.ALL);
+    else if ("BYLANG".equalsIgnoreCase(args[i + 2])){ 
+      options.setSortArgument(SortArgument.BYLANG);
+    }
+    else if ("BYMOSTLANG".equalsIgnoreCase(args[i + 2])){ 
+      options.setSortArgument(SortArgument.BYMOSTLANG);
+    }
+    else 
+      options.setSortArgument(SortArgument.ALL);
+  }
+
   public static RunOptions parse(String[] args) {
     RunOptions options = parseRepoHelper(args);
     if (options.getMode() == Mode.TEST || options.getMode() == Mode.USER){
       return options;
     }
 
-    for (int i = 1; i < args.length; i++) {
-      String arg = args[i];
-      if ((arg == "--action" || arg == "-a") && (i +1 < args.length)){
-        try {
-          options.setAction(Action.valueOf(args[++i].toUpperCase()));
-        } 
-        catch (IllegalArgumentException e) {
-          throw new IllegalArgumentException("Invalid action. Available: TREE, SORT, JSON, DOWNLOAD, UNZIP, ALL, TEST");
-        }
+    int actionIndex = 1;
+    String arg = args[actionIndex];
+    if ((arg == "--action" || arg == "-a") && (actionIndex + 1 < args.length)){
+      String actionType = args[actionIndex+1];
+      if ("SORT".equalsIgnoreCase(actionType)){
+        setSortArgumentsHelper(args, actionIndex, options);
       }
-      else {
-        throw new IllegalArgumentException("invalid arguments");
+      try {
+        options.setAction(Action.valueOf(actionType.toUpperCase()));
+      } 
+      catch (IllegalArgumentException e) {
+        throw new IllegalArgumentException("Invalid action. Available: TREE, SORT, JSON, DOWNLOAD, UNZIP, ALL");
       }
     }
+    else {
+      throw new IllegalArgumentException("invalid arguments");
+    }
+    
 
     if (options.getMode() == Mode.USER && options.getUserName() == null)  
       throw new IllegalArgumentException("User is not specified.");

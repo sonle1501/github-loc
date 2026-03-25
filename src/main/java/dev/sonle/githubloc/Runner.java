@@ -1,6 +1,7 @@
 package dev.sonle.githubloc;
 
 import dev.sonle.githubloc.RunOptions.Mode;
+import dev.sonle.githubloc.RunOptions.SortArgument;
 import dev.sonle.githubloc.api.RepoDownloader;
 import dev.sonle.githubloc.multirepos.MultithreadingReposHandle;
 import dev.sonle.githubloc.tree.FileNode;
@@ -16,6 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 public class Runner {
   private String repoName;
@@ -120,7 +122,7 @@ public class Runner {
     }
   }
 
-  public void processNodesWithMostUsedLanguageNodesInOrder() throws IOException {
+  public void processNodesSortedByMostUsedLanguage() throws IOException {
     try {
       Tree tree = Tree.buildTree(repoPath);
       FilesSorter filesSorter = new FilesSorter();
@@ -131,6 +133,21 @@ public class Runner {
       TreePrinter.printNodesFromList(orderedNodes);
     } catch (IOException e) {
       System.err.println("Failed to rank node by most used language. Reason: " + e.getMessage());    
+      e.printStackTrace();
+    }
+  }
+
+  public void processNodesSortedByUsedLanguage() throws IOException {
+    try {
+      Tree tree = Tree.buildTree(repoPath);
+      FilesSorter filesSorter = new FilesSorter();
+      JsonProcessor jsonProcessor = new JsonProcessor();
+      Map<String, List<FileNode>> nodeListSortedByLang = filesSorter.sortNodeByLang(tree.getNodeContainer(), tree.getRoot());
+      String orderedListJsonFile = "storage/json-results/" + "ordered-list-by-lang-" + repoName + ".json"; 
+      jsonProcessor.exportNodeListSortedByLangToJson(Paths.get(orderedListJsonFile), nodeListSortedByLang);
+      TreePrinter.printNodesFromMap(nodeListSortedByLang);
+    } catch (IOException e) {
+      System.err.println("Failed to rank node by used language. Reason: " + e.getMessage());    
       e.printStackTrace();
     }
   }
@@ -146,6 +163,8 @@ public class Runner {
 
     if (options.getMode() == Mode.TEST){
         // do something
+      options.setUserName("sonle1501");
+      options.setRepoName("github-loc");
     }
 
     try {
@@ -173,10 +192,11 @@ public class Runner {
         case SORT -> {
           runDownload();
           runUnzip();
-          // processNodesInOrder();
-          processNodesWithMostUsedLanguageNodesInOrder();
+          if (options.getSortArgument() == SortArgument.BYLANG) processNodesSortedByUsedLanguage();
+          else if (options.getSortArgument() == SortArgument.BYMOSTLANG) processNodesSortedByMostUsedLanguage();
+          else processNodesInOrder();
         }
-        case ALL -> {
+        case DEFAULT -> {
           runDownload();
           runUnzip();
           createTree();
