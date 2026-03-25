@@ -1,5 +1,7 @@
 package dev.sonle.githubloc;
 
+import java.util.Scanner;
+
 public class RunOptions {
 
   public enum Mode{
@@ -68,6 +70,15 @@ public class RunOptions {
   public SortArgument getSortArgument() {
     return this.sortArgument;
   }
+
+  public static String[] parseConsoleInput(){
+    Scanner in = new Scanner(System.in);
+    System.out.println("Enter your command (for example: sonle1501/github-loc) :");
+    String input = in.nextLine();
+    String[]args = input.split(" ");
+    in.close();
+    return args;
+  } 
   
   // valid github repo identity : spring-projects/spring-boot
   public static RunOptions parseRepoHelper(String args[]) { 
@@ -98,6 +109,7 @@ public class RunOptions {
     }
   }
 
+  // only use with sort action
   private static void setSortArgumentsHelper(String args[], int i, RunOptions options){
     if (i + 2 >= args.length)
       options.setSortArgument(SortArgument.ALL);
@@ -117,9 +129,14 @@ public class RunOptions {
       return options;
     }
 
+    if (args.length ==1){
+      options.setMode(Mode.REPO);
+      return options;
+    }
+
     int actionIndex = 1;
     String arg = args[actionIndex];
-    if ((arg == "--action" || arg == "-a") && (actionIndex + 1 < args.length)){
+    if (("--action".equalsIgnoreCase(arg) || "-a".equalsIgnoreCase(arg)) && (actionIndex + 1 < args.length)){
       String actionType = args[actionIndex+1];
       if ("SORT".equalsIgnoreCase(actionType)){
         setSortArgumentsHelper(args, actionIndex, options);

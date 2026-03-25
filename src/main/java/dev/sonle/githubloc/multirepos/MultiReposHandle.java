@@ -65,7 +65,6 @@ public class MultiReposHandle {
   }
 
   private List<RepoTarget> getListTargets(List<String> repoNames, Path baseDir, String suffix) {
-    // repoNames.stream().map(name -> baseDir.resolve(name + suffix)).filter(null).toList();
     List<RepoTarget> listRepoInfo = new ArrayList<>();
 
     for (String name : repoNames) {
@@ -83,8 +82,8 @@ public class MultiReposHandle {
 
   private List<String> runDownload() {
     System.out.println("Starting download...");
-    UserReposDownloader userReposDownloader = new UserReposDownloader();
-    List<String> repoNames = userReposDownloader.downloadRepos(zipReposPath, userName);
+    UserInfoFetching userInfoFetching = new UserInfoFetching();
+    List<String> repoNames = userInfoFetching.fetchRepoNames(userName);
     return repoNames;
   }
 
