@@ -11,7 +11,7 @@ import dev.sonle.githubloc.loc.LocProcessor;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
 
-import org.cthing.locc4j.FileCounter;
+import dev.sonle.githubloc.locc4j.FileCounter;
 
 
 public class DirectoryTraversal {

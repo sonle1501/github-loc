@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import org.cthing.locc4j.FileCounter;
+import dev.sonle.githubloc.locc4j.FileCounter;
 
 import dev.sonle.githubloc.tree.FileNode;
 

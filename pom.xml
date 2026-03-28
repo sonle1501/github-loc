@@ -53,12 +53,12 @@
       <version>3.0.0</version>
     </dependency>
 
-    <!-- loc counter built in java : https://github.com/cthing/locc4j -->
+    <!-- loc counter built in java : https://github.com/cthing/locc4j
     <dependency>
       <groupId>org.cthing</groupId>
       <artifactId>locc4j</artifactId>
       <version>2.0.0</version>
-    </dependency>
+    </dependency> -->
 
   </dependencies>
   <build>
