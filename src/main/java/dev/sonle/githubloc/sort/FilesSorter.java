@@ -1,14 +1,11 @@
-package dev.sonle.githubloc.util;
+package dev.sonle.githubloc.sort;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 import dev.sonle.githubloc.tree.FileNode;
 

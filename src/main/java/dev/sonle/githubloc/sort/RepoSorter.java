@@ -1,4 +1,4 @@
-package dev.sonle.githubloc.util;
+package dev.sonle.githubloc.sort;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -6,9 +6,11 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
+import dev.sonle.githubloc.filesystem.DirectoryTraversal;
+import dev.sonle.githubloc.output.JsonProcessor;
+import dev.sonle.githubloc.output.TreePrinter;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
-import dev.sonle.githubloc.tree.TreePrinter;
 
 public class RepoSorter {
   private Path repoPath;

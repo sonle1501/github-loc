@@ -1,8 +1,11 @@
-package dev.sonle.githubloc.tree;
+package dev.sonle.githubloc.output;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import dev.sonle.githubloc.tree.FileNode;
+import dev.sonle.githubloc.tree.Tree;
 
 public class TreePrinter {
     private Tree tree;
@@ -181,5 +184,4 @@ public class TreePrinter {
             }
         }
     }
-
 }
