@@ -20,9 +20,9 @@ import java.util.regex.Pattern;
 
 
 
-import com.fasterxml.jackson.core.JsonPointer;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JsonPointer;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.ObjectMapper;
 
 import static dev.sonle.githubloc.locc4j.Counter.ParsingMode.CODE;
 import static dev.sonle.githubloc.locc4j.Counter.ParsingMode.COMMENT;
@@ -255,13 +255,13 @@ public class Counter {
         Optional<Language> languageOpt = Optional.empty();
         final JsonNode languageNode = jupyterNode.at(JUPYTER_LANGUAGE_PTR);
         if (!languageNode.isMissingNode()) {
-            final String languageName = languageNode.asText();
+            final String languageName = languageNode.asString();
             languageOpt = Language.fromDisplayName(languageName);
         }
         if (languageOpt.isEmpty()) {
             final JsonNode extensionNode = jupyterNode.at(JUPYTER_EXTENSION_PTR);
             if (!extensionNode.isMissingNode()) {
-                final String extension = extensionNode.asText();
+                final String extension = extensionNode.asString();
                 languageOpt = Language.fromFileExtension(extension);
             }
         }
@@ -272,11 +272,11 @@ public class Counter {
             for (final JsonNode cellNode : cellsNode) {
                 final JsonNode cellTypeNode = cellNode.get("cell_type");
                 if (cellTypeNode != null) {
-                    final String cellType = cellTypeNode.asText();
+                    final String cellType = cellTypeNode.asString();
                     final JsonNode sourceNode = cellNode.get("source");
                     if (sourceNode != null) {
                         final StringBuilder source = new StringBuilder();
-                        sourceNode.forEach(node -> source.append(node.asText()));
+                        sourceNode.forEach(node -> source.append(node.asString()));
                         switch (cellType) {
                             case "markdown": {
                                 final Counter counter = newCounter(Language.Markdown);
