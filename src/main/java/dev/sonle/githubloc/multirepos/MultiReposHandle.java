@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.sonle.githubloc.RunOptions;
+import dev.sonle.githubloc.api.UserInfoFetching;
+import dev.sonle.githubloc.io.Unzip;
+import dev.sonle.githubloc.output.JsonProcessor;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
-import dev.sonle.githubloc.util.JsonProcessor;
-import dev.sonle.githubloc.util.Unzip;
 
 public class MultiReposHandle {
 

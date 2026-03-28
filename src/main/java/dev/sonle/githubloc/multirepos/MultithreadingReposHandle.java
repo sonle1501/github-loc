@@ -4,18 +4,18 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import dev.sonle.githubloc.RunOptions;
+import dev.sonle.githubloc.api.RepoDownloader;
+import dev.sonle.githubloc.api.UserInfoFetching;
+import dev.sonle.githubloc.io.Unzip;
+import dev.sonle.githubloc.output.JsonProcessor;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
-import dev.sonle.githubloc.api.RepoDownloader;
-import dev.sonle.githubloc.util.JsonProcessor;
-import dev.sonle.githubloc.util.Unzip;
 
 public class MultithreadingReposHandle {
 

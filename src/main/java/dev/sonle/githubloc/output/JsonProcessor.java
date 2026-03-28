@@ -1,4 +1,4 @@
-package dev.sonle.githubloc.util;
+package dev.sonle.githubloc.output;
 
 import java.io.File;
 import java.io.IOException;

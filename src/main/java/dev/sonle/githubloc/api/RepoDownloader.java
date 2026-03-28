@@ -10,8 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
-import dev.sonle.githubloc.util.GithubTokenProcessor;
-
 public class RepoDownloader {
   
   public void downloadRepo(Path location, String userName, String repoName){

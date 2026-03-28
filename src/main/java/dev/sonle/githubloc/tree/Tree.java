@@ -7,10 +7,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import dev.sonle.githubloc.util.DirectoryBuilder;
-import dev.sonle.githubloc.util.DirectoryLocProcessor;
-import dev.sonle.githubloc.util.DirectoryTraversal;
-import dev.sonle.githubloc.util.ProducerConsumerDirectoryTraversal;
+import dev.sonle.githubloc.io.DirectoryBuilder;
+import dev.sonle.githubloc.io.DirectoryTraversal;
+import dev.sonle.githubloc.io.ProducerConsumerDirectoryTraversal;
+import dev.sonle.githubloc.loc.DirectoryLocProcessor;
 
 
 public class Tree {

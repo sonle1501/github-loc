@@ -3,22 +3,19 @@ package dev.sonle.githubloc;
 import dev.sonle.githubloc.RunOptions.Mode;
 import dev.sonle.githubloc.RunOptions.SortArgument;
 import dev.sonle.githubloc.api.RepoDownloader;
+import dev.sonle.githubloc.io.Unzip;
 import dev.sonle.githubloc.multirepos.MultithreadingReposHandle;
+import dev.sonle.githubloc.output.JsonProcessor;
+import dev.sonle.githubloc.output.TreePrinter;
+import dev.sonle.githubloc.sort.RepoSorter;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
-import dev.sonle.githubloc.tree.TreePrinter;
-import dev.sonle.githubloc.util.DirectoryTraversal;
-import dev.sonle.githubloc.util.FilesSorter;
-import dev.sonle.githubloc.util.JsonProcessor;
-import dev.sonle.githubloc.util.RepoSorter;
-import dev.sonle.githubloc.util.Unzip;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Map;
+
 
 public class Runner {
   private String repoName;

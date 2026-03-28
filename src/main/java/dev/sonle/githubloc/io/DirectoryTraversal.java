@@ -1,4 +1,4 @@
-package dev.sonle.githubloc.util;
+package dev.sonle.githubloc.io;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -7,8 +7,10 @@ import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
+import dev.sonle.githubloc.loc.LocProcessor;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
+
 import org.cthing.locc4j.FileCounter;
 
 

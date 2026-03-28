@@ -1,8 +1,7 @@
-package dev.sonle.githubloc.util;
+package dev.sonle.githubloc.loc;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;

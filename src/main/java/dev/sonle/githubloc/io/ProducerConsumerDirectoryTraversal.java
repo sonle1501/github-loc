@@ -1,4 +1,4 @@
-package dev.sonle.githubloc.util;
+package dev.sonle.githubloc.io;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -11,8 +11,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import dev.sonle.githubloc.loc.LocProcessor;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
+
 import org.cthing.locc4j.FileCounter;
 
 

@@ -156,7 +156,7 @@ public class FileNode {
     this("./", null, null);
   }
 
-  void show() {
+  public void show() {
     System.out.println("name: " + this.path);
   }
 
