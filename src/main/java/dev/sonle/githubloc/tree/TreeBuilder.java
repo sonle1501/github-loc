@@ -3,9 +3,9 @@ package dev.sonle.githubloc.tree;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import dev.sonle.githubloc.io.DirectoryBuilder;
-import dev.sonle.githubloc.io.DirectoryTraversal;
-import dev.sonle.githubloc.io.ProducerConsumerDirectoryTraversal;
+import dev.sonle.githubloc.filesystem.DirectoryBuilder;
+import dev.sonle.githubloc.filesystem.DirectoryTraversal;
+import dev.sonle.githubloc.filesystem.ProducerConsumerDirectoryTraversal;
 import dev.sonle.githubloc.loc.DirectoryLocProcessor;
 
 public class TreeBuilder {

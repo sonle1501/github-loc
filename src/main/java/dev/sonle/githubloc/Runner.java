@@ -3,7 +3,7 @@ package dev.sonle.githubloc;
 import dev.sonle.githubloc.RunOptions.Mode;
 import dev.sonle.githubloc.RunOptions.SortArgument;
 import dev.sonle.githubloc.api.RepoDownloader;
-import dev.sonle.githubloc.io.Unzip;
+import dev.sonle.githubloc.filesystem.Unzip;
 import dev.sonle.githubloc.multirepos.MultithreadingReposHandle;
 import dev.sonle.githubloc.output.JsonProcessor;
 import dev.sonle.githubloc.output.TreePrinter;

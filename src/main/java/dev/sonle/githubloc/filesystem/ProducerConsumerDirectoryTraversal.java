@@ -1,4 +1,4 @@
-package dev.sonle.githubloc.io;
+package dev.sonle.githubloc.filesystem;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;

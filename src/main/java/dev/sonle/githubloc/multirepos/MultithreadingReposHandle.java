@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 import dev.sonle.githubloc.RunOptions;
 import dev.sonle.githubloc.api.RepoDownloader;
 import dev.sonle.githubloc.api.UserInfoFetching;
-import dev.sonle.githubloc.io.Unzip;
+import dev.sonle.githubloc.filesystem.Unzip;
 import dev.sonle.githubloc.output.JsonProcessor;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;

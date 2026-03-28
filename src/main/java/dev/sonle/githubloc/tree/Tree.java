@@ -7,9 +7,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import dev.sonle.githubloc.io.DirectoryBuilder;
-import dev.sonle.githubloc.io.DirectoryTraversal;
-import dev.sonle.githubloc.io.ProducerConsumerDirectoryTraversal;
+import dev.sonle.githubloc.filesystem.DirectoryBuilder;
+import dev.sonle.githubloc.filesystem.DirectoryTraversal;
+import dev.sonle.githubloc.filesystem.ProducerConsumerDirectoryTraversal;
 import dev.sonle.githubloc.loc.DirectoryLocProcessor;
 
 
