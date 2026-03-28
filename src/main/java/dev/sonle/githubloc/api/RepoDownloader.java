@@ -14,11 +14,12 @@ import dev.sonle.githubloc.filesystem.SizeFormatter;
 
 public class RepoDownloader {
   
-  public void downloadRepo(Path location, String userName, String repoName){
+  public long downloadRepo(Path location, String userName, String repoName){
     try{
       HttpResponse<InputStream> response = getResponse(userName, repoName);
       try (InputStream repoContent = response.body()){
-        locateRepo(location, repoContent);
+        long downloadedSize = locateRepo(location, repoContent);
+        return downloadedSize;
       }
     }
     catch(IOException | InterruptedException e){
@@ -65,10 +66,11 @@ public class RepoDownloader {
     return GithubTokenProcessor.getToken();
   }
 
-  private void locateRepo(Path location, InputStream repoContent) throws IOException {
+  private long locateRepo(Path location, InputStream repoContent) throws IOException {
     long bytesCopied =
         Files.copy(repoContent, location, StandardCopyOption.REPLACE_EXISTING);
     System.out.println("Successfully saved ~" + new SizeFormatter().convertSize(bytesCopied) + " at " + location);
+    return bytesCopied;
   }
 
   public class RepoDownloadException extends RuntimeException {

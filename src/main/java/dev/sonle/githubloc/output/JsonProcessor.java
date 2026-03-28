@@ -7,15 +7,16 @@ import java.util.List;
 import java.util.Map;
 
 import dev.sonle.githubloc.tree.FileNode;
+import dev.sonle.githubloc.tree.Tree;
 import tools.jackson.databind.ObjectMapper;
 
 public class JsonProcessor {
 
-  public void exportTreeToJson(Path jsonTarget, FileNode rootSoruce)
+  public void exportTreeToJson(Tree tree, String userName, String repoName, long repoSize, Path jsonTarget)
       throws IOException {
-
+    RepoReport repoReport = new RepoReport(tree, userName, repoName, repoSize).createRepoReport();
     ObjectMapper mapper = new ObjectMapper();
-    mapper.writeValue(new File(jsonTarget.toString()), rootSoruce);  // read tree dir recursively and write to target file
+    mapper.writeValue(new File(jsonTarget.toString()), repoReport);  // read tree dir recursively and write to target file
     System.out.println("Export Json Tree Dir completed !");
   }
 

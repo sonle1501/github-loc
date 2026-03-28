@@ -16,7 +16,7 @@ import dev.sonle.githubloc.tree.Tree;
 
 public class MultiReposHandle {
 
-  public record RepoTarget(String repoName, Path validPath) {
+  public record RepoTarget(String repoName, long sizeProcess, Path validPath) {
   }
 
   private final String userName;
@@ -71,7 +71,7 @@ public class MultiReposHandle {
     for (String name : repoNames) {
       Path targetPath = baseDir.resolve(name + suffix);
       if (Files.exists(targetPath)) {
-        RepoTarget repoInfo = new RepoTarget(name, targetPath);
+        RepoTarget repoInfo = new RepoTarget(name, 0, targetPath);
         listRepoInfo.add(repoInfo);
       } else {
         System.err.println("Warning: Expected path does not exist and will be skipped: " + targetPath);
@@ -132,7 +132,7 @@ public class MultiReposHandle {
       try {
         FileNode root = tree.getRoot();
         String name = root.getName();
-        jsonProcessor.exportTreeToJson(jsonResultsPath.resolve(name + ".json"), root);
+        jsonProcessor.exportTreeToJson(tree, userName, name, -1, jsonResultsPath.resolve(name + ".json"));  // repoSize = undefined
       } catch (IOException e) {
         System.err.println("Failed to process JSON for " + tree.getRoot().getName() +
             "'. Skipping to next. Reason: " + e.getMessage());

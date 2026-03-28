@@ -7,6 +7,8 @@ public class SizeFormatter {
     private static long GB = MB * 1024;
 
     public String convertSize(long sizeInByte) {
+        if (sizeInByte <= -1)
+            return "undefined";
         // if size < 100KB -> get size in KB
         if (sizeInByte < 100 * KB) {
             return String.format("%.2f KB", getSizeInKB(sizeInByte));

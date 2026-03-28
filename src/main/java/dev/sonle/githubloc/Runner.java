@@ -69,7 +69,7 @@ public class Runner {
 
   public void createTree() {
     try {
-      repoTree = Tree.buildTree(repoPath);
+      repoTree = Tree.buildTreeWithBatchProcessing(repoPath);
     } catch (IOException e) {
       System.err.println("Failed to create tree, program will be terminated");
       e.printStackTrace();
@@ -94,7 +94,8 @@ public class Runner {
 
   public void runJsonProcess(FileNode root) {
     try {
-      new JsonProcessor().exportTreeToJson(jsonPath, root);
+      JsonProcessor jsonProcessor = new JsonProcessor();
+      jsonProcessor.exportTreeToJson(repoTree, userName, repoName, repoSize, jsonPath);
     } catch (IOException e) {
       System.err.println("Failed to export Tree to Json");
       e.printStackTrace();

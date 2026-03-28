@@ -46,6 +46,7 @@ public class DirectoryTraversal {
           parentNode.addChild(node);
         }
         tree.addNodeToContainer(node);
+        tree.addFileToFileList(node);
 
         return FileVisitResult.CONTINUE;
       }

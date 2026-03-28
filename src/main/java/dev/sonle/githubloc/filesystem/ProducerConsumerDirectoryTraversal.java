@@ -71,7 +71,7 @@ public class ProducerConsumerDirectoryTraversal {
           parentNode.addChild(node);
         }
         tree.addNodeToContainer(node);
-
+        tree.addFileToFileList(node);
 
         return FileVisitResult.CONTINUE;
       }

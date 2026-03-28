@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -100,6 +103,45 @@ public class DirectoryLocProcessor {
                 rootNode.mergeLocByLang(node.getLocByLang());
             }
         }
+    }
+
+    public String getMostUsedLanguage(FileNode root) {
+        Map<String, Integer> locByLang = root.getLocByLang();
+        int maxLoc = -1;
+        String lang = null;
+        for (Map.Entry<String, Integer> entry : locByLang.entrySet()) {
+            int currentLoc = entry.getValue();
+            if (currentLoc > maxLoc) {
+                maxLoc = currentLoc;
+                lang = entry.getKey();
+            }
+        }
+        return lang;
+    }
+
+    public Map<String, String> getPercentageUsedLanguage(FileNode root){
+        Map<String, Integer> locByLang = root.getLocByLang();
+        int totalLoc = root.getLoc();
+        Map<String, String> percentageMap = new LinkedHashMap<>();
+
+        //Avoid division by zero
+        if (totalLoc == 0 || locByLang == null || locByLang.isEmpty()) {
+            return percentageMap;
+        }
+
+        List<Map.Entry<String, Integer>> sortedEntries = new ArrayList<>(locByLang.entrySet());
+        Collections.sort(sortedEntries, (entry1, entry2) -> 
+            entry2.getValue().compareTo(entry1.getValue())  // reversed order
+        );
+
+        for (Map.Entry<String, Integer> entry : sortedEntries) {
+            String language = entry.getKey();
+            int langLoc = entry.getValue();
+            float percentage = (langLoc * 100.0f) / totalLoc;
+            String formattedPercentage = String.format("%.2f%%", percentage);
+            percentageMap.put(language, formattedPercentage);
+        }
+        return percentageMap;
     }
 
     public static void main(String[] args) {

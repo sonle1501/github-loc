@@ -12,6 +12,7 @@ import java.util.concurrent.Executors;
 import dev.sonle.githubloc.RunOptions;
 import dev.sonle.githubloc.api.RepoDownloader;
 import dev.sonle.githubloc.api.UserInfoFetching;
+import dev.sonle.githubloc.filesystem.SizeFormatter;
 import dev.sonle.githubloc.filesystem.Unzip;
 import dev.sonle.githubloc.output.JsonProcessor;
 import dev.sonle.githubloc.tree.FileNode;
@@ -19,7 +20,7 @@ import dev.sonle.githubloc.tree.Tree;
 
 public class MultithreadingReposHandle {
 
-  public record RepoTarget(String repoName, Path validPath) {
+  public record RepoTarget(String repoName, long sizeProcess, Path validPath) {
   }
 
   private String userName;
@@ -74,8 +75,8 @@ public class MultithreadingReposHandle {
   private CompletableFuture<Void> runWorkflowForRepo(String repoName, ExecutorService cpuExecutor, ExecutorService ioExecutor) {
     CompletableFuture<Void> workflow = CompletableFuture
         .supplyAsync(() -> runSingleDownload(repoName), ioExecutor) // I/O task, need more threads
-        .thenApplyAsync(zipPath -> runSingileUnzip(zipPath), ioExecutor) // I/O task, need more threads
-        .thenAcceptAsync(repoPath -> runSingleJsonProcess(repoPath), cpuExecutor) // calculating task, need stable 
+        .thenApplyAsync(repoInfo -> runSingileUnzip(repoInfo), ioExecutor) // I/O task, need more threads
+        .thenAcceptAsync(repoInfo -> runSingleJsonProcess(repoInfo), cpuExecutor) // calculating task, need stable 
         .exceptionally(ex -> {
           System.err.println("Failed processing pipeline for '" + repoName + "': " + ex.getMessage());
           return null; // Continue processing
@@ -86,8 +87,8 @@ public class MultithreadingReposHandle {
   private RepoTarget runSingleDownload(String repoName) {
     RepoDownloader repoDownloader = new RepoDownloader();
     Path donwloadPath = zipReposPath.resolve(repoName + ".zip");
-    repoDownloader.downloadRepo(donwloadPath, userName, repoName);
-    return new RepoTarget(repoName, donwloadPath);
+    long downloadedSize = repoDownloader.downloadRepo(donwloadPath, userName, repoName);
+    return new RepoTarget(repoName, downloadedSize, donwloadPath);
   }
 
   private RepoTarget runSingileUnzip(RepoTarget repoInfo) {
@@ -96,8 +97,8 @@ public class MultithreadingReposHandle {
       Path sourceZipRepoPath = repoInfo.validPath();
       Path destRepoPath = reposPath.resolve(repoInfo.repoName());
       System.out.println("Starting unzip for " + sourceZipRepoPath);
-      unzipRepo.unzip(sourceZipRepoPath, destRepoPath); 
-      return new RepoTarget(repoInfo.repoName(), destRepoPath);
+      long repoSizeOnDisk = unzipRepo.unzip(sourceZipRepoPath, destRepoPath); 
+      return new RepoTarget(repoInfo.repoName(), repoSizeOnDisk, destRepoPath);
     } catch (IOException e) {
       System.err.println("Failed to unzip repo '" + repoInfo.repoName() +
           "'. Skipping to next. Reason: " + e.getMessage());
@@ -111,8 +112,9 @@ public class MultithreadingReposHandle {
       try {
         JsonProcessor jsonProcessor = new JsonProcessor();
         FileNode root = repoTree.getRoot();
-        String name = root.getName();
-        jsonProcessor.exportTreeToJson(jsonResultsPath.resolve(name + ".json"), root); 
+        String repoName = root.getName();
+        long repoSize = repoInfo.sizeProcess();
+        jsonProcessor.exportTreeToJson(repoTree, userName, repoName, repoSize, jsonResultsPath.resolve(repoName + ".json")); 
       } catch (IOException e) {
         System.err.println("Failed to process JSON for " + repoTree.getRoot().getName() +
             "'. Skipping to next. Reason: " + e.getMessage());
