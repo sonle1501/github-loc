@@ -68,26 +68,6 @@ public class DirectoryTraversal {
     return tree;
   }
 
-  // count LOC for folder
-  public void countLocFolder(FileNode rootNode) {
-    for (FileNode node : rootNode.getChilds()) {
-      if (node.getChilds().size() > 0) { // is folder
-        countLocFolder(node);
-        rootNode.updateLoc(node.getLoc());
-        rootNode.updateComments(node.getComments());
-        rootNode.updateBlanks(node.getBlanks());
-        rootNode.mergeLanguageSet(node.getLanguageSet());
-        rootNode.mergeLocByLang(node.getLocByLang());
-      } else { // is file or emtpy folder
-        rootNode.updateLoc(node.getLoc());
-        rootNode.updateComments(node.getComments());
-        rootNode.updateBlanks(node.getBlanks());
-        rootNode.mergeLanguageSet(node.getLanguageSet());
-        rootNode.mergeLocByLang(node.getLocByLang());
-      }
-    }
-  }
-
   public static void main(String[] args) {
     try {
       // String path = "src/main/resources/repos/locc4j";

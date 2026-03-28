@@ -91,26 +91,6 @@ public class ProducerConsumerDirectoryTraversal {
     return tree;
   }
 
-  // count LOC for folder
-  public void countLocFolder(FileNode rootNode) {
-    for (FileNode node : rootNode.getChilds()) {
-      if (node.getChilds().size() > 0) { // "folder" need to count LOC
-        countLocFolder(node);
-        rootNode.updateLoc(node.getLoc());
-        rootNode.updateComments(node.getComments());
-        rootNode.updateBlanks(node.getBlanks());
-        rootNode.mergeLanguageSet(node.getLanguageSet());
-        rootNode.mergeLocByLang(node.getLocByLang());
-      } else { // file or emtpy folder
-        rootNode.updateLoc(node.getLoc());
-        rootNode.updateComments(node.getComments());
-        rootNode.updateBlanks(node.getBlanks());
-        rootNode.mergeLanguageSet(node.getLanguageSet());
-        rootNode.mergeLocByLang(node.getLocByLang());
-      }
-    }
-  }
-
   public void countLocFolderMultithreading(FileNode rootNode){
     int cores = Runtime.getRuntime().availableProcessors();
     ExecutorService executor = Executors.newFixedThreadPool(cores);

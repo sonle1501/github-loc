@@ -63,18 +63,20 @@ public class Tree {
   public static Tree buildTree(Path startPath) throws IOException {
     Tree tree = new Tree();
     ProducerConsumerDirectoryTraversal directoryTraversal = new ProducerConsumerDirectoryTraversal();
+    DirectoryLocProcessor directoryLocProcessor = new DirectoryLocProcessor();
     directoryTraversal.traverse(startPath, tree);
     tree.setRoot(tree.getNode(startPath));
-    directoryTraversal.countLocFolder(tree.getRoot());
+    directoryLocProcessor.countLocFolder(tree.getRoot());
     return tree;
   }
 
   public static Tree buildTreeSequential(Path startPath) throws IOException {
     Tree tree = new Tree();
     DirectoryTraversal directoryTraversal = new DirectoryTraversal();
+    DirectoryLocProcessor directoryLocProcessor = new DirectoryLocProcessor();
     directoryTraversal.traverse(startPath, tree);
     tree.setRoot(tree.getNode(startPath));
-    directoryTraversal.countLocFolder(tree.getRoot());
+    directoryLocProcessor.countLocFolder(tree.getRoot());
     return tree;
   }
 
