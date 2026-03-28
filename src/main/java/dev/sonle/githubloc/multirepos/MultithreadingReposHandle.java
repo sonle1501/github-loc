@@ -17,6 +17,7 @@ import dev.sonle.githubloc.filesystem.Unzip;
 import dev.sonle.githubloc.output.JsonProcessor;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
+import dev.sonle.githubloc.tree.TreeBuilder;
 
 public class MultithreadingReposHandle {
 
@@ -108,7 +109,7 @@ public class MultithreadingReposHandle {
 
   private void runSingleJsonProcess(RepoTarget repoInfo) {
     try {
-      Tree repoTree = Tree.buildTreeSequential(repoInfo.validPath());
+        Tree repoTree = new TreeBuilder().buildTreeSequential(repoInfo.validPath());
       try {
         JsonProcessor jsonProcessor = new JsonProcessor();
         FileNode root = repoTree.getRoot();

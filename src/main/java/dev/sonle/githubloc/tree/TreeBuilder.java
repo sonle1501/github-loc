@@ -9,7 +9,7 @@ import dev.sonle.githubloc.filesystem.ProducerConsumerDirectoryTraversal;
 import dev.sonle.githubloc.loc.DirectoryLocProcessor;
 
 public class TreeBuilder {
-     public Tree buildTree(Path startPath) throws IOException {
+  public Tree buildTree(Path startPath) throws IOException {
     Tree tree = new Tree();
     ProducerConsumerDirectoryTraversal directoryTraversal = new ProducerConsumerDirectoryTraversal();
     DirectoryLocProcessor directoryLocProcessor = new DirectoryLocProcessor();

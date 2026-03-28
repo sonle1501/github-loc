@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import dev.sonle.githubloc.filesystem.DirectoryTraversal;
+import dev.sonle.githubloc.loc.DirectoryLocProcessor;
 import dev.sonle.githubloc.output.JsonProcessor;
 import dev.sonle.githubloc.output.TreePrinter;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
+import dev.sonle.githubloc.tree.TreeBuilder;
 
 public class RepoSorter {
   private Path repoPath;
@@ -28,11 +30,11 @@ public class RepoSorter {
 
   public void processNodesSortedByMostUsedLanguage() {
     try {
-      Tree tree = Tree.buildTree(repoPath);
+      Tree tree = new TreeBuilder().buildTree(repoPath);
       FilesSorter filesSorter = new FilesSorter();
       JsonProcessor jsonProcessor = new JsonProcessor();
-      List<FileNode> orderedNodes = filesSorter.sortNodeSameLanguage(tree.getNodeContainer(),
-          tree.getMostUsedLanguage());
+      String mostUsedLanguage = new DirectoryLocProcessor().getMostUsedLanguage(tree.getRoot());
+      List<FileNode> orderedNodes = filesSorter.sortNodeSameLanguage(tree.getNodeContainer(), mostUsedLanguage);
       String name = repoName == null ? tree.getRoot().getName() : repoName;
       String orderedListJsonFile = "storage/json-results/" + "ordered-list-in-same-lang-" + name
           + ".json";
@@ -46,7 +48,7 @@ public class RepoSorter {
 
   public void processNodesSortedByUsedLanguage() {
     try {
-      Tree tree = Tree.buildTree(repoPath);
+      Tree tree = new TreeBuilder().buildTree(repoPath);
       FilesSorter filesSorter = new FilesSorter();
       JsonProcessor jsonProcessor = new JsonProcessor();
       Map<String, List<FileNode>> nodeListSortedByLang = filesSorter.sortNodeByLang(tree.getNodeContainer(),

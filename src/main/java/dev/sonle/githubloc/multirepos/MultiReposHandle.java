@@ -13,6 +13,7 @@ import dev.sonle.githubloc.filesystem.Unzip;
 import dev.sonle.githubloc.output.JsonProcessor;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
+import dev.sonle.githubloc.tree.TreeBuilder;
 
 public class MultiReposHandle {
 
@@ -110,7 +111,7 @@ public class MultiReposHandle {
     List<Tree> repoTrees = new ArrayList<>();
     for (RepoTarget repoInfo : validRepos) {
       try {
-        Tree repoTree = Tree.buildTree(repoInfo.validPath());
+        Tree repoTree = new TreeBuilder().buildTree(repoInfo.validPath());
         repoTrees.add(repoTree);
       } catch (IOException e) {
         System.err.println("Failed to process Tree for '" + repoInfo.repoName() +

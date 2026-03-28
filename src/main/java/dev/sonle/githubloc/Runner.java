@@ -10,6 +10,7 @@ import dev.sonle.githubloc.output.TreePrinter;
 import dev.sonle.githubloc.sort.RepoSorter;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
+import dev.sonle.githubloc.tree.TreeBuilder;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -69,7 +70,7 @@ public class Runner {
 
   public void createTree() {
     try {
-      repoTree = Tree.buildTreeWithBatchProcessing(repoPath);
+      repoTree = new TreeBuilder().buildTreeWithBatchProcessing(repoPath);
     } catch (IOException e) {
       System.err.println("Failed to create tree, program will be terminated");
       e.printStackTrace();
