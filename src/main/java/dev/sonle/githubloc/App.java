@@ -8,6 +8,8 @@ public class App {
         // args = new String[]{"sonle1501/github-loc", "-a", "sort"};
     }
     try {
+      System.out.println(ArtAscii.getTitle());
+      System.out.println(ArtAscii.getSeperator());
       RunOptions options = RunOptions.parse(args); // use cmd args
       Runner r = new Runner(options);
       r.runApp();
