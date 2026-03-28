@@ -9,10 +9,11 @@ import java.util.zip.ZipInputStream;
 
 public class Unzip {
 
-    public void unzip(Path sourceZipRepo, Path destRepoPath) throws IOException {
+    public long unzip(Path sourceZipRepo, Path destRepoPath) throws IOException {
         
         Path targetDir = destRepoPath.toAbsolutePath().normalize();
         Files.createDirectories(targetDir);
+        long repoSizeInBytes = 0;
 
         try (ZipInputStream zipRepoInputStream = new ZipInputStream(Files.newInputStream(sourceZipRepo))){
             ZipEntry entry;
@@ -32,12 +33,13 @@ public class Unzip {
                     
                     // unzip process: copy content from zipstream to target path
                     Files.copy(zipRepoInputStream, resolvedDestPath, StandardCopyOption.REPLACE_EXISTING);
+                    repoSizeInBytes += Files.size(resolvedDestPath);
                 }
                 
                 zipRepoInputStream.closeEntry();
             }
         }
-        
-        System.out.println("Unzip completed successfully at: " + targetDir);
+        System.out.println("Successfully unzip " + new SizeFormatter().convertSize(repoSizeInBytes) + " at: " + targetDir);
+        return repoSizeInBytes;
     }
 }

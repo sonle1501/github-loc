@@ -10,6 +10,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
+import dev.sonle.githubloc.filesystem.SizeFormatter;
+
 public class RepoDownloader {
   
   public void downloadRepo(Path location, String userName, String repoName){
@@ -66,7 +68,7 @@ public class RepoDownloader {
   private void locateRepo(Path location, InputStream repoContent) throws IOException {
     long bytesCopied =
         Files.copy(repoContent, location, StandardCopyOption.REPLACE_EXISTING);
-    System.out.println("Successfully saved ~" + bytesCopied / 1000 + "KB at " + location);
+    System.out.println("Successfully saved ~" + new SizeFormatter().convertSize(bytesCopied) + " at " + location);
   }
 
   public class RepoDownloadException extends RuntimeException {

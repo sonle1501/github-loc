@@ -20,6 +20,7 @@ import java.nio.file.Paths;
 public class Runner {
   private String repoName;
   private String userName;
+  private long repoSize;
   private Path baseRepoPath = Paths.get("storage", "repos");
   private Path baseZipPath = Paths.get("storage", "zip-repos");
   private Path baseJsonPath = Paths.get("storage", "json-results");
@@ -82,7 +83,8 @@ public class Runner {
 
   public void runUnzip() {
     try {
-      new Unzip().unzip(zipPath, repoPath);
+      Unzip unzipHandler = new Unzip();
+      this.repoSize = unzipHandler.unzip(zipPath, repoPath);
     } catch (IOException e) {
       System.err.println("Failed to unzip repo");
       e.printStackTrace();
