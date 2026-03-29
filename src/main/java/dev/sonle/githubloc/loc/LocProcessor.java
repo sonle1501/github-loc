@@ -7,9 +7,9 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.cthing.locc4j.Counts;
-import org.cthing.locc4j.FileCounter;
-import org.cthing.locc4j.Language;
+import dev.sonle.githubloc.locc4j.Counts;
+import dev.sonle.githubloc.locc4j.FileCounter;
+import dev.sonle.githubloc.locc4j.Language;
 
 // using locc4j 
 public class LocProcessor {
