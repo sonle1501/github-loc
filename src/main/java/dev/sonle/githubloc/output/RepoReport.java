@@ -43,8 +43,16 @@ public class RepoReport {
         totalNodes = repoTree.getNodeContainer().size();
         rootNode = repoTree.getRoot();
         totalLoc = rootNode.getLoc();
-        repoURL = String.format("https://github.com/%s/%s", userName, repoName);
         percentageOfUsedLanguage = new DirectoryLocProcessor().getPercentageUsedLanguage(rootNode);
+
+        if ("local-user".equalsIgnoreCase(userName) || userName == null)
+            repoURL = null;
+        else
+            repoURL = String.format("https://github.com/%s/%s", userName, repoName);
+
+        if ("undefined".equalsIgnoreCase(repoSize))
+            repoSize = null;
+        
         scanDate = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         return this;
     }

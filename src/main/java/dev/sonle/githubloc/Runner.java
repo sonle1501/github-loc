@@ -93,7 +93,7 @@ public class Runner {
 
   }
 
-  public void runJsonProcess(FileNode root) {
+  public void runJsonProcess() {
     try {
       JsonProcessor jsonProcessor = new JsonProcessor();
       jsonProcessor.exportTreeToJson(repoTree, userName, repoName, repoSize, jsonPath);
@@ -132,6 +132,12 @@ public class Runner {
       return;
     }
 
+    if (options.getMode() == Mode.LOCAL){
+      LocalRunner localRunner = new LocalRunner();
+      localRunner.runLocal(options);
+      return;
+    }
+
     if (options.getMode() == Mode.TEST) {
       // do something
       options.setUserName("sonle1501");
@@ -158,7 +164,7 @@ public class Runner {
           runDownload();
           runUnzip();
           createTree();
-          runJsonProcess(repoTree.getRoot());
+          runJsonProcess();
         }
         case SORT -> {
           runDownload();
@@ -174,7 +180,7 @@ public class Runner {
           runDownload();
           runUnzip();
           createTree();
-          runJsonProcess(repoTree.getRoot());
+          runJsonProcess();
           showTree();
         }
         default -> throw new IllegalArgumentException("Invalid action");
