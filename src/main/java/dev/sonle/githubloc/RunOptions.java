@@ -77,7 +77,7 @@ public class RunOptions {
     System.out.println("Enter your command (for example: sonle1501/github-loc) :");
     String input = in.nextLine();
     String[] args = input.split(" ");
-    in.close();
+    // in.close();
     return args;
   }
 

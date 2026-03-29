@@ -54,6 +54,7 @@
     </dependency>
 
     <!-- loc counter built in java : https://github.com/cthing/locc4j
+     has integrated to the source code, under the package dev.sonle.githubloc.locc4j
     <dependency>
       <groupId>org.cthing</groupId>
       <artifactId>locc4j</artifactId>
