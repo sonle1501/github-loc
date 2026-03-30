@@ -8,3 +8,4 @@ release/
 dependency-reduced-pom.xml
 *.log
 token.properties
+agent/
