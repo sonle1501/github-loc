@@ -7,7 +7,7 @@ public class App {
     if (args.length == 0) { // no provided command line
       args = RunOptions.parseConsoleInput();
 
-      // args = new String[]{"sonle1501/github-loc", "-a", "sort"};
+      // args = new String[]{"local", "ghloc", "sort"};
     }
     try {
       System.out.println(ConsoleOutput.getAsciiTitle());

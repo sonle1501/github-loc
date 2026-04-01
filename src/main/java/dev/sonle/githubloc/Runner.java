@@ -138,8 +138,7 @@ public class Runner {
       return;
     }
 
-    if (options.getMode() == Mode.TEST) {
-      // do something
+    if (options.getMode() == Mode.DEFAULT) {
       options.setUserName("sonle1501");
       options.setRepoName("github-loc");
     }

@@ -8,7 +8,7 @@ public class RunOptions {
     USER,
     REPO,
     LOCAL,
-    TEST
+    DEFAULT
   }
 
   public enum Action {
@@ -82,11 +82,11 @@ public class RunOptions {
   }
 
   // valid github repo identity : spring-projects/spring-boot
-  public static RunOptions parseRepoHelper(String args[]) {
+  private static RunOptions parseHelper(String args[]) {
     RunOptions options = new RunOptions();
 
     if (args.length == 0) {
-      options.setMode(Mode.TEST);
+      options.setMode(Mode.DEFAULT);
       return options;
     }
 
@@ -98,13 +98,13 @@ public class RunOptions {
     String firstArg = args[0];
     String[] parts = firstArg.split("/");
 
-    if (parts.length == 1) {
+    if (parts.length == 1 && parts[0].strip() != "") {
       options.setUserName(parts[0]);
       options.setMode(Mode.USER);
       return options;
     }
 
-    if (parts.length == 2) {
+    if (parts.length == 2 && !parts[0].strip().isEmpty() && !parts[1].strip().isEmpty()) {
       options.setUserName(parts[0]);
       options.setRepoName(parts[1]);
       return options;
@@ -167,8 +167,8 @@ public class RunOptions {
   }
 
   public static RunOptions parse(String[] args) {
-    RunOptions options = parseRepoHelper(args);
-    if (options.getMode() == Mode.TEST || options.getMode() == Mode.USER || options.getMode() == Mode.LOCAL) {
+    RunOptions options = parseHelper(args);
+    if (options.getMode() == Mode.DEFAULT || options.getMode() == Mode.USER || options.getMode() == Mode.LOCAL) {
       return options;
     }
 
