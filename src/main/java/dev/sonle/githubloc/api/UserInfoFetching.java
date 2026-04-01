@@ -49,6 +49,8 @@ public class UserInfoFetching {
             Thread.currentThread().interrupt(); // good practice
             return null;
         }
+        if (repos == null || repos.isEmpty())
+            throw new IllegalArgumentException("No repositories found for this user");
         return repos;
     }
 
