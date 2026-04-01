@@ -111,7 +111,7 @@ public class RunOptions {
     }
 
     else {
-      throw new IllegalArgumentException("Invalid repo format. Expected: user/repo");
+      throw new IllegalArgumentException("Invalid command");
     }
   }
 
@@ -151,10 +151,10 @@ public class RunOptions {
       try {
         options.setAction(Action.valueOf(actionType.toUpperCase()));
       } catch (IllegalArgumentException e) {
-        throw new IllegalArgumentException("Invalid action");
+        throw new IllegalArgumentException("Invalid action in a command");
       }
     } else {
-      throw new IllegalArgumentException("invalid arguments");
+      throw new IllegalArgumentException("Invalid arguments in a command");
     }
   }
 

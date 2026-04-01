@@ -8,7 +8,6 @@ import dev.sonle.githubloc.multirepos.MultithreadingReposHandle;
 import dev.sonle.githubloc.output.JsonProcessor;
 import dev.sonle.githubloc.output.TreePrinter;
 import dev.sonle.githubloc.sort.RepoSorter;
-import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
 import dev.sonle.githubloc.tree.TreeBuilder;
 
@@ -72,7 +71,7 @@ public class Runner {
     try {
       repoTree = new TreeBuilder().buildTreeWithBatchProcessing(repoPath);
     } catch (IOException e) {
-      System.err.println("Failed to create tree, program will be terminated");
+      System.err.println("Failed to create the tree of: " + repoName +  "repo" + ", the program had to stop");
       e.printStackTrace();
       throw new RuntimeException(e);
     }
@@ -87,7 +86,7 @@ public class Runner {
       Unzip unzipHandler = new Unzip();
       this.repoSize = unzipHandler.unzip(zipPath, repoPath);
     } catch (IOException e) {
-      System.err.println("Failed to unzip repo");
+      System.err.println("Failed to unzip:" + repoName +  "repo");
       e.printStackTrace();
     }
 
@@ -98,7 +97,7 @@ public class Runner {
       JsonProcessor jsonProcessor = new JsonProcessor();
       jsonProcessor.exportTreeToJson(repoTree, userName, repoName, repoSize, jsonPath);
     } catch (IOException e) {
-      System.err.println("Failed to export Tree to Json");
+      System.err.println("Failed to export the json results of: " + repoName +  "repo");
       e.printStackTrace();
     }
   }

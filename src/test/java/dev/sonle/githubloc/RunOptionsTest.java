@@ -1,11 +1,9 @@
 package dev.sonle.githubloc;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 import dev.sonle.githubloc.RunOptions.Mode;
 import dev.sonle.githubloc.RunOptions.Action;

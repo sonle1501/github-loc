@@ -12,7 +12,6 @@ import java.util.concurrent.Executors;
 import dev.sonle.githubloc.RunOptions;
 import dev.sonle.githubloc.api.RepoDownloader;
 import dev.sonle.githubloc.api.UserInfoFetching;
-import dev.sonle.githubloc.filesystem.SizeFormatter;
 import dev.sonle.githubloc.filesystem.Unzip;
 import dev.sonle.githubloc.output.JsonProcessor;
 import dev.sonle.githubloc.tree.FileNode;
@@ -97,7 +96,6 @@ public class MultithreadingReposHandle {
     try {
       Path sourceZipRepoPath = repoInfo.validPath();
       Path destRepoPath = reposPath.resolve(repoInfo.repoName());
-      System.out.println("Starting unzip for " + sourceZipRepoPath);
       long repoSizeOnDisk = unzipRepo.unzip(sourceZipRepoPath, destRepoPath); 
       return new RepoTarget(repoInfo.repoName(), repoSizeOnDisk, destRepoPath);
     } catch (IOException e) {
@@ -115,7 +113,9 @@ public class MultithreadingReposHandle {
         FileNode root = repoTree.getRoot();
         String repoName = root.getName();
         long repoSize = repoInfo.sizeProcess();
-        jsonProcessor.exportTreeToJson(repoTree, userName, repoName, repoSize, jsonResultsPath.resolve(repoName + ".json")); 
+        Path jsonTarget = jsonResultsPath.resolve(repoName + ".json");
+        jsonProcessor.exportTreeToJson(repoTree, userName, repoName, repoSize, jsonTarget); 
+        System.out.println("Successfully exported the tree diretory of " + repoName + "at: " + jsonTarget.toString());
       } catch (IOException e) {
         System.err.println("Failed to process JSON for " + repoTree.getRoot().getName() +
             "'. Skipping to next. Reason: " + e.getMessage());
@@ -124,6 +124,5 @@ public class MultithreadingReposHandle {
       System.err.println("Failed to process Tree for '" + repoInfo.repoName() +
           "'. Skipping to next. Reason: " + e.getMessage());
     }
-
   }
 }

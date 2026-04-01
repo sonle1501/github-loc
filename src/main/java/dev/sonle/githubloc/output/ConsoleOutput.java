@@ -23,7 +23,7 @@ public class ConsoleOutput {
     public static void waitForExit() {
         try {
             System.out.println(getSeperator());
-            System.out.println("Execution finished. Press Enter to exit...");
+            System.out.println("The program is finished. Press Enter to exit...");
             System.in.read();
         } catch (java.io.IOException e) {
         }

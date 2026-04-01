@@ -34,13 +34,13 @@ public class UserInfoFetching {
                 }
 
             } catch (JacksonException e) {
-                System.err.println("JSON parsing error while reading response");
+                System.err.println("JSON parsing error while reading response on proessing repo names task");
                 System.err.println("Error: " + e.getMessage());
                 return null;
             }
 
         } catch (IOException e) {
-            System.err.println("IO error while fetching response");
+            System.err.println("IO error while fetching response on proessing repo names task");
             System.err.println("Error: " + e.getMessage());
             return null;
 

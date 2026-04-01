@@ -17,8 +17,8 @@ public class App {
       r.runApp();
       ConsoleOutput.waitForExit();
     } catch (IllegalArgumentException e) {
+      System.err.println("\n[!] The application had to stop.");;
       System.err.println("Error: " + e.getMessage());
-      System.err.println("Command: java -jar app.jar user/repo [-a action]");
     }
   }
 }

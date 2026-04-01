@@ -6,7 +6,6 @@ import dev.sonle.githubloc.locc4j.Counts;
 import dev.sonle.githubloc.locc4j.FileCounter;
 import dev.sonle.githubloc.locc4j.Language;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.mockito.MockedConstruction;
