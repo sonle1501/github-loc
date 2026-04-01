@@ -100,5 +100,11 @@ public class UserInfoFetching {
     }
 
     public static void main(String[] args) {
+        UserInfoFetching fetcher = new UserInfoFetching();
+        try {
+            System.out.println("Testing UserInfoFetching (fetching repos for sonle1501): " + fetcher.fetchRepoNames("sonle1501"));
+        } catch (Exception e) {
+            System.err.println("Failed to fetch: " + e.getMessage());
+        }
     }
 }

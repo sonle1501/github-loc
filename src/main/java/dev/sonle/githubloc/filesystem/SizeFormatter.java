@@ -34,4 +34,9 @@ public class SizeFormatter {
     public float getSizeInGB(long sizeInByte) {
         return (float) sizeInByte / GB;
     }
+
+    public static void main(String[] args) {
+        SizeFormatter formatter = new SizeFormatter();
+        System.out.println("1048576 bytes: " + formatter.convertSize(1048576));
+    }
 }

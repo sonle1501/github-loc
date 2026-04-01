@@ -28,4 +28,8 @@ public class ConsoleOutput {
         } catch (java.io.IOException e) {
         }
     }
+
+    public static void main(String[] args) {
+        System.out.println(ConsoleOutput.getAsciiTitle());
+    }
 }

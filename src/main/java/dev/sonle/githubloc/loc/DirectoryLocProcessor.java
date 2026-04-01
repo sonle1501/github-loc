@@ -145,8 +145,12 @@ public class DirectoryLocProcessor {
     }
 
     public static void main(String[] args) {
-        int a = 8;
-        int b = 3;
-        System.out.println(a / b);
+        DirectoryLocProcessor processor = new DirectoryLocProcessor();
+        FileNode root = new FileNode("storage\\repos\\github-loc", "github-loc", null);
+        root.getLocByLang().put("Java", 100);
+        root.getLocByLang().put("Python", 50);
+        root.setLoc(150);
+        System.out.println("Most used language: " + processor.getMostUsedLanguage(root));
+        System.out.println("Percentage: " + processor.getPercentageUsedLanguage(root));
     }
 }

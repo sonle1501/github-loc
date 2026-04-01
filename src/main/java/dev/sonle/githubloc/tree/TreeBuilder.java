@@ -2,6 +2,7 @@ package dev.sonle.githubloc.tree;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import dev.sonle.githubloc.filesystem.DirectoryBuilder;
 import dev.sonle.githubloc.filesystem.DirectoryTraversal;
@@ -38,5 +39,14 @@ public class TreeBuilder {
     directoryLocProcessor.processLocOnFileList(tree.getFileList());
     directoryLocProcessor.countLocFolder(tree.getRoot());
     return tree;
+  }
+  public static void main(String[] args) {
+    try {
+      TreeBuilder builder = new TreeBuilder();
+      Tree tree = builder.buildTreeSequential(Paths.get("storage\\repos\\github-loc"));
+      System.out.println("Tree built successfully, total files: " + tree.getFileList().size());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }

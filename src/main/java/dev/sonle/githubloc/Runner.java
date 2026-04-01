@@ -188,4 +188,14 @@ public class Runner {
       e.printStackTrace();
     }
   }
+
+  public static void main(String[] args) {
+    try {
+        Runner runner = new Runner("sonle1501", "github-loc");
+        System.out.println("Starting Runner for test repo sonle1501/github-loc...");
+        runner.runApp();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+  }
 }

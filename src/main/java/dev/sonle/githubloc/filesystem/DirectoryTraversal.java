@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
@@ -73,13 +74,11 @@ public class DirectoryTraversal {
 
   public static void main(String[] args) {
     try {
-      // String path = "src/main/resources/repos/locc4j";
-      String path = ".";
-      // Tree tree = DirectoryTranversal.tranverse(path,new Tree());
-      // tree.showTree();
-      // Map <String, String> map = new HashMap<>();
+      DirectoryTraversal traversal = new DirectoryTraversal();
+      Tree tree = traversal.traverse(Paths.get("storage\\repos\\github-loc"), new Tree());
+      System.out.println("Directory traversal successful, root contains files/folders: \n" + tree.getNodeContainer());
     } catch (Exception e) {
-      System.err.println("tranvesre failed: " + e.getMessage());
+      System.err.println("traverse failed: " + e.getMessage());
     }
   }
 }

@@ -91,4 +91,15 @@ public class FilesSorter {
     });
     return listNode;
   }
+
+  public static void main(String[] args) {
+    FilesSorter sorter = new FilesSorter();
+    java.util.Map<String, FileNode> nodeContainer = new java.util.HashMap<>();
+    FileNode node1 = new FileNode("path1", "file1", null); node1.setLoc(100);
+    FileNode node2 = new FileNode("path2", "file2", null); node2.setLoc(200);
+    nodeContainer.put("path1", node1);
+    nodeContainer.put("path2", node2);
+    java.util.List<FileNode> sorted = sorter.sortNodeContainerByLoc(nodeContainer);
+    System.out.println("Highest LOC: " + sorted.get(0).getLoc());
+  }
 }

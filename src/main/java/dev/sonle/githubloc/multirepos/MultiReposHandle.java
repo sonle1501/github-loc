@@ -141,4 +141,11 @@ public class MultiReposHandle {
 
     }
   }
+
+  public static void main(String[] args) {
+    RunOptions options = new RunOptions();
+    options.setUserName("sonle1501");
+    MultiReposHandle handle = new MultiReposHandle(options);
+    System.out.println("Initialized MultiReposHandle for " + options.getUserName());
+  }
 }

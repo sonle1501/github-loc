@@ -130,4 +130,18 @@ public class LocalRunner {
         RepoSorter repoSorter = new RepoSorter(repoPath, repoName);
         repoSorter.processNodesSortedByUsedLanguage();
     }
+
+    public static void main(String[] args) {
+        try {
+            RunOptions options = new RunOptions();
+            options.setMode(RunOptions.Mode.LOCAL);
+            options.setRepoName("github-loc");
+            options.setAction(RunOptions.Action.DEFAULT);
+            LocalRunner localRunner = new LocalRunner();
+            System.out.println("Starting LocalRunner for test local repo github-loc...");
+            localRunner.runLocal(options);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

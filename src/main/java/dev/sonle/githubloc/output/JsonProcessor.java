@@ -28,4 +28,16 @@ public class JsonProcessor {
     ObjectMapper mapper = new ObjectMapper();
     mapper.writeValue(new File(jsonTarget.toString()), nodeList);
   }
+  public static void main(String[] args) {
+    try {
+      JsonProcessor processor = new JsonProcessor();
+      Tree tree = new Tree(); // empty tree for test
+      FileNode root = new FileNode("storage\\repos\\github-loc", "root", null);
+      tree.setRoot(root);
+      processor.exportTreeToJson(tree, "testUser", "testRepo", 1024, Path.of("storage/json-results/test.json"));
+      System.out.println("Exported test JSON successfully");
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 }

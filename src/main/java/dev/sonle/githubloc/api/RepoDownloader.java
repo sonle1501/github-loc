@@ -8,6 +8,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import dev.sonle.githubloc.filesystem.SizeFormatter;
@@ -78,4 +79,10 @@ public class RepoDownloader {
         super(message, cause);
     }
   } 
+
+  public static void main(String[] args) {
+    RepoDownloader downloader = new RepoDownloader();
+    downloader.downloadRepo(Paths.get("storage/repos/github-loc"),"sonle1501","github-loc");
+    System.out.println("Initialized RepoDownloader for testing. " + downloader);
+  }
 }

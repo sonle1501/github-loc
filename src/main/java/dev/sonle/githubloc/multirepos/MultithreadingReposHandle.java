@@ -125,4 +125,11 @@ public class MultithreadingReposHandle {
           "'. Skipping to next. Reason: " + e.getMessage());
     }
   }
+
+  public static void main(String[] args) {
+    RunOptions options = new RunOptions();
+    options.setUserName("sonle1501");
+    MultithreadingReposHandle handle = new MultithreadingReposHandle(options);
+    System.out.println("Initialized MultithreadingReposHandle for " + options.getUserName());
+  }
 }

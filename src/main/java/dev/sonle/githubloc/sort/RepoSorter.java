@@ -39,7 +39,8 @@ public class RepoSorter {
       String orderedListJsonFile = "storage/json-results/" + "ordered-list-in-same-lang-" + name
           + ".json";
       jsonProcessor.exportOrderedListToJson(Paths.get(orderedListJsonFile), orderedNodes);
-      System.out.println("Successfully exported the ordered list by most used language of the " + name + " repo at: " + orderedListJsonFile);
+      System.out.println("Successfully exported the ordered list by most used language of the " + name + " repo at: "
+          + orderedListJsonFile);
       TreePrinter.printNodesFromList(orderedNodes);
     } catch (IOException e) {
       System.err.println("Failed to rank nodes by most used language. Reason: " + e.getMessage());
@@ -57,7 +58,8 @@ public class RepoSorter {
       String name = repoName == null ? tree.getRoot().getName() : repoName;
       String orderedListJsonFile = "storage/json-results/" + "ordered-list-by-lang-" + name + ".json";
       jsonProcessor.exportNodeListSortedByLangToJson(Paths.get(orderedListJsonFile), nodeListSortedByLang);
-      System.out.println("Successfully exported the ordered list group by used language of the " + name + " repo at: " + orderedListJsonFile);
+      System.out.println("Successfully exported the ordered list group by used language of the " + name + " repo at: "
+          + orderedListJsonFile);
       TreePrinter.printNodesFromMap(nodeListSortedByLang);
     } catch (IOException e) {
       System.err.println("Failed to rank nodes by used language. Reason: " + e.getMessage());
@@ -81,5 +83,10 @@ public class RepoSorter {
       System.err.println("Failed to rank nodes. Reason: " + e.getMessage());
       e.printStackTrace();
     }
+  }
+
+  public static void main(String[] args) {
+    RepoSorter repoSorter = new RepoSorter(Paths.get("storage\\repos\\github-loc"), "github-loc");
+    repoSorter.processNodesSortedByMostUsedLanguage();
   }
 }

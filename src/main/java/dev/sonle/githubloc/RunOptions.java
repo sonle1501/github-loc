@@ -184,4 +184,12 @@ public class RunOptions {
 
     return options;
   }
+
+  public static void main(String[] args) {
+    String[] testArgs = {"sonle1501/github-loc", "--action", "JSON"};
+    RunOptions testOptions = RunOptions.parse(testArgs);
+    System.out.println("Mode: " + testOptions.getMode());
+    System.out.println("Action: " + testOptions.getAction());
+    System.out.println("User: " + testOptions.getUserName() + ", Repo: " + testOptions.getRepoName());
+  }
 }
