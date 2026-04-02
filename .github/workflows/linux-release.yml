@@ -39,8 +39,13 @@ jobs:
       - name: Compress Linux App Image
         run: |
           cd release
-          # Compress the resulting folder into a tar.gz file for easy distribution
-          tar -czvf github-loc-linux.tar.gz github-loc-linux/
+          
+          # Print the contents of the release folder to the action logs for debugging
+          echo "Contents of the release folder:"
+          ls -la
+          
+          # Use a wildcard (*/) to dynamically grab whatever directory jpackage generated
+          tar -czvf github-loc-linux.tar.gz */
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
