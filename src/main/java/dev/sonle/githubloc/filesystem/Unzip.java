@@ -1,20 +1,22 @@
-package dev.sonle.githubloc.util;
+package dev.sonle.githubloc.filesystem;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class Unzip {
 
-    public void unzip(Path sourceZipRepo, Path destRepoPath) throws IOException {
-        
+    public long unzip(Path sourceZipRepo, Path destRepoPath) throws IOException {
+
         Path targetDir = destRepoPath.toAbsolutePath().normalize();
         Files.createDirectories(targetDir);
+        long repoSizeInBytes = 0;
 
-        try (ZipInputStream zipRepoInputStream = new ZipInputStream(Files.newInputStream(sourceZipRepo))){
+        try (ZipInputStream zipRepoInputStream = new ZipInputStream(Files.newInputStream(sourceZipRepo))) {
             ZipEntry entry;
             while ((entry = zipRepoInputStream.getNextEntry()) != null) {
                 Path resolvedDestPath = targetDir.resolve(entry.getName()).normalize();
@@ -29,15 +31,27 @@ public class Unzip {
                 } else {
                     // Ensure the parent directory exists before writing the file
                     Files.createDirectories(resolvedDestPath.getParent());
-                    
+
                     // unzip process: copy content from zipstream to target path
                     Files.copy(zipRepoInputStream, resolvedDestPath, StandardCopyOption.REPLACE_EXISTING);
+                    repoSizeInBytes += Files.size(resolvedDestPath);
                 }
-                
+
                 zipRepoInputStream.closeEntry();
             }
         }
-        
-        System.out.println("Unzip completed successfully at: " + targetDir);
+        System.out.println(
+                "Successfully unzip " + new SizeFormatter().convertSize(repoSizeInBytes) + " at: " + targetDir);
+        return repoSizeInBytes;
+    }
+
+    public static void main(String[] args) {
+        Unzip unzipper = new Unzip();
+        try {
+            unzipper.unzip(Paths.get("storage\\zip-repos\\github-loc"), Paths.get("storage\\repos\\github-loc"));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

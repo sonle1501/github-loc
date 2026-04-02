@@ -12,7 +12,7 @@ import java.util.Set;
 
 // annotation for json reader using jackson
 @JsonPropertyOrder({ "name", "path", "loc", "comments", "blanks", "languageSet", "locByLang", "childs" })
-@JsonInclude(JsonInclude.Include.NON_EMPTY)
+@JsonInclude(JsonInclude.Include.NON_EMPTY) // hide childs[] if node is a file or empty folder
 public class FileNode {
   @JsonIgnore
   private FileNode parent = null;
@@ -156,7 +156,7 @@ public class FileNode {
     this("./", null, null);
   }
 
-  void show() {
+  public void show() {
     System.out.println("name: " + this.path);
   }
 

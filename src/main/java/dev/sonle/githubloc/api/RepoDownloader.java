@@ -8,17 +8,19 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import dev.sonle.githubloc.util.GithubTokenProcessor;
+import dev.sonle.githubloc.filesystem.SizeFormatter;
 
 public class RepoDownloader {
   
-  public void downloadRepo(Path location, String userName, String repoName){
+  public long downloadRepo(Path location, String userName, String repoName){
     try{
       HttpResponse<InputStream> response = getResponse(userName, repoName);
       try (InputStream repoContent = response.body()){
-        locateRepo(location, repoContent);
+        long downloadedSize = locateRepo(location, repoContent);
+        return downloadedSize;
       }
     }
     catch(IOException | InterruptedException e){
@@ -65,10 +67,11 @@ public class RepoDownloader {
     return GithubTokenProcessor.getToken();
   }
 
-  private void locateRepo(Path location, InputStream repoContent) throws IOException {
+  private long locateRepo(Path location, InputStream repoContent) throws IOException {
     long bytesCopied =
         Files.copy(repoContent, location, StandardCopyOption.REPLACE_EXISTING);
-    System.out.println("Successfully saved ~" + bytesCopied / 1000 + "KB at " + location);
+    System.out.println("Successfully saved ~" + new SizeFormatter().convertSize(bytesCopied) + " at " + location);
+    return bytesCopied;
   }
 
   public class RepoDownloadException extends RuntimeException {
@@ -76,4 +79,10 @@ public class RepoDownloader {
         super(message, cause);
     }
   } 
+
+  public static void main(String[] args) {
+    RepoDownloader downloader = new RepoDownloader();
+    downloader.downloadRepo(Paths.get("storage/repos/github-loc"),"sonle1501","github-loc");
+    System.out.println("Initialized RepoDownloader for testing. " + downloader);
+  }
 }

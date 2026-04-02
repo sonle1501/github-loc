@@ -1,17 +1,15 @@
 package dev.sonle.githubloc.tree;
 
-import java.io.IOException;
 import java.nio.file.Path;
-
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
-
-import dev.sonle.githubloc.util.DirectoryTraversal;
-import dev.sonle.githubloc.util.ProducerConsumerDirectoryTraversal;
 
 
 public class Tree {
   private Map<String, FileNode> nodeContainer;
+  List<FileNode> fileList;
   private FileNode root;
 
   public Map<String, FileNode> getNodeContainer() {
@@ -24,6 +22,14 @@ public class Tree {
 
   public void addNodeToContainer(FileNode node) {
     nodeContainer.put(node.getPath(), node);
+  }
+
+  public List<FileNode> getFileList() {
+    return fileList;
+  }
+
+  public void addFileToFileList(FileNode node) {
+    fileList.add(node);
   }
 
   public FileNode getRoot() {
@@ -45,37 +51,6 @@ public class Tree {
 
   public Tree() {
     nodeContainer = new LinkedHashMap<>();
-  }
-
-  public static Tree buildTree(Path startPath) throws IOException {
-    Tree tree = new Tree();
-    ProducerConsumerDirectoryTraversal directoryTraversal = new ProducerConsumerDirectoryTraversal();
-    directoryTraversal.traverse(startPath, tree);
-    tree.setRoot(tree.getNode(startPath));
-    directoryTraversal.countLocFolder(tree.getRoot());
-    return tree;
-  }
-
-  public static Tree buildTreeSequential(Path startPath) throws IOException {
-    Tree tree = new Tree();
-    DirectoryTraversal directoryTraversal = new DirectoryTraversal();
-    directoryTraversal.traverse(startPath, tree);
-    tree.setRoot(tree.getNode(startPath));
-    directoryTraversal.countLocFolder(tree.getRoot());
-    return tree;
-  }
-
-  public String getMostUsedLanguage(){
-    Map<String, Integer>locByLang = root.getLocByLang();
-    int maxLoc = -1;
-    String lang = null;
-    for (Map.Entry<String,Integer> entry: locByLang.entrySet()){
-      int currentLoc = entry.getValue();
-      if (currentLoc > maxLoc){
-        maxLoc = currentLoc;
-        lang = entry.getKey();
-      }
-    }
-    return lang;
+    fileList = new ArrayList<>();
   }
 }

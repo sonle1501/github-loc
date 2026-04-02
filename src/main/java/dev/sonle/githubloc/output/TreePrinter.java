@@ -1,8 +1,12 @@
-package dev.sonle.githubloc.tree;
+package dev.sonle.githubloc.output;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import dev.sonle.githubloc.tree.FileNode;
+import dev.sonle.githubloc.tree.Tree;
+import dev.sonle.githubloc.tree.TreeBuilder;
 
 public class TreePrinter {
     private Tree tree;
@@ -130,7 +134,7 @@ public class TreePrinter {
             System.out.println(Color.WRAPPER + lang + Color.RESET);
 
             for (int i = 0; i < fileList.size(); i++) {
-                String connector = i == fileList.size()-1 ? "└──" : "├──";
+                String connector = i == fileList.size() - 1 ? "└──" : "├──";
                 FileNode file = fileList.get(i);
                 String fileInfo = String.format(
                         " %sloc: %s%s",
@@ -139,7 +143,7 @@ public class TreePrinter {
                         Color.RESET);
 
                 System.out.println(
-                                connector
+                        connector
                                 + Color.FILE
                                 + file.getName()
                                 + Color.RESET
@@ -182,4 +186,18 @@ public class TreePrinter {
         }
     }
 
+    public static void main(String[] args) {
+        try {
+            Tree tree = new TreeBuilder().buildTree(java.nio.file.Paths.get("storage\\repos\\github-loc"));
+            dev.sonle.githubloc.tree.FileNode root = new dev.sonle.githubloc.tree.FileNode("storage\\repos\\github-loc",
+                    "github-loc", null);
+            tree.setRoot(root);
+            tree.addNodeToContainer(root);
+            TreePrinter printer = new TreePrinter(tree);
+            printer.showTree();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 }

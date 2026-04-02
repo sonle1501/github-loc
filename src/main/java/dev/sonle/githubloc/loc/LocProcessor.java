@@ -1,16 +1,15 @@
-package dev.sonle.githubloc.util;
+package dev.sonle.githubloc.loc;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.cthing.locc4j.Counts;
-import org.cthing.locc4j.FileCounter;
-import org.cthing.locc4j.Language;
+import dev.sonle.githubloc.locc4j.Counts;
+import dev.sonle.githubloc.locc4j.FileCounter;
+import dev.sonle.githubloc.locc4j.Language;
 
 // using locc4j 
 public class LocProcessor {
@@ -66,14 +65,13 @@ public class LocProcessor {
   }
 
   public static void main(String[] args) {
-  //   try {
-  //     Path p = Paths.get("src\\main\\java\\dev\\sonle\\githubloc\\App.java");
-  //     LocProcessor locProcessorTemp = new LocProcessor(p);
-  //     LocProcessor.FileInfo fileInfo = locProcessorTemp.getFileInfo();
-  //     System.out.println(fileInfo.loc());
-  //   } catch (Exception e) {
-  //     System.err.println("LocProcessor failed: " + e.getMessage());
-  //   }
-  // }
+    try {
+      Path p = java.nio.file.Paths.get("src/main/java/dev/sonle/githubloc/App.java");
+      LocProcessor locProcessorTemp = new LocProcessor(p, new FileCounter());
+      LocProcessor.FileInfo fileInfo = locProcessorTemp.getFileInfo();
+      System.out.println("LOC for App.java: " + fileInfo.loc());
+    } catch (Exception e) {
+      System.err.println("LocProcessor failed: " + e.getMessage());
+    }
   }
 }

@@ -1,18 +1,13 @@
-package dev.sonle.githubloc.multirepos;
+package dev.sonle.githubloc.api;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.sonle.githubloc.api.RepoDownloader;
-import dev.sonle.githubloc.util.GithubTokenProcessor;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
@@ -39,13 +34,13 @@ public class UserInfoFetching {
                 }
 
             } catch (JacksonException e) {
-                System.err.println("JSON parsing error while reading response");
+                System.err.println("JSON parsing error while reading response on proessing repo names task");
                 System.err.println("Error: " + e.getMessage());
                 return null;
             }
 
         } catch (IOException e) {
-            System.err.println("IO error while fetching response");
+            System.err.println("IO error while fetching response on proessing repo names task");
             System.err.println("Error: " + e.getMessage());
             return null;
 
@@ -54,6 +49,8 @@ public class UserInfoFetching {
             Thread.currentThread().interrupt(); // good practice
             return null;
         }
+        if (repos == null || repos.isEmpty())
+            throw new IllegalArgumentException("No repositories found for this user");
         return repos;
     }
 
@@ -103,5 +100,11 @@ public class UserInfoFetching {
     }
 
     public static void main(String[] args) {
+        UserInfoFetching fetcher = new UserInfoFetching();
+        try {
+            System.out.println("Testing UserInfoFetching (fetching repos for sonle1501): " + fetcher.fetchRepoNames("sonle1501"));
+        } catch (Exception e) {
+            System.err.println("Failed to fetch: " + e.getMessage());
+        }
     }
 }

@@ -8,14 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.sonle.githubloc.RunOptions;
+import dev.sonle.githubloc.api.UserInfoFetching;
+import dev.sonle.githubloc.filesystem.Unzip;
+import dev.sonle.githubloc.output.JsonProcessor;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
-import dev.sonle.githubloc.util.JsonProcessor;
-import dev.sonle.githubloc.util.Unzip;
+import dev.sonle.githubloc.tree.TreeBuilder;
 
 public class MultiReposHandle {
 
-  public record RepoTarget(String repoName, Path validPath) {
+  public record RepoTarget(String repoName, long sizeProcess, Path validPath) {
   }
 
   private final String userName;
@@ -70,7 +72,7 @@ public class MultiReposHandle {
     for (String name : repoNames) {
       Path targetPath = baseDir.resolve(name + suffix);
       if (Files.exists(targetPath)) {
-        RepoTarget repoInfo = new RepoTarget(name, targetPath);
+        RepoTarget repoInfo = new RepoTarget(name, 0, targetPath);
         listRepoInfo.add(repoInfo);
       } else {
         System.err.println("Warning: Expected path does not exist and will be skipped: " + targetPath);
@@ -109,7 +111,7 @@ public class MultiReposHandle {
     List<Tree> repoTrees = new ArrayList<>();
     for (RepoTarget repoInfo : validRepos) {
       try {
-        Tree repoTree = Tree.buildTree(repoInfo.validPath());
+        Tree repoTree = new TreeBuilder().buildTree(repoInfo.validPath());
         repoTrees.add(repoTree);
       } catch (IOException e) {
         System.err.println("Failed to process Tree for '" + repoInfo.repoName() +
@@ -131,12 +133,19 @@ public class MultiReposHandle {
       try {
         FileNode root = tree.getRoot();
         String name = root.getName();
-        jsonProcessor.exportTreeToJson(jsonResultsPath.resolve(name + ".json"), root);
+        jsonProcessor.exportTreeToJson(tree, userName, name, -1, jsonResultsPath.resolve(name + ".json"));  // repoSize = undefined
       } catch (IOException e) {
         System.err.println("Failed to process JSON for " + tree.getRoot().getName() +
             "'. Skipping to next. Reason: " + e.getMessage());
       }
 
     }
+  }
+
+  public static void main(String[] args) {
+    RunOptions options = new RunOptions();
+    options.setUserName("sonle1501");
+    MultiReposHandle handle = new MultiReposHandle(options);
+    System.out.println("Initialized MultiReposHandle for " + options.getUserName());
   }
 }

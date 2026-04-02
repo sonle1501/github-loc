@@ -1,5 +1,6 @@
 target/
 storage/
+release/
 .idea/
 .vscode/
 *.iml
@@ -7,3 +8,4 @@ storage/
 dependency-reduced-pom.xml
 *.log
 token.properties
+agent/

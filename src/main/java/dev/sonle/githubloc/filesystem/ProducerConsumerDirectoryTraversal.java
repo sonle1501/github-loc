@@ -1,9 +1,10 @@
-package dev.sonle.githubloc.util;
+package dev.sonle.githubloc.filesystem;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
@@ -11,9 +12,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import dev.sonle.githubloc.loc.LocProcessor;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
-import org.cthing.locc4j.FileCounter;
+
+import dev.sonle.githubloc.locc4j.FileCounter;
 
 
 public class ProducerConsumerDirectoryTraversal {
@@ -69,7 +72,7 @@ public class ProducerConsumerDirectoryTraversal {
           parentNode.addChild(node);
         }
         tree.addNodeToContainer(node);
-
+        tree.addFileToFileList(node);
 
         return FileVisitResult.CONTINUE;
       }
@@ -89,26 +92,6 @@ public class ProducerConsumerDirectoryTraversal {
     }
 
     return tree;
-  }
-
-  // count LOC for folder
-  public void countLocFolder(FileNode rootNode) {
-    for (FileNode node : rootNode.getChilds()) {
-      if (node.getChilds().size() > 0) { // "folder" need to count LOC
-        countLocFolder(node);
-        rootNode.updateLoc(node.getLoc());
-        rootNode.updateComments(node.getComments());
-        rootNode.updateBlanks(node.getBlanks());
-        rootNode.mergeLanguageSet(node.getLanguageSet());
-        rootNode.mergeLocByLang(node.getLocByLang());
-      } else { // file or emtpy folder
-        rootNode.updateLoc(node.getLoc());
-        rootNode.updateComments(node.getComments());
-        rootNode.updateBlanks(node.getBlanks());
-        rootNode.mergeLanguageSet(node.getLanguageSet());
-        rootNode.mergeLocByLang(node.getLocByLang());
-      }
-    }
   }
 
   public void countLocFolderMultithreading(FileNode rootNode){
@@ -144,13 +127,11 @@ public class ProducerConsumerDirectoryTraversal {
 
   public static void main(String[] args) {
     try {
-      // String path = "src/main/resources/repos/locc4j";
-      String path = ".";
-      // Tree tree = DirectoryTranversal.tranverse(path,new Tree());
-      // tree.showTree();
-      // Map <String, String> map = new HashMap<>();
+      ProducerConsumerDirectoryTraversal traversal = new ProducerConsumerDirectoryTraversal();
+      Tree tree = traversal.traverse(Paths.get("storage\\repos\\github-loc"), new Tree());
+      System.out.println("Traversed successfully, network nodes: \n" + tree.getNodeContainer());
     } catch (Exception e) {
-      System.err.println("tranvesre failed: " + e.getMessage());
+      System.err.println("traverse failed: " + e.getMessage());
     }
   }
 }
