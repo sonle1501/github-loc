@@ -51,9 +51,10 @@ jobs:
         with:
           name: github-loc-windows-build
           path: release/github-loc-windows.zip
-          
-      - name: Upload to GitHub Release
-        if: github.event_name == 'release'
-        uses: softprops/action-gh-release@v2
-        with:
-          files: release/github-loc-windows.zip
+
+      # If triggered by a release, attach the zip directly to the GitHub Release
+      # - name: Upload to GitHub Release
+      #   if: github.event_name == 'release'
+      #   uses: softprops/action-gh-release@v2
+      #   with:
+      #     files: release/github-loc-windows.zip
