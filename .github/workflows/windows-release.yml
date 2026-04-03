@@ -1,0 +1,59 @@
+name: Build Windows Release
+
+on:
+  workflow_dispatch:
+  release:
+    types: [created]
+
+jobs:
+  build-windows:
+    name: Build and Package for Windows
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17' 
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build with Maven
+        run: mvn clean package
+
+      - name: Package with jpackage
+        # Added --win-console
+        run: |
+          jpackage `
+            --type app-image `
+            --name "github-loc-windows-v1.0" `
+            --input target/ `
+            --main-jar githubloc-1.0.jar `
+            --main-class dev.sonle.githubloc.App `
+            --win-console `
+            --add-modules java.base,java.desktop,java.net.http,java.sql `
+            --jlink-options "--bind-services" `
+            --dest release/
+
+      - name: Compress Windows App Image
+        shell: pwsh
+        run: |
+          # use PowerShell to create a .zip file
+          Get-ChildItem -Path release -Directory | ForEach-Object {
+              Compress-Archive -Path $_.FullName -DestinationPath "release/github-loc-windows-v1.0.zip"
+          }
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-loc-windows-build
+          path: release/github-loc-windows.zip
+          
+      - name: Upload to GitHub Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release/github-loc-windows.zip
