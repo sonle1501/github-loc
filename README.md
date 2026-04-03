@@ -4,9 +4,11 @@ A powerful command-line tool designed to analyze GitHub repositories and local d
 
 ## 1. Introduction: Tools & Features
 
-**Process Public and Private Repositories**
+- **Process Repository**
 
-Process any public GitHub repository (or private repository if a valid token is provided). This tool counts exact lines of code using **SLOC (Source Lines of Code)**, offering a significantly more precise than standard LOC counting engines available on GitHub or some counting LOC websites like codetabs, ghloc. It differentiates seamlessly between actual code, comments, and blank lines within a repository. At the end of the analysis, the tool prints a convenient repository tree-directory hierarchy directly to your console and generates a documented JSON result.
+Process any public GitHub repository or private repository (token required for private). This tool counts exact lines of code using **SLOC (Source Lines of Code)**, provides higher precision than standard LOC counting engines on GitHub or some counting LOC websites like codetabs, ghloc. 
+
+The tool also calculates comments and blank lines. At the end of the analysis, it prints a convenient repository tree-directory hierarchy directly to your console and generates a JSON result.
 
 *Example command:*
 
@@ -14,9 +16,9 @@ Process any public GitHub repository (or private repository if a valid token is 
 <command> : spring-projects/spring-boot
 ```
 
-**Process Multiple Repositories (User Mode)**
+- **Process Multiple Repositories (User Mode)**
 
-Analyze and process all public repositories belonging to a specific GitHub user in one go. The tool iterates through their available repositories and exports a list of individual JSON results compiling the statistics for each.
+Analyze and process all public repositories belonging to a specific GitHub user in one go
 
 *Example command:*
 
@@ -24,7 +26,7 @@ Analyze and process all public repositories belonging to a specific GitHub user 
 <command> : sonle1501
 ```
 
-**Sort Files by LOC**
+- **Sort Files by LOC**
 
 Organize and sort repository files by LOC. The tool can intelligently group files by their programming language and sort them, helping analyze repositories by presenting modules with the most used language and files with the highest LOC first.
 
@@ -62,6 +64,8 @@ There are two primary options for running this application:
    ```bash
    ./github-loc.exe <your-command>
    ```
+
+- Note: If using Linux, see the tar.gz artifact in the Releases section
 
 ## 3. Command Guide
 
