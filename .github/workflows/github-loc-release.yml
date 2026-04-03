@@ -1,4 +1,4 @@
-name: Build and Release GitHub-Loc
+name: Build and Release github-loc
 
 on:
   release:
@@ -7,7 +7,7 @@ on:
 
 # Set the version as a global variable for easy updates
 env:
-  VERSION: "v-1.0"
+  VERSION: "v1.0"
 
 permissions:
   contents: write
@@ -72,6 +72,7 @@ jobs:
           # Compresses the folder into github-loc-windows-v-1.0.zip
           Compress-Archive -Path * -DestinationPath "github-loc-windows-${{ env.VERSION }}.zip" -Force
 
+      # If triggered by a release, attach the tar.gz and .zip directly to the GitHub Release
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
         if: github.event_name == 'release'
