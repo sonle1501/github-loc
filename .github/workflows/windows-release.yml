@@ -41,9 +41,23 @@ jobs:
       - name: Compress Windows App Image
         shell: pwsh
         run: |
-          # use PowerShell to create a .zip file
-          Get-ChildItem -Path release -Directory | ForEach-Object {
-              Compress-Archive -Path $_.FullName -DestinationPath "release/github-loc-windows-v1.0.zip"
+          # 1. Enter the release directory
+          cd release
+          
+          # 2. Debug: List exactly what jpackage created so we can see it in the logs
+          Write-Host "Scanning for jpackage output..."
+          Get-ChildItem -Directory
+          
+          # 3. Zip EVERYTHING inside the release folder into one file
+          # This avoids hardcoding the folder name and prevents "file not found" errors
+          Compress-Archive -Path * -DestinationPath "github-loc-windows.zip" -Force
+          
+          # 4. Verify the zip exists before finishing the step
+          if (Test-Path "github-loc-windows.zip") {
+              Write-Host "Success: github-loc-windows.zip created."
+          } else {
+              Write-Error "Failed: Zip file was not generated!"
+              exit 1
           }
 
       - name: Upload Artifact
