@@ -10,8 +10,6 @@ Process any public GitHub repository or private repository (token required for p
 
 The tool also calculates comments and blank lines. At the end of the analysis, it prints a convenient repository tree-directory hierarchy directly to your console and generates a JSON result.
 
-*Example command:*
-
 ```bash
 <command> : spring-projects/spring-boot
 ```
@@ -19,8 +17,6 @@ The tool also calculates comments and blank lines. At the end of the analysis, i
 - **Process Multiple Repositories (User Mode)**
 
 Analyze and process all public repositories belonging to a specific GitHub user in one go
-
-*Example command:*
 
 ```bash
 <command> : sonle1501
@@ -121,15 +117,19 @@ The tool neatly organizes its results and intermediate files within the internal
 
 To safely process private repositories or increase GitHub API rate limits (bypassing the basic anonymous quota limit of 60 calls/hour), you can link a GitHub Personal Access Token.
 
-1. Log into your GitHub account and navigate to **Settings** > **Developer Settings** > **Personal access tokens** > **Fine-grained tokens** (or classic tokens).
-2. Generate a new token with at least Repository 'Read-Only' permissions.
-3. In your project repository environment, navigate to `src/main/resources/` and create a file named `token.properties`.
-4. Apply your token to the file formatted strictly as follows:
-   ```properties
-   FINE_GRAINED_TOKEN=your_token_here
-   ```
+- Log into your GitHub account and navigate to **Settings** > **Developer Settings** > **Personal access tokens** > **Fine-grained tokens** (or classic tokens).
+- Generate a new token with at least Repository 'Read-Only' permissions.
+- If you want to build from source: 
+   - In your project repository environment, navigate to `src/main/resources/` and create a file named `token.properties`.
+   - Apply your token to the file formatted strictly as follows:
+      ```properties
+      FINE_GRAINED_TOKEN=your_token_here
+      ```
+- If you want to use the artifacts (windows/linux) in the release section: 
+   - In the root folder create a file named `token.properties` and add your token like this format : `FINE_GRAINED_TOKEN=your_token_here` (same as the file used in the "build from source" option)
+   - Or create a file named `token.txt` in the root and add your token directly to it : `your_token_here`
 
-*(Note: Be careful to keep your token secure. Standard practice is appending `token.properties` into your `.gitignore` to prevent accidental credential leaks).*
+*(Note: Be careful to keep your token secure)*
 
 ## 6. License
 
