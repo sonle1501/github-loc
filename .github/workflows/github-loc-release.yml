@@ -43,6 +43,7 @@ jobs:
             --main-jar githubloc-1.0.jar \
             --main-class dev.sonle.githubloc.App \
             --add-modules java.base,java.desktop,java.net.http,java.sql \
+            --jlink-options "--bind-services"`
             --dest release/
 
       - name: Package with jpackage (Windows)
@@ -55,6 +56,7 @@ jobs:
             --main-class dev.sonle.githubloc.App `
             --win-console `
             --add-modules java.base,java.desktop,java.net.http,java.sql `
+            --jlink-options "--bind-services"`
             --dest release/
 
       - name: Compress Linux Artifact
