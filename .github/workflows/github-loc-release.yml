@@ -1,11 +1,12 @@
 name: Build and Release github-loc
 
 on:
-  release:
-    types: [published, created]
   workflow_dispatch:
+  pull_request:
+    types: [closed]
+  release:
+    types: [published, created, edited] # Triggers when you draft, publish, or edit a release
 
-# Set the version as a global variable for easy updates
 env:
   VERSION: "v1.0"
 
@@ -14,6 +15,15 @@ permissions:
 
 jobs:
   build:
+    # Workflow is triggered in 3 scenarios:
+    # + Manually run the workflow
+    # + Release event
+    # + Accept a pull request
+    if: |
+      github.event_name == 'workflow_dispatch' || 
+      github.event_name == 'release' ||
+      (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
+    
     name: Build on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -63,7 +73,6 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           cd release
-          # Compresses the folder into github-loc-linux-v-1.0.tar.gz
           tar -czvf "github-loc-linux-${{ env.VERSION }}.tar.gz" */
 
       - name: Compress Windows Artifact
@@ -71,14 +80,14 @@ jobs:
         shell: pwsh
         run: |
           cd release
-          # Compresses the folder into github-loc-windows-v-1.0.zip
           Compress-Archive -Path * -DestinationPath "github-loc-windows-${{ env.VERSION }}.zip" -Force
-
-      # If triggered by a release, attach the tar.gz and .zip directly to the GitHub Release
+     
+      # add or update new artifacts to the release section
       - name: Upload to GitHub Release
         uses: softprops/action-gh-release@v2
-        if: github.event_name == 'release'
         with:
+          tag_name: ${{ env.VERSION }}  # v1.0 
+          name: Release ${{ env.VERSION }}
           files: |
-            release/*.tar.gz
+            release/*.tar.gz  
             release/*.zip
