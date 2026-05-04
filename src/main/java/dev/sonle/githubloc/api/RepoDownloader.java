@@ -12,7 +12,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 import dev.sonle.githubloc.filesystem.SizeFormatter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class RepoDownloader {
   
   public long downloadRepo(Path location, String userName, String repoName){
@@ -70,7 +72,7 @@ public class RepoDownloader {
   private long locateRepo(Path location, InputStream repoContent) throws IOException {
     long bytesCopied =
         Files.copy(repoContent, location, StandardCopyOption.REPLACE_EXISTING);
-    System.out.println("Successfully saved ~" + new SizeFormatter().convertSize(bytesCopied) + " at " + location);
+    log.info("Successfully saved ~{} at {}", new SizeFormatter().convertSize(bytesCopied), location);
     return bytesCopied;
   }
 
@@ -83,6 +85,6 @@ public class RepoDownloader {
   public static void main(String[] args) {
     RepoDownloader downloader = new RepoDownloader();
     downloader.downloadRepo(Paths.get("storage/repos/github-loc"),"sonle1501","github-loc");
-    System.out.println("Initialized RepoDownloader for testing. " + downloader);
+    log.info("Initialized RepoDownloader for testing. {}", downloader);
   }
 }

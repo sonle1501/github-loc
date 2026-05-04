@@ -11,7 +11,9 @@ import dev.sonle.githubloc.output.TreePrinter;
 import dev.sonle.githubloc.sort.RepoSorter;
 import dev.sonle.githubloc.tree.Tree;
 import dev.sonle.githubloc.tree.TreeBuilder;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class LocalRunner {
     private Path repoPath;
     private Path jsonPath;
@@ -23,7 +25,6 @@ public class LocalRunner {
 
 
     public LocalRunner() {
-        // Empty constructor as requested
     }
 
     private void validateRepoPath() {
@@ -80,12 +81,12 @@ public class LocalRunner {
                     showTree();
                 }
                 case DOWNLOAD, UNZIP -> {
-                    System.err.println("DOWNLOAD and UNZIP actions are not supported for local repositories.");
+                    log.error("DOWNLOAD and UNZIP actions are not supported for local repositories.");
                 }
                 default -> throw new IllegalArgumentException("Invalid action for LocalRunner");
             }
         } catch (Exception e) {
-            System.err.println("Failed to run local analysis: " + e.getMessage());
+            log.error("Failed to run local analysis: {}", e.getMessage());
             e.printStackTrace();
         }
     }
@@ -94,7 +95,7 @@ public class LocalRunner {
         try {
             this.repoTree = new TreeBuilder().buildTreeWithBatchProcessing(repoPath);
         } catch (IOException e) {
-            System.err.println("Failed to create tree, program will be terminated");
+            log.error("Failed to create tree, program will be terminated");
             e.printStackTrace();
             throw new RuntimeException(e);
         }
@@ -104,9 +105,9 @@ public class LocalRunner {
         try {
             JsonProcessor jsonProcessor = new JsonProcessor();
             jsonProcessor.exportTreeToJson(repoTree, userName, repoName, repoSize, jsonPath);
-            System.out.println("JSON report successfully generated at: " + jsonPath);
+            log.info("JSON report successfully generated at: {}", jsonPath);
         } catch (IOException e) {
-            System.err.println("Failed to export Tree to Json");
+            log.error("Failed to export Tree to Json");
             e.printStackTrace();
         }
     }
@@ -138,7 +139,7 @@ public class LocalRunner {
             options.setRepoName("github-loc");
             options.setAction(RunOptions.Action.DEFAULT);
             LocalRunner localRunner = new LocalRunner();
-            System.out.println("Starting LocalRunner for test local repo github-loc...");
+            log.info("Starting LocalRunner for test local repo github-loc...");
             localRunner.runLocal(options);
         } catch (Exception e) {
             e.printStackTrace();

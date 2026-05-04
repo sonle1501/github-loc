@@ -15,8 +15,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 public class Runner {
   private String repoName;
   private String userName;
@@ -71,7 +72,7 @@ public class Runner {
     try {
       repoTree = new TreeBuilder().buildTreeWithBatchProcessing(repoPath);
     } catch (IOException e) {
-      System.err.println("Failed to create the tree of: " + repoName +  "repo" + ", the program had to stop");
+      log.error("Failed to create the tree of: {}repo, the program had to stop", repoName);
       e.printStackTrace();
       throw new RuntimeException(e);
     }
@@ -86,7 +87,7 @@ public class Runner {
       Unzip unzipHandler = new Unzip();
       this.repoSize = unzipHandler.unzip(zipPath, repoPath);
     } catch (IOException e) {
-      System.err.println("Failed to unzip:" + repoName +  "repo");
+      log.error("Failed to unzip:{}repo", repoName);
       e.printStackTrace();
     }
 
@@ -97,7 +98,7 @@ public class Runner {
       JsonProcessor jsonProcessor = new JsonProcessor();
       jsonProcessor.exportTreeToJson(repoTree, userName, repoName, repoSize, jsonPath);
     } catch (IOException e) {
-      System.err.println("Failed to export the json results of: " + repoName +  "repo");
+      log.error("Failed to export the json results of: {}repo", repoName);
       e.printStackTrace();
     }
   }
@@ -184,7 +185,7 @@ public class Runner {
         default -> throw new IllegalArgumentException("Invalid action");
       }
     } catch (Exception e) {
-      System.err.println("Failed to run program");
+      log.error("Failed to run program");
       e.printStackTrace();
     }
   }
@@ -192,7 +193,7 @@ public class Runner {
   public static void main(String[] args) {
     try {
         Runner runner = new Runner("sonle1501", "github-loc");
-        System.out.println("Starting Runner for test repo sonle1501/github-loc...");
+        log.info("Starting Runner for test repo sonle1501/github-loc...");
         runner.runApp();
     } catch (Exception e) {
         e.printStackTrace();

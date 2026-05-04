@@ -14,7 +14,9 @@ import dev.sonle.githubloc.output.JsonProcessor;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
 import dev.sonle.githubloc.tree.TreeBuilder;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class MultiReposHandle {
 
   public record RepoTarget(String repoName, long sizeProcess, Path validPath) {
@@ -48,7 +50,7 @@ public class MultiReposHandle {
     try {
       preparePaths();
     } catch (IOException e) {
-      System.err.println("Failed to create necessary storage directories. Reason: " + e.getMessage());
+      log.error("Failed to create necessary storage directories. Reason: {}", e.getMessage());
       return; // Terminate app gracefully
     }
     try {
@@ -61,7 +63,7 @@ public class MultiReposHandle {
       runMultiJsonProcess(validRepos);
 
     } catch (Exception e) {
-      System.err.println("An unexpected orchestration error occurred for user: " + userName);
+      log.error("An unexpected orchestration error occurred for user: {}", userName);
       e.printStackTrace();
     }
   }
@@ -75,7 +77,7 @@ public class MultiReposHandle {
         RepoTarget repoInfo = new RepoTarget(name, 0, targetPath);
         listRepoInfo.add(repoInfo);
       } else {
-        System.err.println("Warning: Expected path does not exist and will be skipped: " + targetPath);
+        log.error("Warning: Expected path does not exist and will be skipped: {}", targetPath);
       }
     }
 
@@ -83,7 +85,7 @@ public class MultiReposHandle {
   }
 
   private List<String> runDownload() {
-    System.out.println("Starting download...");
+    log.info("Starting download...");
     UserInfoFetching userInfoFetching = new UserInfoFetching();
     List<String> repoNames = userInfoFetching.fetchRepoNames(userName);
     return repoNames;
@@ -98,10 +100,9 @@ public class MultiReposHandle {
         Path sourceZipRepoPath = zipRepoInfo.validPath();
         Path destRepoPath = this.reposPath.resolve(zipRepoInfo.repoName());
         unzipRepo.unzip(sourceZipRepoPath, destRepoPath);
-        System.out.println("Starting unzip for " + sourceZipRepoPath);
+        log.info("Starting unzip for {}", sourceZipRepoPath);
       } catch (IOException e) {
-        System.err.println("Failed to unzip repo '" + zipRepoInfo.repoName() +
-            "'. Skipping to next. Reason: " + e.getMessage());
+        log.error("Failed to unzip repo '{}'. Skipping to next. Reason: {}", zipRepoInfo.repoName(), e.getMessage());
       }
 
     }
@@ -114,8 +115,7 @@ public class MultiReposHandle {
         Tree repoTree = new TreeBuilder().buildTree(repoInfo.validPath());
         repoTrees.add(repoTree);
       } catch (IOException e) {
-        System.err.println("Failed to process Tree for '" + repoInfo.repoName() +
-            "'. Skipping to next. Reason: " + e.getMessage());
+        log.error("Failed to process Tree for '{}'. Skipping to next. Reason: {}", repoInfo.repoName(), e.getMessage());
       }
 
     }
@@ -135,8 +135,7 @@ public class MultiReposHandle {
         String name = root.getName();
         jsonProcessor.exportTreeToJson(tree, userName, name, -1, jsonResultsPath.resolve(name + ".json"));  // repoSize = undefined
       } catch (IOException e) {
-        System.err.println("Failed to process JSON for " + tree.getRoot().getName() +
-            "'. Skipping to next. Reason: " + e.getMessage());
+        log.error("Failed to process JSON for '{}'. Skipping to next. Reason: {}", tree.getRoot().getName(), e.getMessage());
       }
 
     }
@@ -146,6 +145,6 @@ public class MultiReposHandle {
     RunOptions options = new RunOptions();
     options.setUserName("sonle1501");
     MultiReposHandle handle = new MultiReposHandle(options);
-    System.out.println("Initialized MultiReposHandle for " + options.getUserName());
+    log.info("Initialized MultiReposHandle for {}", options.getUserName());
   }
 }

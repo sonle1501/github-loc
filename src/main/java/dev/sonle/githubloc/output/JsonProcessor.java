@@ -9,7 +9,9 @@ import java.util.Map;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
 import tools.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class JsonProcessor {
 
   public void exportTreeToJson(Tree tree, String userName, String repoName, long repoSize, Path jsonTarget)
@@ -35,7 +37,7 @@ public class JsonProcessor {
       FileNode root = new FileNode("storage\\repos\\github-loc", "root", null);
       tree.setRoot(root);
       processor.exportTreeToJson(tree, "testUser", "testRepo", 1024, Path.of("storage/json-results/test.json"));
-      System.out.println("Exported test JSON successfully");
+      log.info("Exported test JSON successfully");
     } catch (IOException e) {
       e.printStackTrace();
     }

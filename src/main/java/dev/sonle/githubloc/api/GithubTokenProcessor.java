@@ -7,7 +7,9 @@ import java.util.Properties;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class GithubTokenProcessor {
 
 public static String getToken() {  // if this function cannot get, continue the process without token
@@ -25,7 +27,7 @@ public static String getToken() {  // if this function cannot get, continue the 
       return token;
     }
 
-    System.out.println("fetching github api without token");
+    log.info("fetching github api without token");
     return null;
   }
 
@@ -83,6 +85,6 @@ public static String getToken() {  // if this function cannot get, continue the 
   }
 
   public static void main(String[] args) {
-    System.out.println(GithubTokenProcessor.getToken());
+    log.info("{}", GithubTokenProcessor.getToken());
   }
 }

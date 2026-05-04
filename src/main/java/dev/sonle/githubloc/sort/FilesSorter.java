@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Map;
 
 import dev.sonle.githubloc.tree.FileNode;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class FilesSorter {
   public record LocByLang(String lang, int loc) {
   }
@@ -100,6 +102,6 @@ public class FilesSorter {
     nodeContainer.put("path1", node1);
     nodeContainer.put("path2", node2);
     java.util.List<FileNode> sorted = sorter.sortNodeContainerByLoc(nodeContainer);
-    System.out.println("Highest LOC: " + sorted.get(0).getLoc());
+    log.info("Highest LOC: {}", sorted.get(0).getLoc());
   }
 }

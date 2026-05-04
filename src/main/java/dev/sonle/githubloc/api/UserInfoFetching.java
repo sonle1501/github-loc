@@ -11,7 +11,9 @@ import java.util.List;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class UserInfoFetching {
 
     public List<String> fetchRepoNames(String userName) {
@@ -28,24 +30,24 @@ public class UserInfoFetching {
                         repos.add(repoNode.get("name").asString());
                     }
                 } else {
-                    System.err.println("Failed to fetch repo names");
-                    System.err.println("Response Body: " + response.body());
+                    log.error("Failed to fetch repo names");
+                    log.error("Response Body: {}", response.body());
                     return null;
                 }
 
             } catch (JacksonException e) {
-                System.err.println("JSON parsing error while reading response on proessing repo names task");
-                System.err.println("Error: " + e.getMessage());
+                log.error("JSON parsing error while reading response on proessing repo names task");
+                log.error("Error: {}", e.getMessage());
                 return null;
             }
 
         } catch (IOException e) {
-            System.err.println("IO error while fetching response on proessing repo names task");
-            System.err.println("Error: " + e.getMessage());
+            log.error("IO error while fetching response on proessing repo names task");
+            log.error("Error: {}", e.getMessage());
             return null;
 
         } catch (InterruptedException e) {
-            System.err.println("Request was interrupted");
+            log.error("Request was interrupted");
             Thread.currentThread().interrupt(); // good practice
             return null;
         }
@@ -102,9 +104,9 @@ public class UserInfoFetching {
     public static void main(String[] args) {
         UserInfoFetching fetcher = new UserInfoFetching();
         try {
-            System.out.println("Testing UserInfoFetching (fetching repos for sonle1501): " + fetcher.fetchRepoNames("sonle1501"));
+            log.info("Testing UserInfoFetching (fetching repos for sonle1501): {}", fetcher.fetchRepoNames("sonle1501"));
         } catch (Exception e) {
-            System.err.println("Failed to fetch: " + e.getMessage());
+            log.error("Failed to fetch: {}", e.getMessage());
         }
     }
 }

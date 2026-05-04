@@ -8,7 +8,9 @@ import dev.sonle.githubloc.filesystem.DirectoryBuilder;
 import dev.sonle.githubloc.filesystem.DirectoryTraversal;
 import dev.sonle.githubloc.filesystem.ProducerConsumerDirectoryTraversal;
 import dev.sonle.githubloc.loc.DirectoryLocProcessor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class TreeBuilder {
   public Tree buildTree(Path startPath) throws IOException {
     Tree tree = new Tree();
@@ -44,7 +46,7 @@ public class TreeBuilder {
     try {
       TreeBuilder builder = new TreeBuilder();
       Tree tree = builder.buildTreeSequential(Paths.get("storage\\repos\\github-loc"));
-      System.out.println("Tree built successfully, total files: " + tree.getFileList().size());
+      log.info("Tree built successfully, total files: {}", tree.getFileList().size());
     } catch (IOException e) {
       e.printStackTrace();
     }

@@ -17,7 +17,9 @@ import dev.sonle.githubloc.output.JsonProcessor;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
 import dev.sonle.githubloc.tree.TreeBuilder;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class MultithreadingReposHandle {
 
   public record RepoTarget(String repoName, long sizeProcess, Path validPath) {
@@ -51,7 +53,7 @@ public class MultithreadingReposHandle {
     try {
       preparePaths();
     } catch (IOException e) {
-      System.err.println("Failed to create necessary storage directories. Reason: " + e.getMessage());
+      log.error("Failed to create necessary storage directories. Reason: {}", e.getMessage());
       return; // Terminate app
     }
 
@@ -78,7 +80,7 @@ public class MultithreadingReposHandle {
         .thenApplyAsync(repoInfo -> runSingileUnzip(repoInfo), ioExecutor) // I/O task, need more threads
         .thenAcceptAsync(repoInfo -> runSingleJsonProcess(repoInfo), cpuExecutor) // calculating task, need stable 
         .exceptionally(ex -> {
-          System.err.println("Failed processing pipeline for '" + repoName + "': " + ex.getMessage());
+          log.error("Failed processing pipeline for '{}': {}", repoName, ex.getMessage());
           return null; // Continue processing
         });
     return workflow;
@@ -99,8 +101,7 @@ public class MultithreadingReposHandle {
       long repoSizeOnDisk = unzipRepo.unzip(sourceZipRepoPath, destRepoPath); 
       return new RepoTarget(repoInfo.repoName(), repoSizeOnDisk, destRepoPath);
     } catch (IOException e) {
-      System.err.println("Failed to unzip repo '" + repoInfo.repoName() +
-          "'. Skipping to next. Reason: " + e.getMessage());
+      log.error("Failed to unzip repo '{}'. Skipping to next. Reason: {}", repoInfo.repoName(), e.getMessage());
     }
     return null;
   }
@@ -115,14 +116,12 @@ public class MultithreadingReposHandle {
         long repoSize = repoInfo.sizeProcess();
         Path jsonTarget = jsonResultsPath.resolve(repoName + ".json");
         jsonProcessor.exportTreeToJson(repoTree, userName, repoName, repoSize, jsonTarget); 
-        System.out.println("Successfully exported the tree diretory of " + repoName + "at: " + jsonTarget.toString());
+        log.info("Successfully exported the tree diretory of {}at: {}", repoName, jsonTarget.toString());
       } catch (IOException e) {
-        System.err.println("Failed to process JSON for " + repoTree.getRoot().getName() +
-            "'. Skipping to next. Reason: " + e.getMessage());
+        log.error("Failed to process JSON for '{}'. Skipping to next. Reason: {}", repoTree.getRoot().getName(), e.getMessage());
       }
     } catch (IOException e) {
-      System.err.println("Failed to process Tree for '" + repoInfo.repoName() +
-          "'. Skipping to next. Reason: " + e.getMessage());
+      log.error("Failed to process Tree for '{}'. Skipping to next. Reason: {}", repoInfo.repoName(), e.getMessage());
     }
   }
 
@@ -130,6 +129,6 @@ public class MultithreadingReposHandle {
     RunOptions options = new RunOptions();
     options.setUserName("sonle1501");
     MultithreadingReposHandle handle = new MultithreadingReposHandle(options);
-    System.out.println("Initialized MultithreadingReposHandle for " + options.getUserName());
+    log.info("Initialized MultithreadingReposHandle for {}", options.getUserName());
   }
 }

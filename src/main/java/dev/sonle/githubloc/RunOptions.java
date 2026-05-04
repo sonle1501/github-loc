@@ -1,7 +1,13 @@
 package dev.sonle.githubloc;
 
 import java.util.Scanner;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
+@Getter
+@Setter
+@Slf4j
 public class RunOptions {
 
   public enum Mode {
@@ -32,49 +38,9 @@ public class RunOptions {
   private Mode mode = Mode.REPO; // default mode : if no cmd argument
   private SortArgument sortArgument = SortArgument.ALL;
 
-  public String getUserName() {
-    return userName;
-  }
-
-  public void setUserName(String userName) {
-    this.userName = userName;
-  }
-
-  public String getRepoName() {
-    return repoName;
-  }
-
-  public void setRepoName(String repoName) {
-    this.repoName = repoName;
-  }
-
-  public Action getAction() {
-    return action;
-  }
-
-  public void setAction(Action action) {
-    this.action = action;
-  }
-
-  public Mode getMode() {
-    return mode;
-  }
-
-  public void setMode(Mode mode) {
-    this.mode = mode;
-  }
-
-  public void setSortArgument(SortArgument sortArgument) {
-    this.sortArgument = sortArgument;
-  }
-
-  public SortArgument getSortArgument() {
-    return this.sortArgument;
-  }
-
   public static String[] parseConsoleInput() {
     Scanner in = new Scanner(System.in);
-    System.out.println("Enter your command (for example: sonle1501/github-loc) :");
+    log.info("Enter your command (for example: sonle1501/github-loc) :");
     String input = in.nextLine();
     String[] args = input.split(" ");
     // in.close();
@@ -188,8 +154,8 @@ public class RunOptions {
   public static void main(String[] args) {
     String[] testArgs = {"sonle1501/github-loc", "--action", "JSON"};
     RunOptions testOptions = RunOptions.parse(testArgs);
-    System.out.println("Mode: " + testOptions.getMode());
-    System.out.println("Action: " + testOptions.getAction());
-    System.out.println("User: " + testOptions.getUserName() + ", Repo: " + testOptions.getRepoName());
+    log.info("Mode: {}", testOptions.getMode());
+    log.info("Action: {}", testOptions.getAction());
+    log.info("User: {}, Repo: {}", testOptions.getUserName(), testOptions.getRepoName());
   }
 }

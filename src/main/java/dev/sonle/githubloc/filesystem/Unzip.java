@@ -1,5 +1,7 @@
 package dev.sonle.githubloc.filesystem;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -8,6 +10,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+@Slf4j
 public class Unzip {
 
     public long unzip(Path sourceZipRepo, Path destRepoPath) throws IOException {
@@ -40,8 +43,9 @@ public class Unzip {
                 zipRepoInputStream.closeEntry();
             }
         }
-        System.out.println(
-                "Successfully unzip " + new SizeFormatter().convertSize(repoSizeInBytes) + " at: " + targetDir);
+        log.info("Successfully unzipped {} at: {}",
+                new SizeFormatter().convertSize(repoSizeInBytes),
+                targetDir);
         return repoSizeInBytes;
     }
 

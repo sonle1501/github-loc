@@ -13,7 +13,9 @@ import dev.sonle.githubloc.output.TreePrinter;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
 import dev.sonle.githubloc.tree.TreeBuilder;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class RepoSorter {
   private Path repoPath;
   private String repoName;
@@ -39,11 +41,10 @@ public class RepoSorter {
       String orderedListJsonFile = "storage/json-results/" + "ordered-list-in-same-lang-" + name
           + ".json";
       jsonProcessor.exportOrderedListToJson(Paths.get(orderedListJsonFile), orderedNodes);
-      System.out.println("Successfully exported the ordered list by most used language of the " + name + " repo at: "
-          + orderedListJsonFile);
+      log.info("Successfully exported the ordered list by most used language of the {} repo at: {}", name, orderedListJsonFile);
       TreePrinter.printNodesFromList(orderedNodes);
     } catch (IOException e) {
-      System.err.println("Failed to rank nodes by most used language. Reason: " + e.getMessage());
+      log.error("Failed to rank nodes by most used language. Reason: {}", e.getMessage());
       e.printStackTrace();
     }
   }
@@ -58,11 +59,10 @@ public class RepoSorter {
       String name = repoName == null ? tree.getRoot().getName() : repoName;
       String orderedListJsonFile = "storage/json-results/" + "ordered-list-by-lang-" + name + ".json";
       jsonProcessor.exportNodeListSortedByLangToJson(Paths.get(orderedListJsonFile), nodeListSortedByLang);
-      System.out.println("Successfully exported the ordered list group by used language of the " + name + " repo at: "
-          + orderedListJsonFile);
+      log.info("Successfully exported the ordered list group by used language of the {} repo at: {}", name, orderedListJsonFile);
       TreePrinter.printNodesFromMap(nodeListSortedByLang);
     } catch (IOException e) {
-      System.err.println("Failed to rank nodes by used language. Reason: " + e.getMessage());
+      log.error("Failed to rank nodes by used language. Reason: {}", e.getMessage());
       e.printStackTrace();
     }
   }
@@ -77,10 +77,10 @@ public class RepoSorter {
       String name = repoName == null ? tree.getRoot().getName() : repoName;
       String orderedListJsonFile = "storage/json-results/" + "ordered-list-" + name + ".json";
       jsonProcessor.exportOrderedListToJson(Paths.get(orderedListJsonFile), orderedNodes);
-      System.out.println("Successfully exported the tree diretory of " + repoName + "at: " + orderedListJsonFile);
+      log.info("Successfully exported the tree diretory of {} at: {}", repoName, orderedListJsonFile);
       TreePrinter.printNodesFromList(orderedNodes);
     } catch (IOException e) {
-      System.err.println("Failed to rank nodes. Reason: " + e.getMessage());
+      log.error("Failed to rank nodes. Reason: {}", e.getMessage());
       e.printStackTrace();
     }
   }
