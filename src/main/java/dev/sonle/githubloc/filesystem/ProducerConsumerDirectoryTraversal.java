@@ -20,14 +20,11 @@ import dev.sonle.githubloc.locc4j.FileCounter;
 
 
 public class ProducerConsumerDirectoryTraversal {
-  private FileCounter fileCounter;
-
-  public ProducerConsumerDirectoryTraversal(){
-    fileCounter = new FileCounter();
-  }
 
   public Tree traverse(Path path, Tree tree) throws IOException { // the "producer"
     Path startPath = path;
+    FileCounter fileCounter = new FileCounter();
+    LocProcessor locProcessor = new LocProcessor();
     int cores = Runtime.getRuntime().availableProcessors();
     ExecutorService executor = Executors.newFixedThreadPool(cores*4);
 
@@ -45,8 +42,7 @@ public class ProducerConsumerDirectoryTraversal {
 
         executor.submit(() -> {
           try {
-            LocProcessor locProcessor = new LocProcessor(filePath, fileCounter);
-            LocProcessor.FileInfo fileInfo = locProcessor.getFileInfo();
+            LocProcessor.FileInfo fileInfo = locProcessor.processFileInfo(filePath, fileCounter);
             
             node.setLoc(fileInfo.loc());
             node.setComments(fileInfo.comments());

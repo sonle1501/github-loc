@@ -40,7 +40,7 @@ public class RunOptions {
 
   public static String[] parseConsoleInput() {
     Scanner in = new Scanner(System.in);
-    log.info("Enter your command (for example: sonle1501/github-loc) :");
+    System.out.println("Enter your command (for example: sonle1501/github-loc) :");
     String input = in.nextLine();
     String[] args = input.split(" ");
     // in.close();

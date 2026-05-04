@@ -13,8 +13,6 @@ import dev.sonle.githubloc.tree.Tree;
 
 
 public class DirectoryBuilder {
-  public DirectoryBuilder(){
-  }
 
   public Tree traverse(Path path, Tree tree) throws IOException {
     Path startPath = path;

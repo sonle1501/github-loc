@@ -71,8 +71,7 @@ public class DirectoryLocProcessor {
             FileNode node = fileList.get(i);
             try {
                 Path filePath = Paths.get(node.getPath());
-                LocProcessor locProcessor = new LocProcessor(filePath, fileCounter);
-                LocProcessor.FileInfo fileInfo = locProcessor.getFileInfo();
+                LocProcessor.FileInfo fileInfo = new LocProcessor().processFileInfo(filePath, fileCounter);
 
                 node.setLoc(fileInfo.loc());
                 node.setComments(fileInfo.comments());

@@ -48,8 +48,7 @@ class LocProcessorTest {
         when(mockLanguage.getDisplayName()).thenReturn("Java");
         when(mockCounter.count(anyString())).thenReturn(result);
 
-        LocProcessor processor = new LocProcessor(filePath, mockCounter);
-        LocProcessor.FileInfo fileInfo = processor.getFileInfo();
+        LocProcessor.FileInfo fileInfo = new LocProcessor().processFileInfo(filePath, mockCounter);
 
         assertNotNull(fileInfo);
         assertEquals(10, fileInfo.loc());
@@ -70,8 +69,7 @@ class LocProcessorTest {
 
         when(mockCounter.count(anyString())).thenReturn(result);
 
-        LocProcessor processor = new LocProcessor(filePath, mockCounter);
-        LocProcessor.FileInfo fileInfo = processor.getFileInfo();
+        LocProcessor.FileInfo fileInfo = new LocProcessor().processFileInfo(filePath, mockCounter);
 
         assertEquals(0, fileInfo.loc());
         assertEquals(0, fileInfo.comments());

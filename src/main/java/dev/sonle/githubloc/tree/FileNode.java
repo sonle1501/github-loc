@@ -32,6 +32,24 @@ public class FileNode {
   private List<FileNode> childs;
   private Map<String, Integer> locByLang;
 
+  public FileNode(String path, String name, FileNode parent) {
+    // this.id = UUID.randomUUID().toString();
+    this.name = name;
+    this.path = path;
+    this.parent = parent;
+    this.languageSet = new LinkedHashSet<>();
+    this.childs = new ArrayList<>();
+    this.locByLang = new HashMap<>();
+  }
+
+  public FileNode(String path) {
+    this(path, null, null);
+  }
+
+  public FileNode() {
+    this("./", null, null);
+  }
+
   public void updateLoc(int loc) {
     this.loc = this.loc + loc;
   }
@@ -72,23 +90,6 @@ public class FileNode {
     }
   }
 
-  public FileNode(String path, String name, FileNode parent) {
-    // this.id = UUID.randomUUID().toString();
-    this.name = name;
-    this.path = path;
-    this.parent = parent;
-    this.languageSet = new LinkedHashSet<>();
-    this.childs = new ArrayList<>();
-    this.locByLang = new HashMap<>();
-  }
-
-  public FileNode(String path) {
-    this(path, null, null);
-  }
-
-  public FileNode() {
-    this("./", null, null);
-  }
 
   public void show() {
     log.info("name: {}", this.path);

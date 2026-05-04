@@ -7,9 +7,11 @@ import java.util.Map;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
 import dev.sonle.githubloc.tree.TreeBuilder;
+import lombok.RequiredArgsConstructor;
 
+@RequiredArgsConstructor
 public class TreePrinter {
-    private Tree tree;
+    private final Tree tree;
 
     public enum Color {
         FOLDER("\u001B[38;2;135;206;235m"), // Sky Blue
@@ -29,10 +31,6 @@ public class TreePrinter {
         public String toString() {
             return code;
         }
-    }
-
-    public TreePrinter(Tree tree) {
-        this.tree = tree;
     }
 
     public void showTree() {

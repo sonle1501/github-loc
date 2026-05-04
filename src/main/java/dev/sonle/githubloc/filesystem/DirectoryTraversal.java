@@ -13,24 +13,22 @@ import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
 
 import dev.sonle.githubloc.locc4j.FileCounter;
+import lombok.NoArgsConstructor;
 
 
 public class DirectoryTraversal {
-  private FileCounter fileCounter;
-  public DirectoryTraversal(){
-    fileCounter = new FileCounter();
-  }
 
   public Tree traverse(Path path, Tree tree) throws IOException {
     Path startPath = path;
+    FileCounter fileCounter = new FileCounter();
+    LocProcessor locProcessor = new LocProcessor();
+
     Files.walkFileTree(startPath, new SimpleFileVisitor<Path>() {
       @Override
       public FileVisitResult visitFile(Path filePath, BasicFileAttributes attrs) {
         FileNode node = new FileNode(filePath.toString(), filePath.getFileName().toString(), null);
-        LocProcessor locProcessor;
         try {
-          locProcessor = new LocProcessor(filePath, fileCounter);
-          LocProcessor.FileInfo fileInfo = locProcessor.getFileInfo();
+          LocProcessor.FileInfo fileInfo = locProcessor.processFileInfo(filePath, fileCounter);
           node.setLoc(fileInfo.loc());
           node.setComments(fileInfo.comments());
           node.setBlanks(fileInfo.blanks());

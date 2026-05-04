@@ -12,8 +12,14 @@ import lombok.Setter;
 @Setter
 public class Tree {
   private Map<String, FileNode> nodeContainer;
-  List<FileNode> fileList;
+  private List<FileNode> fileList;
   private FileNode root;
+
+  public Tree() {
+    nodeContainer = new LinkedHashMap<>();
+    fileList = new ArrayList<>();
+    root = null;
+  }
 
   public FileNode getNodeFromContainer(String path) {
     return nodeContainer.get(path);
@@ -36,8 +42,4 @@ public class Tree {
       return null;
   }
 
-  public Tree() {
-    nodeContainer = new LinkedHashMap<>();
-    fileList = new ArrayList<>();
-  }
 }
