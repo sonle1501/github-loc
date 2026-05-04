@@ -3,11 +3,12 @@ package dev.sonle.githubloc;
 import static org.junit.jupiter.api.Assertions.*;
 
 
+import dev.sonle.githubloc.temp.RunOptions;
 import org.junit.jupiter.api.Test;
 
-import dev.sonle.githubloc.RunOptions.Mode;
-import dev.sonle.githubloc.RunOptions.Action;
-import dev.sonle.githubloc.RunOptions.SortArgument;;
+import dev.sonle.githubloc.temp.RunOptions.Mode;
+import dev.sonle.githubloc.temp.RunOptions.Action;
+import dev.sonle.githubloc.temp.RunOptions.SortArgument;;
 
 
 public class RunOptionsTest {

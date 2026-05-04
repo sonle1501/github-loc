@@ -20,6 +20,11 @@ public class ConsoleOutput {
         return art;
     }
 
+    public static void printAscii(){
+        System.out.println(getAsciiTitle());
+        System.out.println(getSeperator());
+    }
+
     public static void waitForExit() {
         try {
             System.out.println(getSeperator());

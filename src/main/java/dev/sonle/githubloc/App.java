@@ -1,5 +1,8 @@
 package dev.sonle.githubloc;
 
+import dev.sonle.githubloc.execution.CliParser;
+import dev.sonle.githubloc.execution.Orchestrator;
+import dev.sonle.githubloc.execution.RunConfig;
 import dev.sonle.githubloc.output.ConsoleOutput;
 import lombok.extern.slf4j.Slf4j;
 
@@ -7,16 +10,15 @@ import lombok.extern.slf4j.Slf4j;
 public class App {
   public static void main(String[] args) {
     if (args.length == 0) { // no provided command line
-      args = RunOptions.parseConsoleInput();
+      args = CliParser.parseConsoleInput();
 
       // args = new String[]{"local", "ghloc", "sort"};
     }
     try {
-      System.out.println(ConsoleOutput.getAsciiTitle());
-      System.out.println(ConsoleOutput.getSeperator());
-      RunOptions options = RunOptions.parse(args); // use cmd args
-      Runner r = new Runner(options);
-      r.runApp();
+      ConsoleOutput.printAscii();
+      RunConfig config = CliParser.parse(args);
+      Orchestrator orchestrator = new Orchestrator(config);
+      orchestrator.runApp();
       ConsoleOutput.waitForExit();
     } catch (IllegalArgumentException e) {
       log.error("\n[!] The application had to stop.");
