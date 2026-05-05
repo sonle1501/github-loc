@@ -1,5 +1,7 @@
 package dev.sonle.githubloc.api;
 
+import dev.sonle.githubloc.exception.GithubLocException;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -40,10 +42,11 @@ class RepoDownloaderTest {
 
         doThrow(new IOException("Simulation failed")).when(downloader).getResponse("user", "repo");
 
-        RepoDownloader.RepoDownloadException thrown = assertThrows(RepoDownloader.RepoDownloadException.class, () -> {
+        GithubLocException thrown = assertThrows(GithubLocException.class, () -> {
             downloader.downloadRepo(location, "user", "repo");
         });
 
+        assertEquals(dev.sonle.githubloc.exception.ErrorCode.REPO_DOWNLOAD_FAILED, thrown.getErrorCode());
         assertTrue(thrown.getCause() instanceof IOException);
     }
 }

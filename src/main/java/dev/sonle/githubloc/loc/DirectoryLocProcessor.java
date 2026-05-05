@@ -1,5 +1,7 @@
 package dev.sonle.githubloc.loc;
 
+import dev.sonle.githubloc.locc4j.FileCounter;
+import dev.sonle.githubloc.tree.FileNode;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,10 +14,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
-import dev.sonle.githubloc.locc4j.FileCounter;
-
-import dev.sonle.githubloc.tree.FileNode;
+import dev.sonle.githubloc.exception.ErrorCode;
+import dev.sonle.githubloc.exception.GithubLocException;
 
 public class DirectoryLocProcessor {
 
@@ -50,7 +50,7 @@ public class DirectoryLocProcessor {
             executor.invokeAll(tasks);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            System.err.println("Batch processing was interrupted.");
+            throw new GithubLocException(ErrorCode.INTERRUPTED, "Batch processing was interrupted", e);
         } finally {
             executor.shutdown();
             try {
@@ -60,6 +60,7 @@ public class DirectoryLocProcessor {
             } catch (InterruptedException e) {
                 executor.shutdownNow();
                 Thread.currentThread().interrupt();
+                throw new GithubLocException(ErrorCode.INTERRUPTED, "Executor shutdown was interrupted", e);
             }
         }
     }
@@ -71,15 +72,14 @@ public class DirectoryLocProcessor {
             FileNode node = fileList.get(i);
             try {
                 Path filePath = Paths.get(node.getPath());
-                LocProcessor locProcessor = new LocProcessor(filePath, fileCounter);
-                LocProcessor.FileInfo fileInfo = locProcessor.getFileInfo();
+                LocProcessor.FileInfo fileInfo = new LocProcessor().processFileInfo(filePath, fileCounter);
 
                 node.setLoc(fileInfo.loc());
                 node.setComments(fileInfo.comments());
                 node.setBlanks(fileInfo.blanks());
                 node.setLanguageSet(fileInfo.languageSet());
                 node.setLocByLang(fileInfo.locByLang());
-            } catch (IOException e) {
+            } catch (GithubLocException e) {
                 System.err.println("Error occurs while counting LOC on file: " + node.getPath());
             }
         }
@@ -119,20 +119,20 @@ public class DirectoryLocProcessor {
         return lang;
     }
 
-    public Map<String, String> getPercentageUsedLanguage(FileNode root){
+    public Map<String, String> getPercentageUsedLanguage(FileNode root) {
         Map<String, Integer> locByLang = root.getLocByLang();
         int totalLoc = root.getLoc();
         Map<String, String> percentageMap = new LinkedHashMap<>();
 
-        //Avoid division by zero
+        // Avoid division by zero
         if (totalLoc == 0 || locByLang == null || locByLang.isEmpty()) {
             return percentageMap;
         }
 
         List<Map.Entry<String, Integer>> sortedEntries = new ArrayList<>(locByLang.entrySet());
-        Collections.sort(sortedEntries, (entry1, entry2) -> 
-            entry2.getValue().compareTo(entry1.getValue())  // reversed order
-        );
+        Collections.sort(
+                sortedEntries, (entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()) // reversed order
+                );
 
         for (Map.Entry<String, Integer> entry : sortedEntries) {
             String language = entry.getKey();

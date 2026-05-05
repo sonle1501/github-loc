@@ -7,24 +7,29 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import lombok.extern.slf4j.Slf4j;
+import dev.sonle.githubloc.exception.ErrorCode;
+import dev.sonle.githubloc.exception.GithubLocException;
 
+@Slf4j
 public class Unzip {
 
-    public long unzip(Path sourceZipRepo, Path destRepoPath) throws IOException {
+    public long unzip(Path sourceZipRepo, Path destRepoPath) {
 
         Path targetDir = destRepoPath.toAbsolutePath().normalize();
-        Files.createDirectories(targetDir);
         long repoSizeInBytes = 0;
 
-        try (ZipInputStream zipRepoInputStream = new ZipInputStream(Files.newInputStream(sourceZipRepo))) {
+        try {
+            Files.createDirectories(targetDir);
+            try (ZipInputStream zipRepoInputStream = new ZipInputStream(Files.newInputStream(sourceZipRepo))) {
             ZipEntry entry;
             while ((entry = zipRepoInputStream.getNextEntry()) != null) {
                 Path resolvedDestPath = targetDir.resolve(entry.getName()).normalize();
 
                 // prevent Zip Slip vulnerability
                 if (!resolvedDestPath.startsWith(targetDir)) {
-                    throw new IOException("Entry is outside of the target dir: " + entry.getName());
-                }
+                        throw new GithubLocException(ErrorCode.FILE_PROCESSING_ERROR, "Entry is outside of the target dir: " + entry.getName());
+                    }
 
                 if (entry.isDirectory()) {
                     Files.createDirectories(resolvedDestPath);
@@ -38,10 +43,12 @@ public class Unzip {
                 }
 
                 zipRepoInputStream.closeEntry();
+                }
             }
+        } catch (IOException e) {
+            throw new GithubLocException(ErrorCode.FILE_PROCESSING_ERROR, "Failed to unzip repository", e);
         }
-        System.out.println(
-                "Successfully unzip " + new SizeFormatter().convertSize(repoSizeInBytes) + " at: " + targetDir);
+        log.info("Successfully unzipped {} at: {}", new SizeFormatter().convertSize(repoSizeInBytes), targetDir);
         return repoSizeInBytes;
     }
 

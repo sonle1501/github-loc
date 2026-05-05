@@ -7,61 +7,68 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
-
+import lombok.extern.slf4j.Slf4j;
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.ObjectMapper;
 
+import dev.sonle.githubloc.exception.ErrorCode;
+import dev.sonle.githubloc.exception.GithubLocException;
+
+@Slf4j
 public class UserInfoFetching {
+    private final ObjectMapper mapper;
+
+    public UserInfoFetching(){
+        mapper = new ObjectMapper();
+    }
 
     public List<String> fetchRepoNames(String userName) {
         List<String> repos = new ArrayList<>();
-        ObjectMapper mapper = new ObjectMapper();
         try {
             HttpResponse<String> response = getResponse(userName);
-
-            try {
-                JsonNode rootNode = mapper.readTree(response.body());
-
-                if (rootNode.isArray()) {
-                    for (JsonNode repoNode : rootNode) {
-                        repos.add(repoNode.get("name").asString());
-                    }
-                } else {
-                    System.err.println("Failed to fetch repo names");
-                    System.err.println("Response Body: " + response.body());
-                    return null;
-                }
-
-            } catch (JacksonException e) {
-                System.err.println("JSON parsing error while reading response on proessing repo names task");
-                System.err.println("Error: " + e.getMessage());
-                return null;
+            if (response.statusCode() == 404) {
+                throw new GithubLocException(ErrorCode.GITHUB_API_ERROR, "Github user '" + userName + "' not found.");
+            } else if (response.statusCode() == 403) {
+                throw new GithubLocException(ErrorCode.UNEXPECTED_ERROR, "Rate limited by GitHub API. Please try again later.");
+            } else if (response.statusCode() != 200) {
+                throw new GithubLocException(ErrorCode.UNEXPECTED_ERROR, "Unexpected HTTP status: " + response.statusCode());
             }
 
-        } catch (IOException e) {
-            System.err.println("IO error while fetching response on proessing repo names task");
-            System.err.println("Error: " + e.getMessage());
-            return null;
+            JsonNode rootNode = mapper.readTree(response.body());
 
+            if (!rootNode.isArray()) {
+                throw new GithubLocException(ErrorCode.JSON_PROCESSING_ERROR, "Unexpected GitHub API payload while fetching Github user info");
+            }
+
+            for (JsonNode repoNode : rootNode) {
+                repos.add(repoNode.get("name").asString());
+            }
+
+            if (repos.isEmpty()) {
+                throw new GithubLocException(ErrorCode.UNEXPECTED_ERROR, "User '" + userName + "' has 0 public repositories.");
+            }
+
+            return repos;
+
+        } catch (JacksonException e) {
+            throw new GithubLocException(ErrorCode.JSON_PROCESSING_ERROR, "Failed to parse repository data from Github while fetching Github user info", e);
+        } catch (IOException e) {
+            throw new GithubLocException(ErrorCode.UNEXPECTED_ERROR, "Network error occurred while fetching Github user info", e);
         } catch (InterruptedException e) {
-            System.err.println("Request was interrupted");
-            Thread.currentThread().interrupt(); // good practice
-            return null;
+            Thread.currentThread().interrupt();
+            throw new GithubLocException(ErrorCode.INTERRUPTED, "Github user info fetch operation was interrupted", e);
         }
-        if (repos == null || repos.isEmpty())
-            throw new IllegalArgumentException("No repositories found for this user");
-        return repos;
     }
 
     private HttpResponse<String> makeRequest(String url, String bearerToken) throws IOException, InterruptedException {
         HttpClient client = HttpClient.newBuilder()
                 .followRedirects(HttpClient.Redirect.ALWAYS) // must follow the redirect (instead, recieve 307 status
-                                                             // code)
+                // code)
                 .build();
 
-        HttpRequest.Builder requestBuilder = HttpRequest.newBuilder(URI.create(url)).GET().header("Accept",
-                "application/vnd.github+json");
+        HttpRequest.Builder requestBuilder =
+                HttpRequest.newBuilder(URI.create(url)).GET().header("Accept", "application/vnd.github+json");
 
         if (bearerToken != null) { // if using token
             requestBuilder.header("Authorization", String.format("Bearer %s", bearerToken));
@@ -79,10 +86,9 @@ public class UserInfoFetching {
         }
         if (bearerToken != null && (statusCode == 401 || statusCode == 403)) { // 401 (unauthorized) 403 (Forbidden)
             response = makeRequest(repoUrl, null);
-            if (response.statusCode() == 200)
-                return response;
+            if (response.statusCode() == 200) return response;
         }
-        throw new IOException("GitHub API rejected the request with HTTP status code : " + response.statusCode());
+        throw new GithubLocException(ErrorCode.UNEXPECTED_ERROR, "Github API rejected the request with HTTP status code : " + response.statusCode());
     }
 
     private String getUserAPI(String userName) {
@@ -93,18 +99,13 @@ public class UserInfoFetching {
         return GithubTokenProcessor.getToken();
     }
 
-    public class UserRepoDownloadException extends RuntimeException {
-        public UserRepoDownloadException(String message, Throwable cause) {
-            super(message, cause);
-        }
-    }
-
     public static void main(String[] args) {
         UserInfoFetching fetcher = new UserInfoFetching();
         try {
-            System.out.println("Testing UserInfoFetching (fetching repos for sonle1501): " + fetcher.fetchRepoNames("sonle1501"));
+            log.info(
+                    "Testing UserInfoFetching (fetching repos for sonle1501): {}", fetcher.fetchRepoNames("sonle1501"));
         } catch (Exception e) {
-            System.err.println("Failed to fetch: " + e.getMessage());
+            log.error("Failed to fetch: {}", e.getMessage());
         }
     }
 }

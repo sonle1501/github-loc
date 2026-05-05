@@ -7,16 +7,15 @@ public class SizeFormatter {
     private static long GB = MB * 1024;
 
     public String convertSize(long sizeInByte) {
-        if (sizeInByte <= -1)
-            return "undefined";
+        if (sizeInByte <= -1) return "undefined";
         // if size < 100KB -> get size in KB
         if (sizeInByte < 100 * KB) {
             return String.format("%.2f KB", getSizeInKB(sizeInByte));
-        } 
+        }
         // if size >= 100KB and < 1GB -> get size in MB
         else if (sizeInByte < GB) {
             return String.format("%.2f MB", getSizeInMB(sizeInByte));
-        } 
+        }
         // if size >= 1GB, get size in GB
         else {
             return String.format("%.2f GB", getSizeInGB(sizeInByte));

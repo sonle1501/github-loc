@@ -42,16 +42,29 @@
       <artifactId>jackson-databind</artifactId>
       <version>3.0.0</version>
     </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-annotations</artifactId>
-      <version>3.0-rc5</version>
-    </dependency>
+
     <dependency>
       <groupId>tools.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
       <version>3.0.0</version>
     </dependency>
+
+    <!-- Logging -->
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>1.5.32</version>
+    </dependency>
+
+    <!-- Lombok -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.42</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- NO USE -->
 
     <!-- loc counter built in java : https://github.com/cthing/locc4j
      has integrated to the source code, under the package dev.sonle.githubloc.locc4j
@@ -60,6 +73,12 @@
       <artifactId>locc4j</artifactId>
       <version>2.0.0</version>
     </dependency> -->
+
+<!--    <dependency>-->
+<!--      <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--      <artifactId>jackson-annotations</artifactId>-->
+<!--      <version>3.0-rc5</version>-->
+<!--    </dependency>-->
 
   </dependencies>
   <build>
