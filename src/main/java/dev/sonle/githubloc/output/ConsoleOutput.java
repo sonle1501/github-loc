@@ -3,12 +3,18 @@ package dev.sonle.githubloc.output;
 public class ConsoleOutput {
     public static String getAsciiTitle() {
         String art = "  __                                         \r\n" + //
-                " /__  o  _|_  |_        |_   __  |    _    _ \r\n" + //
-                " \\_|  |   |_  | |  |_|  |_)      |_  (_)  (_ \r\n" + //
-                "                                             \r\n" + //
-                "                                             \r\n" + //
-                " ._   ._   _    o   _    _  _|_              \r\n" + //
-                " |_)  |   (_)   |  (/_  (_   |_              \r\n" + //
+                " /__  o  _|_  |_        |_   __  |    _    _ \r\n"
+                + //
+                " \\_|  |   |_  | |  |_|  |_)      |_  (_)  (_ \r\n"
+                + //
+                "                                             \r\n"
+                + //
+                "                                             \r\n"
+                + //
+                " ._   ._   _    o   _    _  _|_              \r\n"
+                + //
+                " |_)  |   (_)   |  (/_  (_   |_              \r\n"
+                + //
                 " |             _|                            ";
 
         String author = "by Sonle1501";
@@ -20,7 +26,7 @@ public class ConsoleOutput {
         return art;
     }
 
-    public static void printAscii(){
+    public static void printAscii() {
         System.out.println(getAsciiTitle());
         System.out.println(getSeperator());
     }

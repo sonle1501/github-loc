@@ -1,21 +1,29 @@
 package dev.sonle.githubloc.output;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 import dev.sonle.githubloc.filesystem.SizeFormatter;
 import dev.sonle.githubloc.loc.DirectoryLocProcessor;
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import lombok.Getter;
 
-@JsonPropertyOrder({ "userName", "repoName", "repoSize", "repoURL", "scanDate", "totalFiles", "totalNodes", "totalLoc",
-        "percentageOfUsedLanguage", "rootNode" })
+@JsonPropertyOrder({
+    "userName",
+    "repoName",
+    "repoSize",
+    "repoURL",
+    "scanDate",
+    "totalFiles",
+    "totalNodes",
+    "totalLoc",
+    "percentageOfUsedLanguage",
+    "rootNode"
+})
 @JsonInclude(JsonInclude.Include.NON_EMPTY) // hide childs[] if node is a file or empty folder
 @Getter
 public class RepoReport {
@@ -40,7 +48,7 @@ public class RepoReport {
         this.userName = userName;
     }
 
-    private void setNeededFields(){
+    private void setNeededFields() {
         totalFiles = repoTree.getFileList().size();
         totalNodes = repoTree.getNodeContainer().size();
         rootNode = repoTree.getRoot();
@@ -51,14 +59,11 @@ public class RepoReport {
     public RepoReport createRepoReport() {
         setNeededFields();
 
-        if ( userName == null || "local-user".equalsIgnoreCase(userName))
-            repoURL = null;
-        else
-            repoURL = String.format("https://github.com/%s/%s", userName, repoName);
+        if (userName == null || "local-user".equalsIgnoreCase(userName)) repoURL = null;
+        else repoURL = String.format("https://github.com/%s/%s", userName, repoName);
 
-        if ("undefined".equalsIgnoreCase(repoSize))
-            repoSize = null;
-        
+        if ("undefined".equalsIgnoreCase(repoSize)) repoSize = null;
+
         scanDate = LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         return this;
     }

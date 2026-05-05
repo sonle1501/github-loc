@@ -1,9 +1,11 @@
 package dev.sonle.githubloc.execution;
 
 import java.util.Scanner;
+import dev.sonle.githubloc.exception.ErrorCode;
+import dev.sonle.githubloc.exception.GithubLocException;
 
 public class CliParser {
-    
+
     public static String[] parseConsoleInput() {
         Scanner in = new Scanner(System.in);
         System.out.println("Enter your command (for example: sonle1501/github-loc) :");
@@ -30,20 +32,20 @@ public class CliParser {
         String firstArg = args[0];
         String[] parts = firstArg.split("/");
 
-        if (parts.length == 1 && parts[0].strip() != "") {
+        if (parts.length == 1 && !parts[0].strip().isEmpty()) {
             config.setUserName(parts[0]);
             config.setMode(RunConfig.Mode.USER);
             return config;
         }
 
-        if (parts.length == 2 && !parts[0].strip().isEmpty() && !parts[1].strip().isEmpty()) {
+        if (parts.length == 2
+                && !parts[0].strip().isEmpty()
+                && !parts[1].strip().isEmpty()) {
             config.setUserName(parts[0]);
             config.setRepoName(parts[1]);
             return config;
-        }
-
-        else {
-            throw new IllegalArgumentException("Invalid command");
+        } else {
+            throw new GithubLocException(ErrorCode.INVALID_INPUT, "Invalid command");
         }
     }
 
@@ -54,23 +56,20 @@ public class CliParser {
         if (args.length == 2) {
             config.setAction(RunConfig.Action.DEFAULT);
             return;
-        }
-        else {
+        } else {
             int actionIndex = 2;
-            parseActionHelper(actionIndex,args,config);
+            parseActionHelper(actionIndex, args, config);
         }
     }
 
     // only use with sort action
     private static void setSortArgumentsHelper(String args[], int i, RunConfig config) {
-        if (i + 2 >= args.length)
-            config.setSortArgument(RunConfig.SortArgument.ALL);
+        if (i + 2 >= args.length) config.setSortArgument(RunConfig.SortArgument.ALL);
         else if ("BYLANG".equalsIgnoreCase(args[i + 2])) {
             config.setSortArgument(RunConfig.SortArgument.BYLANG);
         } else if ("BYMOSTLANG".equalsIgnoreCase(args[i + 2])) {
             config.setSortArgument(RunConfig.SortArgument.BYMOSTLANG);
-        } else
-            config.setSortArgument(RunConfig.SortArgument.ALL);
+        } else config.setSortArgument(RunConfig.SortArgument.ALL);
     }
 
     private static void parseActionHelper(int actionIndex, String args[], RunConfig config) {
@@ -83,27 +82,29 @@ public class CliParser {
             try {
                 config.setAction(RunConfig.Action.valueOf(actionType.toUpperCase()));
             } catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException("Invalid action in a command");
+                throw new GithubLocException(ErrorCode.INVALID_INPUT, "Invalid action in a command");
             }
         } else {
-            throw new IllegalArgumentException("Invalid arguments in a command");
+            throw new GithubLocException(ErrorCode.INVALID_INPUT, "Invalid arguments in a command");
         }
     }
 
-    private static void validateArgument(RunConfig config){
+    private static void validateArgument(RunConfig config) {
         if (config.getMode() == RunConfig.Mode.USER && config.getUserName() == null)
-            throw new IllegalArgumentException("User is not specified.");
-
-        else if (config.getMode() == RunConfig.Mode.REPO && (config.getUserName() == null || config.getRepoName() == null))
-            throw new IllegalArgumentException("Repository is not specified.");
+            throw new GithubLocException(ErrorCode.INVALID_INPUT, "User is not specified.");
+        else if (config.getMode() == RunConfig.Mode.REPO
+                && (config.getUserName() == null || config.getRepoName() == null))
+            throw new GithubLocException(ErrorCode.INVALID_INPUT, "Repository is not specified.");
     }
 
     public static RunConfig parse(String[] args) {
         RunConfig config = parseHelper(args);
-        if (config.getMode() == RunConfig.Mode.DEFAULT || config.getMode() == RunConfig.Mode.USER || config.getMode() == RunConfig.Mode.LOCAL) {
+        if (config.getMode() == RunConfig.Mode.DEFAULT
+                || config.getMode() == RunConfig.Mode.USER
+                || config.getMode() == RunConfig.Mode.LOCAL) {
             return config;
         }
-        
+
         if (args.length == 1) {
             config.setMode(RunConfig.Mode.REPO);
             config.setAction(RunConfig.Action.DEFAULT);

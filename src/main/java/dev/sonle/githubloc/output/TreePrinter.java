@@ -1,12 +1,11 @@
 package dev.sonle.githubloc.output;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import dev.sonle.githubloc.tree.FileNode;
 import dev.sonle.githubloc.tree.Tree;
 import dev.sonle.githubloc.tree.TreeBuilder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -49,41 +48,32 @@ public class TreePrinter {
 
         if (node.getChilds() == null || node.getChilds().isEmpty()) { // priorty null checking first
             // show file
-            fileInfo = String.format(
-                    " %sloc: %s | %s%s",
-                    Color.META,
-                    node.getLoc(),
-                    node.getLanguageSet(),
-                    Color.RESET);
+            fileInfo =
+                    String.format(" %sloc: %s | %s%s", Color.META, node.getLoc(), node.getLanguageSet(), Color.RESET);
 
-            System.out.println(
-                    Color.TREE
-                            + prefix
-                            + connector
-                            + Color.RESET
-                            + Color.FILE
-                            + node.getName()
-                            + Color.RESET
-                            + fileInfo);
+            System.out.println(Color.TREE
+                    + prefix
+                    + connector
+                    + Color.RESET
+                    + Color.FILE
+                    + node.getName()
+                    + Color.RESET
+                    + fileInfo);
             return;
         }
         // show folder
         else {
-            fileInfo = String.format(
-                    " %sloc: %s",
-                    Color.META,
-                    node.getLoc());
+            fileInfo = String.format(" %sloc: %s", Color.META, node.getLoc());
 
-            System.out.println(
-                    Color.TREE
-                            + prefix
-                            + connector
-                            + Color.RESET
-                            + Color.FOLDER
-                            + node.getName()
-                            + "/"
-                            + fileInfo
-                            + Color.RESET);
+            System.out.println(Color.TREE
+                    + prefix
+                    + connector
+                    + Color.RESET
+                    + Color.FOLDER
+                    + node.getName()
+                    + "/"
+                    + fileInfo
+                    + Color.RESET);
         }
 
         List<FileNode> nodeChilds = node.getChilds();
@@ -104,22 +94,12 @@ public class TreePrinter {
         System.out.println();
         int top = 1;
         for (FileNode node : nodes) {
-            if (node.getChilds().size() > 0)
-                continue;
+            if (node.getChilds().size() > 0) continue;
 
-            String fileInfo = String.format(
-                    " %sloc: %s | %s%s",
-                    Color.META,
-                    node.getLoc(),
-                    node.getLanguageSet(),
-                    Color.RESET);
+            String fileInfo =
+                    String.format(" %sloc: %s | %s%s", Color.META, node.getLoc(), node.getLanguageSet(), Color.RESET);
 
-            System.out.println(
-                    "TOP " + (top++) + ": " +
-                            Color.FILE
-                            + node.getName()
-                            + Color.RESET
-                            + fileInfo);
+            System.out.println("TOP " + (top++) + ": " + Color.FILE + node.getName() + Color.RESET + fileInfo);
         }
     }
 
@@ -134,18 +114,9 @@ public class TreePrinter {
             for (int i = 0; i < fileList.size(); i++) {
                 String connector = i == fileList.size() - 1 ? "└──" : "├──";
                 FileNode file = fileList.get(i);
-                String fileInfo = String.format(
-                        " %sloc: %s%s",
-                        Color.META,
-                        file.getLoc(),
-                        Color.RESET);
+                String fileInfo = String.format(" %sloc: %s%s", Color.META, file.getLoc(), Color.RESET);
 
-                System.out.println(
-                        connector
-                                + Color.FILE
-                                + file.getName()
-                                + Color.RESET
-                                + fileInfo);
+                System.out.println(connector + Color.FILE + file.getName() + Color.RESET + fileInfo);
             }
         }
     }
@@ -187,8 +158,8 @@ public class TreePrinter {
     public static void main(String[] args) {
         try {
             Tree tree = new TreeBuilder().buildTree(java.nio.file.Paths.get("storage\\repos\\github-loc"));
-            dev.sonle.githubloc.tree.FileNode root = new dev.sonle.githubloc.tree.FileNode("storage\\repos\\github-loc",
-                    "github-loc", null);
+            dev.sonle.githubloc.tree.FileNode root =
+                    new dev.sonle.githubloc.tree.FileNode("storage\\repos\\github-loc", "github-loc", null);
             tree.setRoot(root);
             tree.addNodeToContainer(root);
             TreePrinter printer = new TreePrinter(tree);
@@ -196,6 +167,5 @@ public class TreePrinter {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

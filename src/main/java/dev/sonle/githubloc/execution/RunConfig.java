@@ -1,10 +1,9 @@
 package dev.sonle.githubloc.execution;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -36,38 +35,29 @@ public class RunConfig {
     public enum SortArgument {
         ALL, // sort all nodes
         BYLANG, // group by used language and sort
-        BYMOSTLANG// sort by most used Language
+        BYMOSTLANG // sort by most used Language
     }
 
-    public record BasePath  (
-            Path baseRepoPath,
-            Path baseZipPath,
-            Path baseJsonPath
-    ){
-        public static BasePath defaultDir(){
-            return new BasePath ( Paths.get("storage", "repos"),
+    public record BasePath(Path baseRepoPath, Path baseZipPath, Path baseJsonPath) {
+        public static BasePath defaultDir() {
+            return new BasePath(
+                    Paths.get("storage", "repos"),
                     Paths.get("storage", "zip-repos"),
                     Paths.get("storage", "json-results"));
         }
 
-        public static BasePath customDir(Path customBase){
-            return new BasePath ( customBase.resolve("repos"),
-                    customBase.resolve("zip-repos"),
-                    customBase.resolve("json-results"));
+        public static BasePath customDir(Path customBase) {
+            return new BasePath(
+                    customBase.resolve("repos"), customBase.resolve("zip-repos"), customBase.resolve("json-results"));
         }
     }
 
-    public record StoragePath(
-            Path repoPath,
-            Path zipPath,
-            Path jsonPath
-    ){
-        public static StoragePath from(String repoName, BasePath basePath){
+    public record StoragePath(Path repoPath, Path zipPath, Path jsonPath) {
+        public static StoragePath from(String repoName, BasePath basePath) {
             return new StoragePath(
                     basePath.baseRepoPath.resolve(repoName),
                     basePath.baseZipPath.resolve(repoName + ".zip"),
-                    basePath.baseJsonPath.resolve(repoName + ".json")
-            );
+                    basePath.baseJsonPath.resolve(repoName + ".json"));
         }
     }
 
@@ -77,5 +67,4 @@ public class RunConfig {
         defaultRunConfig.setRepoName(repoName);
         return defaultRunConfig;
     }
-
 }

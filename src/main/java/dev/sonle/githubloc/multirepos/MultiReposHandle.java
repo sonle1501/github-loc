@@ -1,23 +1,23 @@
-//package dev.sonle.githubloc.multirepos;
+// package dev.sonle.githubloc.multirepos;
 //
-//import java.io.IOException;
-//import java.nio.file.Files;
-//import java.nio.file.Path;
-//import java.nio.file.Paths;
-//import java.util.ArrayList;
-//import java.util.List;
+// import java.io.IOException;
+// import java.nio.file.Files;
+// import java.nio.file.Path;
+// import java.nio.file.Paths;
+// import java.util.ArrayList;
+// import java.util.List;
 //
-//import dev.sonle.githubloc.temp.RunOptions;
-//import dev.sonle.githubloc.api.UserInfoFetching;
-//import dev.sonle.githubloc.filesystem.Unzip;
-//import dev.sonle.githubloc.output.JsonProcessor;
-//import dev.sonle.githubloc.tree.FileNode;
-//import dev.sonle.githubloc.tree.Tree;
-//import dev.sonle.githubloc.tree.TreeBuilder;
-//import lombok.extern.slf4j.Slf4j;
+// import dev.sonle.githubloc.temp.RunOptions;
+// import dev.sonle.githubloc.api.UserInfoFetching;
+// import dev.sonle.githubloc.filesystem.Unzip;
+// import dev.sonle.githubloc.output.JsonProcessor;
+// import dev.sonle.githubloc.tree.FileNode;
+// import dev.sonle.githubloc.tree.Tree;
+// import dev.sonle.githubloc.tree.TreeBuilder;
+// import lombok.extern.slf4j.Slf4j;
 //
-//@Slf4j
-//public class MultiReposHandle {
+// @Slf4j
+// public class MultiReposHandle {
 //
 //  public record RepoTarget(String repoName, long sizeProcess, Path validPath) {
 //  }
@@ -115,7 +115,8 @@
 //        Tree repoTree = new TreeBuilder().buildTree(repoInfo.validPath());
 //        repoTrees.add(repoTree);
 //      } catch (IOException e) {
-//        log.error("Failed to process Tree for '{}'. Skipping to next. Reason: {}", repoInfo.repoName(), e.getMessage());
+//        log.error("Failed to process Tree for '{}'. Skipping to next. Reason: {}", repoInfo.repoName(),
+// e.getMessage());
 //      }
 //
 //    }
@@ -133,9 +134,11 @@
 //      try {
 //        FileNode root = tree.getRoot();
 //        String name = root.getName();
-//        jsonProcessor.exportTreeToJson(tree, userName, name, -1, jsonResultsPath.resolve(name + ".json"));  // repoSize = undefined
+//        jsonProcessor.exportTreeToJson(tree, userName, name, -1, jsonResultsPath.resolve(name + ".json"));  //
+// repoSize = undefined
 //      } catch (IOException e) {
-//        log.error("Failed to process JSON for '{}'. Skipping to next. Reason: {}", tree.getRoot().getName(), e.getMessage());
+//        log.error("Failed to process JSON for '{}'. Skipping to next. Reason: {}", tree.getRoot().getName(),
+// e.getMessage());
 //      }
 //
 //    }
@@ -147,4 +150,4 @@
 //    MultiReposHandle handle = new MultiReposHandle(options);
 //    log.info("Initialized MultiReposHandle for {}", options.getUserName());
 //  }
-//}
+// }

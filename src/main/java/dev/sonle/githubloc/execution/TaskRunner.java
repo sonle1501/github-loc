@@ -7,21 +7,13 @@ import dev.sonle.githubloc.output.TreePrinter;
 import dev.sonle.githubloc.sort.RepoSorter;
 import dev.sonle.githubloc.tree.Tree;
 import dev.sonle.githubloc.tree.TreeBuilder;
-import lombok.extern.slf4j.Slf4j;
-
-import java.io.IOException;
 import java.nio.file.Path;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class TaskRunner {
     public Tree createTree(Path repoPath, String repoName) {
-        try {
-            return new TreeBuilder().buildTreeWithBatchProcessing(repoPath);
-        } catch (IOException e) {
-            log.error("Failed to create the tree of: {} repo, the program had to stop", repoName);
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
+        return new TreeBuilder().buildTreeWithBatchProcessing(repoPath);
     }
 
     public long runDownload(Path zipPath, String userName, String repoName) {
@@ -29,25 +21,13 @@ public class TaskRunner {
     }
 
     public long runUnzip(Path zipPath, Path repoPath, String repoName) {
-        try {
-            Unzip unzipHandler = new Unzip();
-            return unzipHandler.unzip(zipPath, repoPath);
-        } catch (IOException e) {
-            log.error("Failed to unzip: {} repo", repoName);
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
+        Unzip unzipHandler = new Unzip();
+        return unzipHandler.unzip(zipPath, repoPath);
     }
 
     public void runJsonProcess(Tree repoTree, String userName, String repoName, long repoSize, Path jsonPath) {
-        try {
-            JsonProcessor jsonProcessor = new JsonProcessor();
-            jsonProcessor.exportTreeToJson(repoTree, userName, repoName, repoSize, jsonPath);
-        } catch (IOException e) {
-            log.error("Failed to export the json results of: {} repo", repoName);
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
+        JsonProcessor jsonProcessor = new JsonProcessor();
+        jsonProcessor.exportTreeToJson(repoTree, userName, repoName, repoSize, jsonPath);
     }
 
     public void showTree(Tree repoTree) {

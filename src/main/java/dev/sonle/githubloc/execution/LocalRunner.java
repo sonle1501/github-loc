@@ -2,11 +2,12 @@ package dev.sonle.githubloc.execution;
 
 import dev.sonle.githubloc.execution.RunConfig.SortArgument;
 import dev.sonle.githubloc.tree.Tree;
-import lombok.extern.slf4j.Slf4j;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import dev.sonle.githubloc.exception.ErrorCode;
+import dev.sonle.githubloc.exception.GithubLocException;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class LocalRunner {
@@ -28,7 +29,7 @@ public class LocalRunner {
 
         if (Files.exists(standardPath) && Files.isDirectory(standardPath)) {
             this.repoPath = standardPath;
-            System.out.println("Local repository found at: " + this.repoPath);
+            log.info("Local repository found at: {}", this.repoPath);
             return;
         }
 
@@ -36,9 +37,9 @@ public class LocalRunner {
         Path userRepoPath = Paths.get("storage", "user-repos", userName, "repos", config.getRepoName());
         if (Files.exists(userRepoPath) && Files.isDirectory(userRepoPath)) {
             this.repoPath = userRepoPath;
-            System.out.println("Local repository found at: " + this.repoPath);
+            log.info("Local repository found at: {}", this.repoPath);
         } else {
-            throw new IllegalStateException("Error: Local repository not found");
+            throw new GithubLocException(ErrorCode.INVALID_INPUT, "Local repository not found");
         }
     }
 
@@ -51,39 +52,32 @@ public class LocalRunner {
         // Resolve paths
         this.jsonPath = base.baseJsonPath().resolve(config.getRepoName() + "-local.json");
 
-        try {
-            validateRepoPath();
+        validateRepoPath();
 
-            switch (config.getAction()) {
-                case TREE -> {
-                    runCreateTreeTask();
-                    runShowTreeTask();
-                }
-                case JSON -> {
-                    runCreateTreeTask();
-                    runJsonExportTask();
-                }
-                case SORT -> {
-                    if (config.getSortArgument() == SortArgument.BYLANG)
-                        runProcessNodesSortedByUsedLanguageTask();
-                    else if (config.getSortArgument() == SortArgument.BYMOSTLANG)
-                        runProcessNodesSortedByMostUsedLanguageTask();
-                    else
-                        runProcessNodesInOrderTask();
-                }
-                case DEFAULT -> {
-                    runCreateTreeTask();
-                    runJsonExportTask();
-                    runShowTreeTask();
-                }
-                case DOWNLOAD, UNZIP -> {
-                    log.error("DOWNLOAD and UNZIP actions are not supported for local repositories.");
-                }
-                default -> throw new IllegalArgumentException("Invalid action for LocalRunner");
+        switch (config.getAction()) {
+            case TREE -> {
+                runCreateTreeTask();
+                runShowTreeTask();
             }
-        } catch (Exception e) {
-            log.error("Failed to run local analysis: {}", e.getMessage());
-            e.printStackTrace();
+            case JSON -> {
+                runCreateTreeTask();
+                runJsonExportTask();
+            }
+            case SORT -> {
+                if (config.getSortArgument() == SortArgument.BYLANG) runProcessNodesSortedByUsedLanguageTask();
+                else if (config.getSortArgument() == SortArgument.BYMOSTLANG)
+                    runProcessNodesSortedByMostUsedLanguageTask();
+                else runProcessNodesInOrderTask();
+            }
+            case DEFAULT -> {
+                runCreateTreeTask();
+                runJsonExportTask();
+                runShowTreeTask();
+            }
+            case DOWNLOAD, UNZIP -> {
+                throw new GithubLocException(ErrorCode.INVALID_INPUT, "DOWNLOAD and UNZIP actions are not supported for local repositories");
+            }
+            default -> throw new GithubLocException(ErrorCode.INVALID_INPUT, "Invalid action for LocalRunner");
         }
     }
 
@@ -121,8 +115,10 @@ public class LocalRunner {
             LocalRunner localRunner = new LocalRunner(config);
             log.info("Starting LocalRunner for test local repo github-loc...");
             localRunner.runLocal();
+        } catch (GithubLocException e) {
+            log.error("Error [Code {}]: {}", e.getErrorCode().getExitCode(), e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Unexpected error", e);
         }
     }
 }
