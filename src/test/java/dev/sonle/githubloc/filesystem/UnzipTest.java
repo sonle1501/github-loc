@@ -62,10 +62,11 @@ class UnzipTest {
             zos.closeEntry();
         }
 
-        IOException thrown = assertThrows(IOException.class, () -> {
+        dev.sonle.githubloc.exception.GithubLocException thrown = assertThrows(dev.sonle.githubloc.exception.GithubLocException.class, () -> {
             unzipper.unzip(zipFile, destDir);
         });
 
+        assertEquals(dev.sonle.githubloc.exception.ErrorCode.FILE_PROCESSING_ERROR, thrown.getErrorCode());
         assertTrue(thrown.getMessage().contains("Entry is outside of the target dir"));
     }
 }

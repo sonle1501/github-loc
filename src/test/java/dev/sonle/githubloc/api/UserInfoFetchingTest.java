@@ -17,6 +17,7 @@ class UserInfoFetchingTest {
 
         String jsonResponse = "[{\"name\": \"repo1\"}, {\"name\": \"repo2\"}]";
         HttpResponse<String> mockResponse = mock(HttpResponse.class);
+        when(mockResponse.statusCode()).thenReturn(200);
         when(mockResponse.body()).thenReturn(jsonResponse);
 
         doReturn(mockResponse).when(fetcher).getResponse("user");
@@ -35,13 +36,15 @@ class UserInfoFetchingTest {
 
         String jsonResponse = "{\"invalid_format\": \"not_array\"}";
         HttpResponse<String> mockResponse = mock(HttpResponse.class);
+        when(mockResponse.statusCode()).thenReturn(200);
         when(mockResponse.body()).thenReturn(jsonResponse);
 
         doReturn(mockResponse).when(fetcher).getResponse("user");
 
-        List<String> repos = fetcher.fetchRepoNames("user");
-
-        assertNull(repos); // As per method implementation, returns null if not an array
+        dev.sonle.githubloc.exception.GithubLocException thrown = assertThrows(dev.sonle.githubloc.exception.GithubLocException.class, () -> {
+            fetcher.fetchRepoNames("user");
+        });
+        assertEquals(dev.sonle.githubloc.exception.ErrorCode.JSON_PROCESSING_ERROR, thrown.getErrorCode());
     }
 
     @Test
@@ -50,13 +53,15 @@ class UserInfoFetchingTest {
 
         String malformedJson = "[{\"name\": \"repo1\"}";
         HttpResponse<String> mockResponse = mock(HttpResponse.class);
+        when(mockResponse.statusCode()).thenReturn(200);
         when(mockResponse.body()).thenReturn(malformedJson);
 
         doReturn(mockResponse).when(fetcher).getResponse("user");
 
-        List<String> repos = fetcher.fetchRepoNames("user");
-
-        assertNull(repos);
+        dev.sonle.githubloc.exception.GithubLocException thrown = assertThrows(dev.sonle.githubloc.exception.GithubLocException.class, () -> {
+            fetcher.fetchRepoNames("user");
+        });
+        assertEquals(dev.sonle.githubloc.exception.ErrorCode.JSON_PROCESSING_ERROR, thrown.getErrorCode());
     }
 
     @Test
@@ -65,8 +70,9 @@ class UserInfoFetchingTest {
 
         doThrow(new IOException("Simulate network issue")).when(fetcher).getResponse("user");
 
-        List<String> repos = fetcher.fetchRepoNames("user");
-
-        assertNull(repos);
+        dev.sonle.githubloc.exception.GithubLocException thrown = assertThrows(dev.sonle.githubloc.exception.GithubLocException.class, () -> {
+            fetcher.fetchRepoNames("user");
+        });
+        assertEquals(dev.sonle.githubloc.exception.ErrorCode.UNEXPECTED_ERROR, thrown.getErrorCode());
     }
 }
