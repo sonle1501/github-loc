@@ -110,7 +110,7 @@ public class LocalRunner {
         try {
             RunConfig config = new RunConfig();
             config.setMode(RunConfig.Mode.LOCAL);
-            config.setRepoName("github-loc");
+            config.setRepoName("film-db-local");
             config.setAction(RunConfig.Action.DEFAULT);
             LocalRunner localRunner = new LocalRunner(config);
             log.info("Starting LocalRunner for test local repo github-loc...");
