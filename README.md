@@ -16,7 +16,9 @@ Unlike other online counters (such as `ghloc` or `codetabs`):
 - **JSON Export**: Export results into JSON files for easy parsing or external use.
 
 ### Preview
-![Screenshot Result](docs/screenshots/Screenshot-result.png)
+![Screenshot Result](docs/screenshots/github-loc-screenshot-3.png)
+
+📄 **[Example JSON Result](docs/example-json-results/github-loc.json)** (describing the structure and LOC of this project)
 
 ---
 
@@ -68,7 +70,24 @@ Results and intermediate files are neatly organized in the local `storage/` dire
 
 ---
 
-## 5. License
+## 5. Benchmark
+To evaluate the performance of `github-loc`, I ran a benchmark on the **Elasticsearch** repository (~6M LOC) using the JMH (Java Microbenchmark Harness).
+
+### Results
+Below are the average execution times (in milliseconds per operation, `ms/op`) for each approach:
+
+| Benchmark | Mode | Cnt | Score | Error | Units |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| `CreateTreeBenchmark.measureBuildTreeMultithreading` | avgt | 5 | 3412.355 | ± 110.319 | ms/op |
+| `CreateTreeBenchmark.measureBuildTreeMultithreadingWithBatch` | avgt | 5 | 4074.866 | ± 373.230 | ms/op |
+| `CreateTreeBenchmark.measureBuildTreeSequential` | avgt | 5 | 15530.403 | ± 297.930 | ms/op |
+
+*Execution results visualized below:*
+![Elasticsearch Benchmark](docs/screenshots/elasticsearch-benchamrk.png)
+
+---
+
+## 6. License
 This project utilizes the [locc4j](https://github.com/cthing/locc4j) counting engine.
 
 The `github-loc` project is licensed under the [MIT License](LICENSE).

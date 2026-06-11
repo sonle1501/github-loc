@@ -1,0 +1,1452 @@
+{
+    "userName": "sonle1501",
+    "repoName": "github-loc",
+    "repoSize": "0.58 MB",
+    "repoURL": "https://github.com/sonle1501/github-loc",
+    "scanDate": "2026-06-11T10:26:59.7259352",
+    "totalFiles": 68,
+    "totalNodes": 104,
+    "totalLoc": 9864,
+    "percentageOfUsedLanguage": {
+        "Java": "95.09%",
+        "YAML": "1.62%",
+        "Maven POM": "1.61%",
+        "Markdown": "1.52%",
+        "BASH": "0.13%",
+        "Plain Text": "0.02%"
+    },
+    "rootNode": {
+        "name": "github-loc",
+        "path": "storage\\repos\\github-loc",
+        "loc": 9864,
+        "comments": 3637,
+        "blanks": 1398,
+        "languageSet": [
+            "YAML",
+            "BASH",
+            "Markdown",
+            "Plain Text",
+            "Maven POM",
+            "Java"
+        ],
+        "locByLang": {
+            "Plain Text": 2,
+            "Java": 9380,
+            "Maven POM": 159,
+            "BASH": 13,
+            "Markdown": 150,
+            "YAML": 160
+        },
+        "childs": [
+            {
+                "name": "sonle1501-github-loc-b3b139b",
+                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b",
+                "loc": 9864,
+                "comments": 3637,
+                "blanks": 1398,
+                "languageSet": [
+                    "YAML",
+                    "BASH",
+                    "Markdown",
+                    "Plain Text",
+                    "Maven POM",
+                    "Java"
+                ],
+                "locByLang": {
+                    "Plain Text": 2,
+                    "Java": 9380,
+                    "Maven POM": 159,
+                    "BASH": 13,
+                    "Markdown": 150,
+                    "YAML": 160
+                },
+                "childs": [
+                    {
+                        "name": ".github",
+                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\.github",
+                        "loc": 160,
+                        "comments": 21,
+                        "blanks": 33,
+                        "languageSet": [
+                            "YAML"
+                        ],
+                        "locByLang": {
+                            "YAML": 160
+                        },
+                        "childs": [
+                            {
+                                "name": "workflows",
+                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\.github\\workflows",
+                                "loc": 160,
+                                "comments": 21,
+                                "blanks": 33,
+                                "languageSet": [
+                                    "YAML"
+                                ],
+                                "locByLang": {
+                                    "YAML": 160
+                                },
+                                "childs": [
+                                    {
+                                        "name": "github-loc-release.yml",
+                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\.github\\workflows\\github-loc-release.yml",
+                                        "loc": 75,
+                                        "comments": 5,
+                                        "blanks": 13,
+                                        "languageSet": [
+                                            "YAML"
+                                        ],
+                                        "locByLang": {
+                                            "YAML": 75
+                                        }
+                                    },
+                                    {
+                                        "name": "linux-release.yml",
+                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\.github\\workflows\\linux-release.yml",
+                                        "loc": 42,
+                                        "comments": 8,
+                                        "blanks": 11,
+                                        "languageSet": [
+                                            "YAML"
+                                        ],
+                                        "locByLang": {
+                                            "YAML": 42
+                                        }
+                                    },
+                                    {
+                                        "name": "windows-release.yml",
+                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\.github\\workflows\\windows-release.yml",
+                                        "loc": 43,
+                                        "comments": 8,
+                                        "blanks": 9,
+                                        "languageSet": [
+                                            "YAML"
+                                        ],
+                                        "locByLang": {
+                                            "YAML": 43
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": ".gitignore",
+                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\.gitignore",
+                        "loc": 0,
+                        "comments": 0,
+                        "blanks": 0
+                    },
+                    {
+                        "name": "docs",
+                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\docs",
+                        "loc": 109,
+                        "comments": 0,
+                        "blanks": 30,
+                        "languageSet": [
+                            "BASH",
+                            "Markdown",
+                            "Plain Text"
+                        ],
+                        "locByLang": {
+                            "Plain Text": 2,
+                            "BASH": 7,
+                            "Markdown": 100
+                        },
+                        "childs": [
+                            {
+                                "name": "commands.md",
+                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\docs\\commands.md",
+                                "loc": 46,
+                                "comments": 0,
+                                "blanks": 15,
+                                "languageSet": [
+                                    "BASH",
+                                    "Markdown",
+                                    "Plain Text"
+                                ],
+                                "locByLang": {
+                                    "Plain Text": 1,
+                                    "BASH": 1,
+                                    "Markdown": 44
+                                }
+                            },
+                            {
+                                "name": "screenshots",
+                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\docs\\screenshots",
+                                "loc": 0,
+                                "comments": 0,
+                                "blanks": 0,
+                                "childs": [
+                                    {
+                                        "name": "Screenshot-result.png",
+                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\docs\\screenshots\\Screenshot-result.png",
+                                        "loc": 0,
+                                        "comments": 0,
+                                        "blanks": 0
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "setup.md",
+                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\docs\\setup.md",
+                                "loc": 63,
+                                "comments": 0,
+                                "blanks": 15,
+                                "languageSet": [
+                                    "BASH",
+                                    "Markdown",
+                                    "Plain Text"
+                                ],
+                                "locByLang": {
+                                    "Plain Text": 1,
+                                    "BASH": 6,
+                                    "Markdown": 56
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "name": "LICENSE",
+                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\LICENSE",
+                        "loc": 0,
+                        "comments": 0,
+                        "blanks": 0
+                    },
+                    {
+                        "name": "pom.xml",
+                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\pom.xml",
+                        "loc": 159,
+                        "comments": 22,
+                        "blanks": 15,
+                        "languageSet": [
+                            "Maven POM"
+                        ],
+                        "locByLang": {
+                            "Maven POM": 159
+                        }
+                    },
+                    {
+                        "name": "README.md",
+                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\README.md",
+                        "loc": 56,
+                        "comments": 0,
+                        "blanks": 19,
+                        "languageSet": [
+                            "BASH",
+                            "Markdown"
+                        ],
+                        "locByLang": {
+                            "BASH": 6,
+                            "Markdown": 50
+                        }
+                    },
+                    {
+                        "name": "src",
+                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src",
+                        "loc": 9380,
+                        "comments": 3594,
+                        "blanks": 1301,
+                        "languageSet": [
+                            "Java"
+                        ],
+                        "locByLang": {
+                            "Java": 9380
+                        },
+                        "childs": [
+                            {
+                                "name": "main",
+                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main",
+                                "loc": 8294,
+                                "comments": 3576,
+                                "blanks": 962,
+                                "languageSet": [
+                                    "Java"
+                                ],
+                                "locByLang": {
+                                    "Java": 8294
+                                },
+                                "childs": [
+                                    {
+                                        "name": "java",
+                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java",
+                                        "loc": 8294,
+                                        "comments": 3576,
+                                        "blanks": 962,
+                                        "languageSet": [
+                                            "Java"
+                                        ],
+                                        "locByLang": {
+                                            "Java": 8294
+                                        },
+                                        "childs": [
+                                            {
+                                                "name": "dev",
+                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev",
+                                                "loc": 8294,
+                                                "comments": 3576,
+                                                "blanks": 962,
+                                                "languageSet": [
+                                                    "Java"
+                                                ],
+                                                "locByLang": {
+                                                    "Java": 8294
+                                                },
+                                                "childs": [
+                                                    {
+                                                        "name": "sonle",
+                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle",
+                                                        "loc": 8294,
+                                                        "comments": 3576,
+                                                        "blanks": 962,
+                                                        "languageSet": [
+                                                            "Java"
+                                                        ],
+                                                        "locByLang": {
+                                                            "Java": 8294
+                                                        },
+                                                        "childs": [
+                                                            {
+                                                                "name": "githubloc",
+                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc",
+                                                                "loc": 8294,
+                                                                "comments": 3576,
+                                                                "blanks": 962,
+                                                                "languageSet": [
+                                                                    "Java"
+                                                                ],
+                                                                "locByLang": {
+                                                                    "Java": 8294
+                                                                },
+                                                                "childs": [
+                                                                    {
+                                                                        "name": "api",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\api",
+                                                                        "loc": 236,
+                                                                        "comments": 11,
+                                                                        "blanks": 44,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 236
+                                                                        },
+                                                                        "childs": [
+                                                                            {
+                                                                                "name": "GithubTokenProcessor.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\api\\GithubTokenProcessor.java",
+                                                                                "loc": 68,
+                                                                                "comments": 10,
+                                                                                "blanks": 14,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 68
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "RepoDownloader.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\api\\RepoDownloader.java",
+                                                                                "loc": 76,
+                                                                                "comments": 0,
+                                                                                "blanks": 12,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 76
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "UserInfoFetching.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\api\\UserInfoFetching.java",
+                                                                                "loc": 92,
+                                                                                "comments": 1,
+                                                                                "blanks": 18,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 92
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "name": "App.java",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\App.java",
+                                                                        "loc": 30,
+                                                                        "comments": 1,
+                                                                        "blanks": 3,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 30
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        "name": "exception",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\exception",
+                                                                        "loc": 54,
+                                                                        "comments": 0,
+                                                                        "blanks": 12,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 54
+                                                                        },
+                                                                        "childs": [
+                                                                            {
+                                                                                "name": "ErrorCode.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\exception\\ErrorCode.java",
+                                                                                "loc": 19,
+                                                                                "comments": 0,
+                                                                                "blanks": 4,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 19
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "GithubLocException.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\exception\\GithubLocException.java",
+                                                                                "loc": 35,
+                                                                                "comments": 0,
+                                                                                "blanks": 8,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 35
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "name": "execution",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\execution",
+                                                                        "loc": 438,
+                                                                        "comments": 5,
+                                                                        "blanks": 75,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 438
+                                                                        },
+                                                                        "childs": [
+                                                                            {
+                                                                                "name": "CliParser.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\execution\\CliParser.java",
+                                                                                "loc": 99,
+                                                                                "comments": 3,
+                                                                                "blanks": 18,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 99
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "LocalRunner.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\execution\\LocalRunner.java",
+                                                                                "loc": 106,
+                                                                                "comments": 1,
+                                                                                "blanks": 17,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 106
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "Orchestrator.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\execution\\Orchestrator.java",
+                                                                                "loc": 130,
+                                                                                "comments": 1,
+                                                                                "blanks": 21,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 130
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "RunConfig.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\execution\\RunConfig.java",
+                                                                                "loc": 60,
+                                                                                "comments": 0,
+                                                                                "blanks": 10,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 60
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "TaskRunner.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\execution\\TaskRunner.java",
+                                                                                "loc": 43,
+                                                                                "comments": 0,
+                                                                                "blanks": 9,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 43
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "name": "filesystem",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\filesystem",
+                                                                        "loc": 350,
+                                                                        "comments": 9,
+                                                                        "blanks": 55,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 350
+                                                                        },
+                                                                        "childs": [
+                                                                            {
+                                                                                "name": "DirectoryBuilder.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\filesystem\\DirectoryBuilder.java",
+                                                                                "loc": 77,
+                                                                                "comments": 1,
+                                                                                "blanks": 10,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 77
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "DirectoryTraversal.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\filesystem\\DirectoryTraversal.java",
+                                                                                "loc": 74,
+                                                                                "comments": 0,
+                                                                                "blanks": 11,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 74
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "ProducerConsumerDirectoryTraversal.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\filesystem\\ProducerConsumerDirectoryTraversal.java",
+                                                                                "loc": 118,
+                                                                                "comments": 2,
+                                                                                "blanks": 16,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 118
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "SizeFormatter.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\filesystem\\SizeFormatter.java",
+                                                                                "loc": 31,
+                                                                                "comments": 3,
+                                                                                "blanks": 7,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 31
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "Unzip.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\filesystem\\Unzip.java",
+                                                                                "loc": 50,
+                                                                                "comments": 3,
+                                                                                "blanks": 11,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 50
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "name": "loc",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\loc",
+                                                                        "loc": 188,
+                                                                        "comments": 3,
+                                                                        "blanks": 26,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 188
+                                                                        },
+                                                                        "childs": [
+                                                                            {
+                                                                                "name": "DirectoryLocProcessor.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\loc\\DirectoryLocProcessor.java",
+                                                                                "loc": 136,
+                                                                                "comments": 2,
+                                                                                "blanks": 18,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 136
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "LocProcessor.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\loc\\LocProcessor.java",
+                                                                                "loc": 52,
+                                                                                "comments": 1,
+                                                                                "blanks": 8,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 52
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "name": "locc4j",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\locc4j",
+                                                                        "loc": 6265,
+                                                                        "comments": 2873,
+                                                                        "blanks": 635,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 6265
+                                                                        },
+                                                                        "childs": [
+                                                                            {
+                                                                                "name": "BlockDelimiter.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\locc4j\\BlockDelimiter.java",
+                                                                                "loc": 4,
+                                                                                "comments": 10,
+                                                                                "blanks": 4,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 4
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "CharData.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\locc4j\\CharData.java",
+                                                                                "loc": 417,
+                                                                                "comments": 231,
+                                                                                "blanks": 93,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 417
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "Counter.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\locc4j\\Counter.java",
+                                                                                "loc": 339,
+                                                                                "comments": 183,
+                                                                                "blanks": 97,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 339
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "Counts.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\locc4j\\Counts.java",
+                                                                                "loc": 53,
+                                                                                "comments": 34,
+                                                                                "blanks": 17,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 53
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "Embedding.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\locc4j\\Embedding.java",
+                                                                                "loc": 337,
+                                                                                "comments": 133,
+                                                                                "blanks": 79,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 337
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "FileCounter.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\locc4j\\FileCounter.java",
+                                                                                "loc": 61,
+                                                                                "comments": 50,
+                                                                                "blanks": 16,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 61
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "Language.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\locc4j\\Language.java",
+                                                                                "loc": 5053,
+                                                                                "comments": 2225,
+                                                                                "blanks": 326,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 5053
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "package-info.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\locc4j\\package-info.java",
+                                                                                "loc": 1,
+                                                                                "comments": 7,
+                                                                                "blanks": 3,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 1
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "name": "multirepos",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\multirepos",
+                                                                        "loc": 104,
+                                                                        "comments": 153,
+                                                                        "blanks": 18,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 104
+                                                                        },
+                                                                        "childs": [
+                                                                            {
+                                                                                "name": "MultiReposHandle.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\multirepos\\MultiReposHandle.java",
+                                                                                "loc": 0,
+                                                                                "comments": 153,
+                                                                                "blanks": 0,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 0
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "MultithreadingReposHandle.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\multirepos\\MultithreadingReposHandle.java",
+                                                                                "loc": 104,
+                                                                                "comments": 0,
+                                                                                "blanks": 18,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 104
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "name": "output",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\output",
+                                                                        "loc": 296,
+                                                                        "comments": 5,
+                                                                        "blanks": 46,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 296
+                                                                        },
+                                                                        "childs": [
+                                                                            {
+                                                                                "name": "ConsoleOutput.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\output\\ConsoleOutput.java",
+                                                                                "loc": 40,
+                                                                                "comments": 0,
+                                                                                "blanks": 6,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 40
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "JsonProcessor.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\output\\JsonProcessor.java",
+                                                                                "loc": 54,
+                                                                                "comments": 0,
+                                                                                "blanks": 6,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 54
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "RepoReport.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\output\\RepoReport.java",
+                                                                                "loc": 61,
+                                                                                "comments": 0,
+                                                                                "blanks": 9,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 61
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "TreePrinter.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\output\\TreePrinter.java",
+                                                                                "loc": 141,
+                                                                                "comments": 5,
+                                                                                "blanks": 25,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 141
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "name": "sort",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\sort",
+                                                                        "loc": 167,
+                                                                        "comments": 0,
+                                                                        "blanks": 21,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 167
+                                                                        },
+                                                                        "childs": [
+                                                                            {
+                                                                                "name": "FilesSorter.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\sort\\FilesSorter.java",
+                                                                                "loc": 95,
+                                                                                "comments": 0,
+                                                                                "blanks": 12,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 95
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "RepoSorter.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\sort\\RepoSorter.java",
+                                                                                "loc": 72,
+                                                                                "comments": 0,
+                                                                                "blanks": 9,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 72
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "name": "temp",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\temp",
+                                                                        "loc": 0,
+                                                                        "comments": 512,
+                                                                        "blanks": 0,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 0
+                                                                        },
+                                                                        "childs": [
+                                                                            {
+                                                                                "name": "LocalRunnerClone.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\temp\\LocalRunnerClone.java",
+                                                                                "loc": 0,
+                                                                                "comments": 148,
+                                                                                "blanks": 0,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 0
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "Runner.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\temp\\Runner.java",
+                                                                                "loc": 0,
+                                                                                "comments": 203,
+                                                                                "blanks": 0,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 0
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "RunOptions.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\temp\\RunOptions.java",
+                                                                                "loc": 0,
+                                                                                "comments": 161,
+                                                                                "blanks": 0,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 0
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "name": "tree",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\tree",
+                                                                        "loc": 166,
+                                                                        "comments": 4,
+                                                                        "blanks": 27,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 166
+                                                                        },
+                                                                        "childs": [
+                                                                            {
+                                                                                "name": "FileNode.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\tree\\FileNode.java",
+                                                                                "loc": 82,
+                                                                                "comments": 4,
+                                                                                "blanks": 14,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 82
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "Tree.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\tree\\Tree.java",
+                                                                                "loc": 34,
+                                                                                "comments": 0,
+                                                                                "blanks": 8,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 34
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "TreeBuilder.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\main\\java\\dev\\sonle\\githubloc\\tree\\TreeBuilder.java",
+                                                                                "loc": 50,
+                                                                                "comments": 0,
+                                                                                "blanks": 5,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 50
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "test",
+                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test",
+                                "loc": 1086,
+                                "comments": 18,
+                                "blanks": 339,
+                                "languageSet": [
+                                    "Java"
+                                ],
+                                "locByLang": {
+                                    "Java": 1086
+                                },
+                                "childs": [
+                                    {
+                                        "name": "java",
+                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java",
+                                        "loc": 1086,
+                                        "comments": 18,
+                                        "blanks": 339,
+                                        "languageSet": [
+                                            "Java"
+                                        ],
+                                        "locByLang": {
+                                            "Java": 1086
+                                        },
+                                        "childs": [
+                                            {
+                                                "name": "dev",
+                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev",
+                                                "loc": 1086,
+                                                "comments": 18,
+                                                "blanks": 339,
+                                                "languageSet": [
+                                                    "Java"
+                                                ],
+                                                "locByLang": {
+                                                    "Java": 1086
+                                                },
+                                                "childs": [
+                                                    {
+                                                        "name": "sonle",
+                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle",
+                                                        "loc": 1086,
+                                                        "comments": 18,
+                                                        "blanks": 339,
+                                                        "languageSet": [
+                                                            "Java"
+                                                        ],
+                                                        "locByLang": {
+                                                            "Java": 1086
+                                                        },
+                                                        "childs": [
+                                                            {
+                                                                "name": "githubloc",
+                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc",
+                                                                "loc": 1086,
+                                                                "comments": 18,
+                                                                "blanks": 339,
+                                                                "languageSet": [
+                                                                    "Java"
+                                                                ],
+                                                                "locByLang": {
+                                                                    "Java": 1086
+                                                                },
+                                                                "childs": [
+                                                                    {
+                                                                        "name": "api",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\api",
+                                                                        "loc": 106,
+                                                                        "comments": 4,
+                                                                        "blanks": 39,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 106
+                                                                        },
+                                                                        "childs": [
+                                                                            {
+                                                                                "name": "GithubTokenProcessorTest.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\api\\GithubTokenProcessorTest.java",
+                                                                                "loc": 10,
+                                                                                "comments": 4,
+                                                                                "blanks": 5,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 10
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "RepoDownloaderTest.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\api\\RepoDownloaderTest.java",
+                                                                                "loc": 38,
+                                                                                "comments": 0,
+                                                                                "blanks": 14,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 38
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "UserInfoFetchingTest.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\api\\UserInfoFetchingTest.java",
+                                                                                "loc": 58,
+                                                                                "comments": 0,
+                                                                                "blanks": 20,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 58
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "name": "execution",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\execution",
+                                                                        "loc": 70,
+                                                                        "comments": 0,
+                                                                        "blanks": 11,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 70
+                                                                        },
+                                                                        "childs": [
+                                                                            {
+                                                                                "name": "CliParserTest.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\execution\\CliParserTest.java",
+                                                                                "loc": 70,
+                                                                                "comments": 0,
+                                                                                "blanks": 11,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 70
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "name": "filesystem",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\filesystem",
+                                                                        "loc": 258,
+                                                                        "comments": 10,
+                                                                        "blanks": 85,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 258
+                                                                        },
+                                                                        "childs": [
+                                                                            {
+                                                                                "name": "DirectoryBuilderTest.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\filesystem\\DirectoryBuilderTest.java",
+                                                                                "loc": 63,
+                                                                                "comments": 1,
+                                                                                "blanks": 22,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 63
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "DirectoryTraversalTest.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\filesystem\\DirectoryTraversalTest.java",
+                                                                                "loc": 55,
+                                                                                "comments": 2,
+                                                                                "blanks": 19,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 55
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "ProducerConsumerDirectoryTraversalTest.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\filesystem\\ProducerConsumerDirectoryTraversalTest.java",
+                                                                                "loc": 54,
+                                                                                "comments": 1,
+                                                                                "blanks": 18,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 54
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "SizeFormatterTest.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\filesystem\\SizeFormatterTest.java",
+                                                                                "loc": 34,
+                                                                                "comments": 3,
+                                                                                "blanks": 9,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 34
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "UnzipTest.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\filesystem\\UnzipTest.java",
+                                                                                "loc": 52,
+                                                                                "comments": 3,
+                                                                                "blanks": 17,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 52
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "name": "loc",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\loc",
+                                                                        "loc": 148,
+                                                                        "comments": 1,
+                                                                        "blanks": 53,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 148
+                                                                        },
+                                                                        "childs": [
+                                                                            {
+                                                                                "name": "DirectoryLocProcessorTest.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\loc\\DirectoryLocProcessorTest.java",
+                                                                                "loc": 88,
+                                                                                "comments": 1,
+                                                                                "blanks": 33,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 88
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "LocProcessorTest.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\loc\\LocProcessorTest.java",
+                                                                                "loc": 60,
+                                                                                "comments": 0,
+                                                                                "blanks": 20,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 60
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "name": "locc4j",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\locc4j",
+                                                                        "loc": 88,
+                                                                        "comments": 1,
+                                                                        "blanks": 27,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 88
+                                                                        },
+                                                                        "childs": [
+                                                                            {
+                                                                                "name": "FileCounterTest.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\locc4j\\FileCounterTest.java",
+                                                                                "loc": 88,
+                                                                                "comments": 1,
+                                                                                "blanks": 27,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 88
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "name": "output",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\output",
+                                                                        "loc": 66,
+                                                                        "comments": 0,
+                                                                        "blanks": 20,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 66
+                                                                        },
+                                                                        "childs": [
+                                                                            {
+                                                                                "name": "JsonProcessorTest.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\output\\JsonProcessorTest.java",
+                                                                                "loc": 66,
+                                                                                "comments": 0,
+                                                                                "blanks": 20,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 66
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "name": "sort",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\sort",
+                                                                        "loc": 152,
+                                                                        "comments": 2,
+                                                                        "blanks": 42,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 152
+                                                                        },
+                                                                        "childs": [
+                                                                            {
+                                                                                "name": "FilesSorterTest.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\sort\\FilesSorterTest.java",
+                                                                                "loc": 94,
+                                                                                "comments": 2,
+                                                                                "blanks": 29,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 94
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "RepoSorterTest.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\sort\\RepoSorterTest.java",
+                                                                                "loc": 58,
+                                                                                "comments": 0,
+                                                                                "blanks": 13,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 58
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    },
+                                                                    {
+                                                                        "name": "tree",
+                                                                        "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\tree",
+                                                                        "loc": 198,
+                                                                        "comments": 0,
+                                                                        "blanks": 62,
+                                                                        "languageSet": [
+                                                                            "Java"
+                                                                        ],
+                                                                        "locByLang": {
+                                                                            "Java": 198
+                                                                        },
+                                                                        "childs": [
+                                                                            {
+                                                                                "name": "FileNodeTest.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\tree\\FileNodeTest.java",
+                                                                                "loc": 65,
+                                                                                "comments": 0,
+                                                                                "blanks": 22,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 65
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "TreeBuilderTest.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\tree\\TreeBuilderTest.java",
+                                                                                "loc": 89,
+                                                                                "comments": 0,
+                                                                                "blanks": 25,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 89
+                                                                                }
+                                                                            },
+                                                                            {
+                                                                                "name": "TreeTest.java",
+                                                                                "path": "storage\\repos\\github-loc\\sonle1501-github-loc-b3b139b\\src\\test\\java\\dev\\sonle\\githubloc\\tree\\TreeTest.java",
+                                                                                "loc": 44,
+                                                                                "comments": 0,
+                                                                                "blanks": 15,
+                                                                                "languageSet": [
+                                                                                    "Java"
+                                                                                ],
+                                                                                "locByLang": {
+                                                                                    "Java": 44
+                                                                                }
+                                                                            }
+                                                                        ]
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
